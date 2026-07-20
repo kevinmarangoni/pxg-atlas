@@ -126,8 +126,22 @@ export const EMPTY_FILTERS = {
   form: '',
   pokelogCategory: '',
   experienceCategory: '',
+  controlEffects: [],
   sort: 'name-asc',
 }
+
+export const CONTROL_EFFECT_OPTIONS = [
+  { id: 'stun', label: 'Stun', tags: ['stun'] },
+  { id: 'blind', label: 'Blind', tags: ['blind'] },
+  { id: 'slow', label: 'Slow', tags: ['slow'] },
+  { id: 'paralyze', label: 'Paralyze', tags: ['paralyze'] },
+  { id: 'confusion', label: 'Confusion', tags: ['confusion'] },
+  { id: 'silence', label: 'Silence', tags: ['silence'] },
+  { id: 'locked', label: 'Locked', tags: ['locked'] },
+  { id: 'stuck', label: 'Stuck', tags: ['stuck'] },
+  { id: 'knockback', label: 'Knockback', tags: ['knockback'] },
+  { id: 'debuff', label: 'Debuff', tags: ['debuff'] },
+]
 
 export function pokemonId(pokemon) {
   const path = new URL(pokemon.source_url).pathname
@@ -148,6 +162,22 @@ export function pokemonImage(pokemon) {
     || pokemon.clan_memberships?.find((entry) => entry.thumbnail_url)?.thumbnail_url
     || pokemon.pokelog?.image_url
     || null
+}
+
+function normalizedMoveTag(value) {
+  return normalizedSearch(String(value || '').replace(/\.png$/i, ''))
+}
+
+export function pokemonControlEffects(pokemon) {
+  const tags = new Set()
+  for (const moves of Object.values(pokemon.moves || {})) {
+    for (const move of moves || []) {
+      for (const tag of move.tags || []) tags.add(normalizedMoveTag(tag))
+    }
+  }
+  return CONTROL_EFFECT_OPTIONS
+    .filter((effect) => effect.tags.some((tag) => tags.has(normalizedMoveTag(tag))))
+    .map((effect) => effect.id)
 }
 
 export function pokemonAnimatedImage(pokemon) {
@@ -280,6 +310,11 @@ export function matchesPokemon(pokemon, filters) {
   if (filters.form && formType(pokemon) !== filters.form) return false
   if (filters.pokelogCategory && !pokelogCategories(pokemon).includes(filters.pokelogCategory)) return false
   if (filters.experienceCategory && !experienceCategories(pokemon).includes(filters.experienceCategory)) return false
+  const selectedControlEffects = filters.controlEffects ?? (filters.controlEffect ? [filters.controlEffect] : [])
+  if (selectedControlEffects.length) {
+    const availableControlEffects = pokemonControlEffects(pokemon)
+    if (!selectedControlEffects.every((effect) => availableControlEffects.includes(effect))) return false
+  }
 
   const levels = pokemonLevels(pokemon)
   if (filters.minLevel !== '' || filters.maxLevel !== '') {
@@ -325,6 +360,7 @@ export function buildFilterOptions(pokemon) {
     pvpRoles: unique(pokemon.flatMap((entry) => pokemonRoles(entry, 'pvp'))),
     pokelogCategories: unique(pokemon.flatMap(pokelogCategories)),
     experienceCategories: unique(pokemon.flatMap(experienceCategories)),
+    controlEffects: CONTROL_EFFECT_OPTIONS.filter((effect) => pokemon.some((entry) => pokemonControlEffects(entry).includes(effect.id))),
   }
 }
 

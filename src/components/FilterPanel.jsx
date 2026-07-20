@@ -74,6 +74,38 @@ function ElementPicker({ options, value, onChange }) {
   )
 }
 
+function ControlEffectPicker({ options, value, onChange }) {
+  const selected = Array.isArray(value) ? value : value ? [value] : []
+  const toggle = (effectId) => {
+    onChange(selected.includes(effectId)
+      ? selected.filter((item) => item !== effectId)
+      : [...selected, effectId])
+  }
+
+  if (!options.length) return null
+  return (
+    <fieldset className="control-effect-picker">
+      <legend>
+        <span>Efeitos de controle</span>
+        {selected.length > 0 && <small>{selected.length} marcado{selected.length === 1 ? '' : 's'}</small>}
+        {selected.length > 0 && <button type="button" onClick={() => onChange([])}>Limpar</button>}
+      </legend>
+      <div className="control-effect-grid">
+        {options.map((effect) => {
+          const active = selected.includes(effect.id)
+          return (
+            <button type="button" className={active ? 'selected' : ''} key={effect.id} onClick={() => toggle(effect.id)} aria-pressed={active}>
+              <i aria-hidden="true">{active ? '✓' : ''}</i>
+              <span>{effect.label}</span>
+            </button>
+          )
+        })}
+      </div>
+      <small className="filter-hint">Ao marcar mais de um, o Pokémon precisa ter todos.</small>
+    </fieldset>
+  )
+}
+
 export default function FilterPanel({ filters, options, roleCatalog, onChange, onReset, mobileOpen, setMobileOpen }) {
   const count = activeFilterCount(filters)
   const set = (key) => (value) => onChange({ ...filters, [key]: value })
@@ -126,6 +158,7 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
             <option value="available">Disponível no PvP</option>
             <option value="unavailable">Indisponível no PvP</option>
           </SelectField>
+          <ControlEffectPicker options={options.controlEffects} value={filters.controlEffects} onChange={set('controlEffects')} />
         </div>
 
         <div className="filter-section">
