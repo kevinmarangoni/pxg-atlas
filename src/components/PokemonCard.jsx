@@ -45,12 +45,36 @@ function PokemonListRow({ pokemon, roleCatalog, withImage }) {
   const dex = pokemon.clan_memberships?.find((entry) => entry.dex_number)?.dex_number
   const staticImage = pokemonImage(pokemon)
   const animatedImage = pokemonAnimatedImage(pokemon)
+  const identityLabel = `${dex ? `#${dex} · ` : ''}${clans.join(' · ') || 'Sem clan publicado'}`
+
+  if (!withImage) {
+    return (
+      <Link className="pokemon-list-row simple" to={pokemonPath(pokemon)}>
+        <div className="simple-row-identity">
+          <span className="card-kicker" title={identityLabel}>{identityLabel}</span>
+          <h2>{name}</h2>
+        </div>
+        <div className="simple-row-elements">
+          {elements.slice(0, 4).map((element) => <ElementBadge key={element} element={element} compact />)}
+          <PokelogBadge pokemon={pokemon} />
+        </div>
+        <div className="list-row-fact simple-level"><small>Level</small><strong>{levels.length ? levels.join(' / ') : '—'}</strong></div>
+        <div className="list-row-fact simple-tier"><small>Tier</small><strong>{tiers.length ? tiers.join(' · ') : '—'}</strong></div>
+        <div className="simple-row-combat">
+          <RoleSummary mode="pve" roles={pveRoles} roleCatalog={roleCatalog} />
+          <RoleSummary mode="pvp" roles={pvpRoles} roleCatalog={roleCatalog} />
+          {!pveRoles.length && !pvpRoles.length && <span className="no-role">Sem função registrada</span>}
+        </div>
+        <ChevronRight className="card-arrow" size={18} />
+      </Link>
+    )
+  }
 
   return (
-    <Link className={`pokemon-list-row ${withImage ? 'with-image' : 'simple'}`} to={pokemonPath(pokemon)}>
-      {withImage && <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="list-row-image" />}
+    <Link className="pokemon-list-row with-image" to={pokemonPath(pokemon)}>
+      <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="list-row-image" />
       <div className="list-row-identity">
-        <span className="card-kicker">{dex ? `#${dex} · ` : ''}{clans.join(' · ') || 'Sem clan publicado'}</span>
+        <span className="card-kicker">{identityLabel}</span>
         <h2>{name}</h2>
         <div className="badge-row">
           {elements.slice(0, 4).map((element) => <ElementBadge key={element} element={element} compact />)}

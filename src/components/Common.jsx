@@ -27,7 +27,10 @@ export function AppShell({ children, metadata }) {
       <main>{children}</main>
       <footer className="footer">
         <span><Database size={14} /> Dados públicos da Wiki PokeXGames</span>
-        <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">Modelos animados: Project Pokémon</a>
+        <nav aria-label="Informações e atribuições">
+          <Link to="/legal">Avisos legais</Link>
+          <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">Modelos animados: Project Pokémon</a>
+        </nav>
       </footer>
     </div>
   )

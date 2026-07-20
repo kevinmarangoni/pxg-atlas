@@ -45,6 +45,9 @@ O rewrite configurado em `vercel.json` entrega `index.html` para rotas como
 `/pokemon/:id`, `/tasks` e `/team-builder`, permitindo que o React Router cuide
 da navegação sem erros 404 ao atualizar a página.
 
+Os avisos de independência, atribuições, privacidade básica e solicitações de
+remoção estão disponíveis na rota `/#/legal` e pelo rodapé da aplicação.
+
 ## Estrutura
 
 ```text

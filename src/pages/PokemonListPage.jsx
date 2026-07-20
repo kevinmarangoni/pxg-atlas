@@ -1,6 +1,5 @@
-import { ArrowDownAZ, Dices, Image as ImageIcon, LayoutGrid, List, Sparkles, Swords } from 'lucide-react'
+import { ArrowDownAZ, Image as ImageIcon, LayoutGrid, List } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import FilterPanel from '../components/FilterPanel'
 import { EmptyState } from '../components/Common'
 import PokemonCard from '../components/PokemonCard'
@@ -10,7 +9,6 @@ import {
   activeFilterCount,
   buildFilterOptions,
   matchesPokemon,
-  pokemonPath,
   sortPokemon,
 } from '../lib/pokemon'
 
@@ -26,7 +24,7 @@ function savedCatalogState() {
 }
 
 export default function PokemonListPage() {
-  const { data, pokemon, roleCatalog } = usePokemonData()
+  const { pokemon, roleCatalog } = usePokemonData()
   const [filters, setFilters] = useState(() => ({ ...EMPTY_FILTERS, ...(savedCatalogState().filters || {}) }))
   const [visibleCount, setVisibleCount] = useState(() => Math.max(PAGE_SIZE, Number(savedCatalogState().visibleCount) || PAGE_SIZE))
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -70,29 +68,10 @@ export default function PokemonListPage() {
     try { localStorage.setItem('pxg-view-mode', viewMode) } catch { /* storage is optional */ }
   }, [viewMode])
 
-  const randomPokemon = useMemo(() => pokemon[Math.floor(Math.random() * pokemon.length)], [pokemon])
-  const clanMeta = data.metadata.clan_enrichment
   const count = activeFilterCount(filters)
 
   return (
     <>
-      <section className="hero-section">
-        <div className="hero-copy">
-          <div className="eyebrow"><Sparkles size={14} />Base completa PXG</div>
-          <h1>Encontre o Pokémon certo<br /><span>para cada batalha.</span></h1>
-          <p>Explore levels, clans, tiers, elementos e funções PvE/PvP em uma única Pokédex.</p>
-          <div className="hero-actions">
-            {randomPokemon && <Link className="button primary" to={pokemonPath(randomPokemon)}><Dices size={17} />Descobrir um Pokémon</Link>}
-            <Link className="button secondary" to="/team-builder"><Swords size={17} />Montar meu time</Link>
-          </div>
-        </div>
-        <div className="hero-stats">
-          <div><strong>{data.metadata.total_pokemon_records.toLocaleString('pt-BR')}</strong><span>Pokémon</span></div>
-          <div><strong>{clanMeta.total_clans}</strong><span>Clans</span></div>
-          <div><strong>{clanMeta.total_tier_entries.toLocaleString('pt-BR')}</strong><span>Entradas de tier</span></div>
-        </div>
-      </section>
-
       <div className="catalog-layout">
         <FilterPanel
           filters={filters}
