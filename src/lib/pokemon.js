@@ -150,6 +150,10 @@ export function pokemonImage(pokemon) {
     || null
 }
 
+export function pokemonAnimatedImage(pokemon) {
+  return pokemon.animated_model?.front_url || null
+}
+
 export function pokemonLevels(pokemon) {
   const values = pokemon.level_entries?.map((entry) => Number(entry.level)).filter(Number.isFinite) ?? []
   if (!values.length && Number.isFinite(Number(pokemon.general_info?.level))) values.push(Number(pokemon.general_info.level))

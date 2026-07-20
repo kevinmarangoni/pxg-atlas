@@ -7,6 +7,11 @@ O repositório contém somente o necessário para executar e publicar o site. A
 base consolidada usada pela aplicação está em
 `public/data/pxg_pokemon_capture.json`.
 
+A base também relaciona os modelos 3D animados do
+[Project Pokémon](https://projectpokemon.org/home/docs/spriteindex_148/) por
+geração. Os GIFs são servidos pela fonte original e a imagem da Wiki permanece
+como fallback para formas exclusivas do PXG ou indisponíveis no catálogo.
+
 ## Desenvolvimento local
 
 Requisitos: Node.js 20.19 ou mais recente e Yarn 1.x.

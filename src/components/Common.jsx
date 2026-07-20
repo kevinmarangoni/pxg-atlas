@@ -27,7 +27,7 @@ export function AppShell({ children, metadata }) {
       <main>{children}</main>
       <footer className="footer">
         <span><Database size={14} /> Dados públicos da Wiki PokeXGames</span>
-        <span>Imagens servidas pela fonte original</span>
+        <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">Modelos animados: Project Pokémon</a>
       </footer>
     </div>
   )
@@ -55,15 +55,16 @@ export function DataError({ error }) {
   )
 }
 
-export function PokemonImage({ src, name, className = '' }) {
-  const [failedSrc, setFailedSrc] = useState(null)
-  const canShowImage = Boolean(src) && failedSrc !== src
+export function PokemonImage({ src, fallbackSrc, name, className = '' }) {
+  const [failedSources, setFailedSources] = useState([])
+  const sources = [...new Set([src, fallbackSrc].filter(Boolean))]
+  const activeSrc = sources.find((candidate) => !failedSources.includes(candidate)) || null
   return (
     <div className={`pokemon-image ${className}`}>
-      {canShowImage ? (
-        <img src={src} alt={name} loading="lazy" onError={() => setFailedSrc(src)} />
+      {activeSrc ? (
+        <img src={activeSrc} alt={name} loading="lazy" draggable={false} onError={() => setFailedSources((current) => current.includes(activeSrc) ? current : [...current, activeSrc])} />
       ) : null}
-      {!canShowImage && <span className="image-fallback">{name?.slice(0, 1) || '?'}</span>}
+      {!activeSrc && <span className="image-fallback">{name?.slice(0, 1) || '?'}</span>}
     </div>
   )
 }

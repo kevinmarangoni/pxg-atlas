@@ -4,6 +4,7 @@ import {
   displayName,
   pokemonClans,
   pokemonElements,
+  pokemonAnimatedImage,
   pokemonImage,
   pokemonLevels,
   pokemonPath,
@@ -42,10 +43,12 @@ function PokemonListRow({ pokemon, roleCatalog, withImage }) {
   const pveRoles = pokemonRoles(pokemon, 'pve')
   const pvpRoles = pokemonRoles(pokemon, 'pvp')
   const dex = pokemon.clan_memberships?.find((entry) => entry.dex_number)?.dex_number
+  const staticImage = pokemonImage(pokemon)
+  const animatedImage = pokemonAnimatedImage(pokemon)
 
   return (
     <Link className={`pokemon-list-row ${withImage ? 'with-image' : 'simple'}`} to={pokemonPath(pokemon)}>
-      {withImage && <PokemonImage src={pokemonImage(pokemon)} name={name} className="list-row-image" />}
+      {withImage && <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="list-row-image" />}
       <div className="list-row-identity">
         <span className="card-kicker">{dex ? `#${dex} · ` : ''}{clans.join(' · ') || 'Sem clan publicado'}</span>
         <h2>{name}</h2>
@@ -79,12 +82,14 @@ export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid' })
   const tiers = pokemonTiers(pokemon)
   const pveRoles = pokemonRoles(pokemon, 'pve')
   const pvpRoles = pokemonRoles(pokemon, 'pvp')
+  const staticImage = pokemonImage(pokemon)
+  const animatedImage = pokemonAnimatedImage(pokemon)
 
   return (
     <Link className="pokemon-card" to={pokemonPath(pokemon)}>
       <div className="card-visual">
         <div className="dex-orbit" />
-        <PokemonImage src={pokemonImage(pokemon)} name={name} />
+        <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="card-pokemon-image" />
         <div className="card-topline">
           {levels.length > 0 && <span className="level-chip">LV {levels.join(' / ')}</span>}
           {tiers.length > 0 && <span className="tier-chip"><Crown size={12} />{tiers.map(tierLabel).join(' · ')}</span>}

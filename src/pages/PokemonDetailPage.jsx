@@ -23,6 +23,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BackLink, ElementBadge, PokemonImage, RoleBadge, SourceLink } from '../components/Common'
+import { PokemonModelViewer } from '../components/PokemonModelViewer'
 import { usePokemonData } from '../data/PokemonDataContext'
 import {
   ELEMENT_COLORS,
@@ -700,7 +701,11 @@ export default function PokemonDetailPage() {
       <section className={`detail-hero ${isPokelogOnly ? 'pokelog-only' : ''}`}>
         <div className="detail-art">
           <div className="detail-orbit one" /><div className="detail-orbit two" />
-          <PokemonImage src={pokemonImage(entry)} name={name} className="detail-pokemon-image" />
+          {entry.animated_model ? (
+            <PokemonModelViewer model={entry.animated_model} fallbackSrc={pokemonImage(entry)} name={name} />
+          ) : (
+            <PokemonImage src={pokemonImage(entry)} name={name} className="detail-pokemon-image" />
+          )}
         </div>
         <div className="detail-intro">
           <div className="eyebrow"><Sparkles size={14} />{clans.join(' · ') || 'Sem classificação de clan'}</div>
@@ -717,6 +722,7 @@ export default function PokemonDetailPage() {
           <div className="detail-source-row">
             <span className={`data-availability ${isPokelogOnly ? 'partial' : 'complete'}`}><i />{isPokelogOnly ? 'Somente no Pokélog' : 'Ficha publicada'}</span>
             {!isPokelogOnly && <SourceLink href={entry.source_url}>Abrir ficha original</SourceLink>}
+            {entry.animated_model?.source_page_url && <SourceLink href={entry.animated_model.source_page_url}>Modelo animado</SourceLink>}
           </div>
         </div>
       </section>
