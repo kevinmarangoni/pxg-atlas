@@ -42,6 +42,7 @@ import {
   tierLabel,
 } from '../lib/pokemon'
 import { REGION_LABELS, formatTaskNumber, taskActionLabel, taskCoordinates, taskLevel, taskNightmareLevel, taskRegionLabel } from '../lib/tasks'
+import { buildCounterRecommendations, counterWeaknesses } from '../lib/counterRecommendations'
 
 const MODE_LABELS = { pve: 'PvE', pvp: 'PvP' }
 
@@ -621,6 +622,129 @@ function EffectivenessSection({ name, effectiveness }) {
   )
 }
 
+const COUNTER_PAGE_SIZE = 6
+
+function normalizedCounterSearch(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('pt-BR')
+    .trim()
+}
+
+function CounterCard({ recommendation }) {
+  const { pokemon, name, level, effectivenessLabel, attackElements, attackMoves, defense } = recommendation
+  return (
+    <Link className="counter-card" to={pokemonPath(pokemon)} aria-label={`Abrir ficha de ${name}`}>
+      <PokemonImage src={pokemonImage(pokemon)} name={name} className="counter-card-image" />
+      <div className="counter-card-copy">
+        <div className="counter-card-heading">
+          <span>{level ? `Level ${level}` : 'Level não informado'}</span>
+          <strong>{name}</strong>
+        </div>
+        <div className="counter-attack-row">
+          <small>{effectivenessLabel}</small>
+          <div>{attackElements.map((element) => <ElementBadge key={element} element={element} compact />)}</div>
+        </div>
+        <span className={`counter-defense ${defense.id}`}><i />{defense.label}</span>
+        {attackMoves.length > 0 && <small className="counter-moves" title={attackMoves.join(' · ')}>{attackMoves.slice(0, 2).join(' · ')}</small>}
+      </div>
+      <ChevronRight className="counter-card-arrow" size={17} />
+    </Link>
+  )
+}
+
+function CounterGroup({ id, title, description, recommendations, visibleCount, onShowMore, onShowLess }) {
+  const visible = recommendations.slice(0, visibleCount)
+  return (
+    <div className={`counter-group ${id}`}>
+      <header>
+        <div><span>{title}</span><p>{description}</p></div>
+        <b>{recommendations.length}</b>
+      </header>
+      {visible.length > 0 ? (
+        <>
+          <div className="counter-grid">{visible.map((recommendation) => <CounterCard key={recommendation.pokemon.source_url} recommendation={recommendation} />)}</div>
+          <div className="counter-group-actions">
+            {visibleCount > COUNTER_PAGE_SIZE && <button type="button" onClick={onShowLess}>Mostrar menos</button>}
+            {recommendations.length > visibleCount && <button type="button" onClick={onShowMore}>Mostrar mais {Math.min(COUNTER_PAGE_SIZE, recommendations.length - visibleCount)}</button>}
+          </div>
+        </>
+      ) : <p className="counter-group-empty">Nenhum Pokémon desta categoria corresponde aos filtros.</p>}
+    </div>
+  )
+}
+
+function CounterRecommendationsSection({ target, pokemon }) {
+  const weaknesses = useMemo(() => counterWeaknesses(target), [target])
+  const [mode, setMode] = useState('pve')
+  const [query, setQuery] = useState('')
+  const [attackElement, setAttackElement] = useState('')
+  const [maxLevel, setMaxLevel] = useState('')
+  const [safeOnly, setSafeOnly] = useState(false)
+  const [visibleCounts, setVisibleCounts] = useState({ strong: COUNTER_PAGE_SIZE, indicated: COUNTER_PAGE_SIZE })
+  const recommendations = useMemo(() => buildCounterRecommendations(target, pokemon, mode), [target, pokemon, mode])
+  const filtered = useMemo(() => {
+    const normalizedQuery = normalizedCounterSearch(query)
+    const parsedMaxLevel = maxLevel === '' ? null : Number(maxLevel)
+    return recommendations.filter((recommendation) => {
+      if (normalizedQuery && !normalizedCounterSearch(recommendation.name).includes(normalizedQuery)) return false
+      if (attackElement && !recommendation.attackElements.includes(attackElement)) return false
+      if (parsedMaxLevel !== null && (!Number.isFinite(parsedMaxLevel) || recommendation.level === null || recommendation.level > parsedMaxLevel)) return false
+      if (safeOnly && !recommendation.defense.safe) return false
+      return true
+    })
+  }, [attackElement, maxLevel, query, recommendations, safeOnly])
+
+  useEffect(() => {
+    setVisibleCounts({ strong: COUNTER_PAGE_SIZE, indicated: COUNTER_PAGE_SIZE })
+  }, [attackElement, maxLevel, mode, query, safeOnly])
+
+  const groups = {
+    strong: filtered.filter((recommendation) => recommendation.group === 'strong'),
+    indicated: filtered.filter((recommendation) => recommendation.group === 'indicated'),
+  }
+  const activeFilterCount = [query, attackElement, maxLevel, safeOnly].filter(Boolean).length
+  const resetFilters = () => {
+    setQuery('')
+    setAttackElement('')
+    setMaxLevel('')
+    setSafeOnly(false)
+  }
+  const showMore = (group) => setVisibleCounts((current) => ({ ...current, [group]: current[group] + COUNTER_PAGE_SIZE }))
+  const showLess = (group) => setVisibleCounts((current) => ({ ...current, [group]: COUNTER_PAGE_SIZE }))
+
+  return (
+    <Section id="counters" title="Pokémon indicados contra este alvo" icon={<Target size={18} />} description="Sugestões calculadas pelos elementos dos movimentos e pela sensibilidade publicada na ficha; a defesa ajuda a ordenar as opções, mas não muda a categoria.">
+      {!weaknesses.length ? (
+        <EmptyDetailState icon={<ShieldCheck size={20} />} title="Sem sensibilidades ofensivas publicadas">A ficha não informa elementos efetivos, muito efetivos ou super efetivos para montar esta lista.</EmptyDetailState>
+      ) : (
+        <>
+          <div className="counter-method-note">
+            <span>Como é calculado</span>
+            <p><strong>Muito indicados</strong> usam movimentos muito ou super efetivos. <strong>Indicados</strong> usam movimentos efetivos. Dentro de cada grupo, quem lida melhor com os ataques do alvo aparece primeiro.</p>
+          </div>
+          <div className="counter-toolbar">
+            <div className="counter-mode-switch" role="group" aria-label="Modo de combate">
+              {['pve', 'pvp'].map((option) => <button type="button" className={mode === option ? 'active' : ''} aria-pressed={mode === option} onClick={() => setMode(option)} key={option}>{option.toUpperCase()}</button>)}
+            </div>
+            <label className="counter-search"><span>Buscar Pokémon</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Ex.: Charizard" /></label>
+            <label><span>Elemento de ataque</span><select value={attackElement} onChange={(event) => setAttackElement(event.target.value)}><option value="">Todos</option>{weaknesses.map(({ element }) => <option value={element} key={element}>{element}</option>)}</select></label>
+            <label className="counter-level"><span>Meu level</span><input type="number" min="1" max="999" inputMode="numeric" value={maxLevel} onChange={(event) => setMaxLevel(event.target.value)} placeholder="Todos" /></label>
+            <button type="button" className={`counter-safe-filter ${safeOnly ? 'active' : ''}`} aria-pressed={safeOnly} onClick={() => setSafeOnly((value) => !value)}><ShieldCheck size={15} />Sem desvantagem</button>
+            {activeFilterCount > 0 && <button type="button" className="counter-reset" onClick={resetFilters}>Limpar {activeFilterCount}</button>}
+          </div>
+          <div className="counter-result-summary"><strong>{filtered.length}</strong> {filtered.length === 1 ? 'opção encontrada' : 'opções encontradas'} para {mode.toUpperCase()}</div>
+          <div className="counter-groups">
+            <CounterGroup id="strong" title="Muito indicados" description="Movimentos muito ou super efetivos contra este Pokémon." recommendations={groups.strong} visibleCount={visibleCounts.strong} onShowMore={() => showMore('strong')} onShowLess={() => showLess('strong')} />
+            <CounterGroup id="indicated" title="Indicados" description="Movimentos efetivos contra este Pokémon." recommendations={groups.indicated} visibleCount={visibleCounts.indicated} onShowMore={() => showMore('indicated')} onShowLess={() => showLess('indicated')} />
+          </div>
+        </>
+      )}
+    </Section>
+  )
+}
+
 function DetailPager({ previous, next }) {
   return (
     <nav className="detail-pager" aria-label="Navegar entre Pokémon">
@@ -685,6 +809,7 @@ export default function PokemonDetailPage() {
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
     hasEffectiveness && { id: 'effectiveness', label: 'Efetividades' },
+    hasEffectiveness && { id: 'counters', label: 'Indicações' },
     hasMoves && { id: 'moves', label: 'Movimentos' },
     hasPokelog && { id: 'pokelog', label: 'Pokélog' },
     hasTasks && { id: 'tasks', label: `Tasks (${new Set(taskOccurrences.map((occurrence) => occurrence.task_id)).size})` },
@@ -751,6 +876,8 @@ export default function PokemonDetailPage() {
           </Section>
 
           <EffectivenessSection name={name} effectiveness={entry.effectiveness} />
+
+          {hasEffectiveness && <CounterRecommendationsSection key={entry.source_url} target={entry} pokemon={pokemon} />}
 
           <MovesSection key={entry.source_url} moves={entry.moves} />
 
