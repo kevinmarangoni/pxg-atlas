@@ -21,7 +21,12 @@ function normalizeMonsterLocation(location, index) {
     ? Number(location.floor)
     : Number(location.z) || 0
   const surfaceFloor = REGION_SURFACE_FLOOR[normalizedMapName(location.region)]
-  const floor = location.source === 'pxgmap.com.br' && Number.isFinite(surfaceFloor)
+  // `world_floor` is already the absolute OTMM Z. Only the raw pxgmap.br
+  // `andar` value needs to be converted from its surface-relative scale.
+  const inferredWorldFloor = Number(location.world_floor)
+  const floor = Number.isFinite(inferredWorldFloor)
+    ? inferredWorldFloor
+    : location.source === 'pxgmap.com.br' && Number.isFinite(surfaceFloor)
     ? surfaceFloor - sourceFloor
     : sourceFloor
 

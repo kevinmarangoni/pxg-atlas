@@ -112,15 +112,56 @@ function slugify(value) {
   return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 }
 
-function mapPxgMapBrRecords(text, region) {
-  return parseRespawnYaml(text).map((row, index) => {
+const FLOOR_INFERENCE_MAX_DISTANCE = 60
+
+function buildLegacyFloorIndex(monsters) {
+  const index = new Map()
+  for (const monster of monsters) {
+    if (!['Kanto', 'Johto'].includes(monster.region)) continue
+    const key = `${monster.region.toLowerCase()}|${slugify(monster.name)}`
+    const candidates = index.get(key) || []
+    candidates.push({ x: monster.x, y: monster.y, floor: monster.z })
+    index.set(key, candidates)
+  }
+  return index
+}
+
+function inferLegacyFloors(index, region, name, x, y) {
+  const candidates = index.get(`${region.toLowerCase()}|${slugify(name)}`) || []
+  if (!candidates.length) return []
+
+  const ranked = candidates
+    .map((candidate) => ({
+      ...candidate,
+      distance: Math.abs(candidate.x - x) + Math.abs(candidate.y - y),
+    }))
+    .sort((left, right) => left.distance - right.distance)
+  const nearest = ranked[0]
+  if (nearest.distance > FLOOR_INFERENCE_MAX_DISTANCE) return []
+  // The same XY can legitimately exist on multiple floors. Preserve every
+  // nearby floor instead of silently choosing one of them.
+  const nearby = ranked.filter((candidate) => candidate.distance <= nearest.distance + 2)
+  const floors = new Map()
+  for (const candidate of nearby) if (!floors.has(candidate.floor)) floors.set(candidate.floor, candidate)
+  return [...floors.values()]
+}
+
+function mapPxgMapBrRecords(text, region, legacyFloorIndex) {
+  return parseRespawnYaml(text).flatMap((row, index) => {
     const floor = Number.isFinite(row.andar) ? row.andar : 0
     const name = pokemonLabel(row.pokemon)
-    return {
-      id: `pxgmap-br:${region}:${index}`,
+    const hasExplicitFloor = Object.prototype.hasOwnProperty.call(row, 'andar')
+    const x = Number(row.x)
+    const y = Number(row.y)
+    const inferredFloors = !hasExplicitFloor
+      ? inferLegacyFloors(legacyFloorIndex, region, name, x, y)
+      : []
+    const floorMatches = inferredFloors.length ? inferredFloors : [null]
+    return floorMatches.map((inferredFloor, floorIndex) => ({
+      id: `pxgmap-br:${region}:${index}${floorIndex ? `:${floorIndex}` : ''}`,
       name,
-      x: Number(row.x),
-      y: Number(row.y),
+      x,
+      y,
       z: floor,
       floor,
       region,
@@ -128,7 +169,9 @@ function mapPxgMapBrRecords(text, region) {
       sprite_url: `${PXGMAP_BR_HOME}/assets/icons/${slugify(row.pokemon)}.png`,
       source: 'pxgmap.com.br',
       source_url: `${PXGMAP_BR_HOME}/${region.toLowerCase()}`,
-    }
+      floor_source: hasExplicitFloor ? 'pxgmap' : inferredFloor ? 'legacy-coordinate-match' : 'surface-default',
+      ...(inferredFloor ? { world_floor: inferredFloor.floor, floor_match_distance: inferredFloor.distance } : {}),
+    }))
   })
 }
 
@@ -187,12 +230,14 @@ const legacyMonsters = [
   ...parseCsv(generation1.text).map((row) => mapMonster(row, 'generation1')),
   ...parseCsv(generation2.text).map((row) => mapMonster(row, 'generation2')),
 ]
+const legacyFloorIndex = buildLegacyFloorIndex(legacyMonsters)
 const pxgMapBrMonsters = [
-  ...mapPxgMapBrRecords(kantoSource.text, 'Kanto'),
-  ...mapPxgMapBrRecords(johtoSource.text, 'Johto'),
+  ...mapPxgMapBrRecords(kantoSource.text, 'Kanto', legacyFloorIndex),
+  ...mapPxgMapBrRecords(johtoSource.text, 'Johto', legacyFloorIndex),
 ]
-// A fonte pxgmap.com.br é a fonte mais completa para Kanto e Johto. Removemos
-// os registros legados dessas regiões para não exibir o mesmo ponto duas vezes.
+// A fonte pxgmap.com.br é a fonte mais completa para posições de Kanto e Johto.
+// Os CSVs legados entram apenas como referência de andar quando o YAML não
+// informa `andar`; os registros legados não são concatenados para evitar duplicatas.
 const monsters = [
   ...legacyMonsters.filter((entry) => !['Kanto', 'Johto'].includes(entry.region)),
   ...pxgMapBrMonsters,
