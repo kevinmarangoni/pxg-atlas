@@ -13,9 +13,10 @@ import {
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { ElementBadge } from '../components/Common'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
-import { displayName, pokemonPath } from '../lib/pokemon'
+import { ELEMENT_COLORS, displayName, normalizedElement, pokemonElements, pokemonPath, primaryLevel } from '../lib/pokemon'
 
 const TILE_SIZE = 256
 const MIN_SCALE = 0.12
@@ -64,6 +65,44 @@ function matchesLocation(location, query) {
 
 function coordinates(location) {
   return `${location.x.toLocaleString('pt-BR')}, ${location.y.toLocaleString('pt-BR')}, ${location.z}`
+}
+
+function effectivenessElements(pokemon, key) {
+  return [...new Set((pokemon?.effectiveness?.[key] || [])
+    .map(normalizedElement)
+    .filter((element) => Boolean(ELEMENT_COLORS[element])))]
+}
+
+function pokemonLevel(pokemon) {
+  return pokemon ? primaryLevel(pokemon) : null
+}
+
+function pokemonTooltipText(pokemon) {
+  if (!pokemon) return ''
+  const elements = pokemonElements(pokemon)
+  const strong = effectivenessElements(pokemon, 'very_effective')
+  const weak = effectivenessElements(pokemon, 'very_ineffective')
+  return [
+    `${displayName(pokemon)}${primaryLevel(pokemon) ? ` · Level ${primaryLevel(pokemon)}` : ''}`,
+    elements.length ? `Tipos: ${elements.join(', ')}` : null,
+    strong.length ? `Fortes contra ele: ${strong.join(', ')}` : null,
+    weak.length ? `Fracos contra ele: ${weak.join(', ')}` : null,
+  ].filter(Boolean).join(' · ')
+}
+
+function PokemonInfoTooltip({ pokemon }) {
+  if (!pokemon) return null
+  const elements = pokemonElements(pokemon)
+  const strong = effectivenessElements(pokemon, 'very_effective')
+  const weak = effectivenessElements(pokemon, 'very_ineffective')
+  return (
+    <span className="map-pokemon-tooltip" role="tooltip">
+      <strong>{displayName(pokemon)}</strong>
+      <span><small>Tipos</small><div>{elements.length ? elements.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+      <span><small>Fortes contra ele</small><div>{strong.length ? strong.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+      <span><small>Fracos contra ele</small><div>{weak.length ? weak.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+    </span>
+  )
 }
 
 function locationFloor(location) {
@@ -152,7 +191,7 @@ function fitJohtoView(viewport) {
   }, viewport)
 }
 
-function MapMarker({ location, scale, selected, collected, onSelect }) {
+function MapMarker({ location, scale, selected, collected, onSelect, pokemonEntry }) {
   const [imageFailed, setImageFailed] = useState(false)
   const isMonster = location.type === 'monster'
   return (
@@ -160,14 +199,15 @@ function MapMarker({ location, scale, selected, collected, onSelect }) {
       type="button"
       className={`atlas-map-marker ${location.type} ${selected ? 'selected' : ''} ${collected ? 'collected' : ''}`}
       style={{ left: location.x, top: location.y, '--marker-scale': 1 / scale }}
-      aria-label={`${location.name}, coordenadas ${coordinates(location)}`}
+      aria-label={`${location.name}${pokemonEntry && primaryLevel(pokemonEntry) ? `, Level ${primaryLevel(pokemonEntry)}` : ''}, coordenadas ${coordinates(location)}`}
+      title={isMonster ? pokemonTooltipText(pokemonEntry) : `${location.name}, coordenadas ${coordinates(location)}`}
       onPointerDown={(event) => event.stopPropagation()}
       onClick={() => onSelect(location)}
     >
       {isMonster && location.sprite_url && !imageFailed
         ? <img src={location.sprite_url} alt="" loading="lazy" draggable={false} referrerPolicy="no-referrer" onError={() => setImageFailed(true)} />
         : location.type === 'orb' ? <Sparkles size={17} /> : <MapPin size={17} />}
-      <span>{location.name}</span>
+      <span>{location.name}{pokemonEntry && primaryLevel(pokemonEntry) ? ` · Lv. ${primaryLevel(pokemonEntry)}` : ''}</span>
     </button>
   )
 }
@@ -185,6 +225,69 @@ function LocationListItem({ location, selected, collected, onSelect }) {
       <Target size={14} />
     </button>
   )
+}
+
+function PokemonLocationGroupItem({ group, selectedKey, onSelect, pokemonEntry }) {
+  const [expanded, setExpanded] = useState(false)
+  const selected = group.locations.some((location) => locationKey(location) === selectedKey)
+  const level = pokemonLevel(pokemonEntry)
+  const elements = pokemonElements(pokemonEntry)
+  const firstLocation = group.locations[0]
+  const [imageFailed, setImageFailed] = useState(false)
+
+  return (
+    <div className={`map-result-group ${selected ? 'selected' : ''}`}>
+      <div className="map-result-group-header">
+        <button type="button" className={`map-result-item map-result-pokemon ${selected ? 'selected' : ''}`} onClick={() => onSelect(firstLocation)} title={pokemonTooltipText(pokemonEntry)}>
+          <span className="map-result-art monster">
+            {firstLocation.sprite_url && !imageFailed
+              ? <img src={firstLocation.sprite_url} alt="" loading="lazy" referrerPolicy="no-referrer" onError={() => setImageFailed(true)} />
+              : <MapPin size={16} />}
+          </span>
+          <span className="map-result-copy">
+            <strong>{group.name}</strong>
+            <small>{level ? `Lv. ${level}` : 'Level não informado'}{elements.length ? ` · ${elements.join(' · ')}` : ''}</small>
+            <small className="map-result-location-count">{group.locations.length} {group.locations.length === 1 ? 'localização' : 'localizações'}</small>
+          </span>
+          <Target size={14} />
+          <PokemonInfoTooltip pokemon={pokemonEntry} />
+        </button>
+        {group.locations.length > 1 && (
+          <button type="button" className="map-result-dropdown-toggle" aria-label={`${expanded ? 'Ocultar' : 'Mostrar'} localizações de ${group.name}`} aria-expanded={expanded} onClick={() => setExpanded((current) => !current)}>
+            <ChevronDown size={15} />
+          </button>
+        )}
+      </div>
+      {expanded && group.locations.length > 1 && (
+        <div className="map-result-location-dropdown">
+          {group.locations.map((location, index) => (
+            <button type="button" className={selectedKey === locationKey(location) ? 'selected' : ''} onClick={() => onSelect(location)} key={locationKey(location)}>
+              <MapPin size={13} />
+              <span><strong>{coordinates(location)}</strong><small>Andar {locationFloor(location)}</small></span>
+              <em>{index + 1}</em>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function buildPokemonGroups(locations, pokemonByName) {
+  const groups = new Map()
+  for (const location of locations) {
+    if (location.type !== 'monster') continue
+    const key = normalizedMapName(location.name)
+    const group = groups.get(key) || {
+      key: `pokemon:${key}`,
+      name: location.name,
+      locations: [],
+      pokemon: pokemonByName.get(key) || null,
+    }
+    group.locations.push(location)
+    groups.set(key, group)
+  }
+  return [...groups.values()].sort((left, right) => left.name.localeCompare(right.name, 'pt-BR'))
 }
 
 function PlaceLabel({ place, scale, selected, onSelect }) {
@@ -207,6 +310,7 @@ export default function MapPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('pokemon') || '')
   const [activeLayer, setActiveLayer] = useState('monster')
+  const [levelFilter, setLevelFilter] = useState('all')
   const [floor, setFloor] = useState(JOHTO_DEFAULT_FLOOR)
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 })
@@ -242,16 +346,33 @@ export default function MapPage() {
   const johtoMonsters = useMemo(() => monsters.filter((location) => location.region === 'Johto' && insideJohto(location)), [monsters])
   const johtoOrbs = useMemo(() => orbs.filter((location) => !String(location.region || '').startsWith('Mt Silver') && insideJohto(location)), [orbs])
   const johtoPlaces = useMemo(() => buildJohtoPlaces(tasks), [tasks])
+  const pokemonLevelByName = useMemo(() => {
+    const levels = new Map()
+    for (const location of johtoMonsters) {
+      const key = normalizedMapName(location.name)
+      if (!levels.has(key)) levels.set(key, pokemonLevel(pokemonByName.get(key)))
+    }
+    return levels
+  }, [johtoMonsters, pokemonByName])
+  const levelOptions = useMemo(() => [...new Set([...pokemonLevelByName.values()].filter((level) => Number.isFinite(level)))].sort((left, right) => left - right), [pokemonLevelByName])
+  const hasUnknownLevel = useMemo(() => [...pokemonLevelByName.values()].some((level) => !Number.isFinite(level)), [pokemonLevelByName])
   const regionLocations = useMemo(() => {
     const source = activeLayer === 'monster' ? johtoMonsters : johtoOrbs
     return source.map((location) => ({ ...location, type: activeLayer }))
   }, [activeLayer, johtoMonsters, johtoOrbs])
+  const levelFilteredLocations = useMemo(() => {
+    if (activeLayer !== 'monster' || levelFilter === 'all') return regionLocations
+    return regionLocations.filter((location) => {
+      const level = pokemonLevelByName.get(normalizedMapName(location.name))
+      return levelFilter === 'unknown' ? !Number.isFinite(level) : level === Number(levelFilter)
+    })
+  }, [activeLayer, levelFilter, pokemonLevelByName, regionLocations])
   const normalizedQuery = normalizedMapName(query)
   const matchingLocations = useMemo(() => {
-    const layerMatches = regionLocations.filter((location) => matchesLocation(location, normalizedQuery))
+    const layerMatches = levelFilteredLocations.filter((location) => matchesLocation(location, normalizedQuery))
     if (!normalizedQuery) return layerMatches
     return [...layerMatches, ...johtoPlaces.filter((place) => matchesLocation(place, normalizedQuery))]
-  }, [johtoPlaces, normalizedQuery, regionLocations])
+  }, [johtoPlaces, levelFilteredLocations, normalizedQuery])
   const floorLocations = useMemo(
     () => matchingLocations.filter((location) => locationFloor(location) === floor),
     [floor, matchingLocations],
@@ -265,25 +386,36 @@ export default function MapPage() {
     const bottom = ((viewportSize.height - view.y) / view.scale) + padding
     return floorLocations.filter((location) => location.x >= left && location.x <= right && location.y >= top && location.y <= bottom)
   }, [floorLocations, view, viewportSize])
-  const listLocations = useMemo(
-    () => (normalizedQuery ? matchingLocations : visibleFloorLocations).slice(0, 120),
-    [matchingLocations, normalizedQuery, visibleFloorLocations],
-  )
-  const resultCount = normalizedQuery ? matchingLocations.length : visibleFloorLocations.length
+  const listSourceLocations = normalizedQuery ? matchingLocations : activeLayer === 'monster' ? floorLocations : visibleFloorLocations
+  const listEntries = useMemo(() => {
+    if (activeLayer !== 'monster') return listSourceLocations
+    const groups = buildPokemonGroups(listSourceLocations, pokemonByName)
+    const places = listSourceLocations
+      .filter((location) => location.type === 'place')
+      .sort((left, right) => left.name.localeCompare(right.name, 'pt-BR'))
+    return [...groups, ...places]
+  }, [activeLayer, listSourceLocations, pokemonByName])
+  const listLocations = listEntries.slice(0, 120)
+  const resultCount = listEntries.length
   const markerLocations = useMemo(() => {
     const markers = normalizedQuery || view.scale >= MARKER_MIN_SCALE
       ? visibleFloorLocations.filter((location) => location.type !== 'place').slice(0, MAX_RENDERED_MARKERS)
       : []
-    if (selectedLocation?.type !== 'place' && selectedLocation && locationFloor(selectedLocation) === floor) {
+    if (selectedLocation?.type !== 'place' && selectedLocation && locationFloor(selectedLocation) === floor && floorLocations.some((location) => locationKey(location) === locationKey(selectedLocation))) {
       const selectedKey = locationKey(selectedLocation)
       if (!markers.some((location) => locationKey(location) === selectedKey)) return [...markers, selectedLocation]
     }
     return markers
-  }, [floor, normalizedQuery, selectedLocation, view.scale, visibleFloorLocations])
+  }, [floor, floorLocations, normalizedQuery, selectedLocation, view.scale, visibleFloorLocations])
   const visiblePlaces = useMemo(() => {
     if (floor !== JOHTO_DEFAULT_FLOOR) return []
     return johtoPlaces.filter((place) => place.task_count >= 3 || view.scale >= 0.62 || selectedLocation?.map_uid === place.map_uid)
   }, [floor, johtoPlaces, selectedLocation, view.scale])
+
+  useEffect(() => {
+    if (!selectedLocation || !['monster', 'orb'].includes(selectedLocation.type)) return
+    if (!matchingLocations.some((location) => locationKey(location) === locationKey(selectedLocation))) setSelectedLocation(null)
+  }, [matchingLocations, selectedLocation])
 
   useEffect(() => {
     if (availableFloors.length && !availableFloors.includes(floor)) {
@@ -329,6 +461,7 @@ export default function MapPage() {
     setFloor(JOHTO_DEFAULT_FLOOR)
     setSelectedLocation(null)
     setQuery('')
+    setLevelFilter('all')
     setView(fitJohtoView(viewportSize))
     setSearchParams({ region: 'Johto' }, { replace: true })
   }, [setSearchParams, viewportSize])
@@ -419,6 +552,7 @@ export default function MapPage() {
     if (layer === activeLayer) return
     setActiveLayer(layer)
     setQuery('')
+    setLevelFilter('all')
     setSelectedLocation(null)
     setSearchParams({ region: 'Johto' }, { replace: true })
   }
@@ -477,9 +611,18 @@ export default function MapPage() {
         </label>
 
         <div className="map-layer-controls" role="group" aria-label="Camadas do mapa">
-          <button type="button" className={activeLayer === 'monster' ? 'active monster' : ''} aria-pressed={activeLayer === 'monster'} onClick={() => selectLayer('monster')}><MapPin size={14} />Pokémon<b>{johtoMonsters.length}</b></button>
+          <button type="button" className={activeLayer === 'monster' ? 'active monster' : ''} aria-pressed={activeLayer === 'monster'} onClick={() => selectLayer('monster')}><MapPin size={14} />Pokémon<b>{pokemonLevelByName.size}</b></button>
           <button type="button" className={activeLayer === 'orb' ? 'active orb' : 'orb'} aria-pressed={activeLayer === 'orb'} onClick={() => selectLayer('orb')}><Sparkles size={14} />Orbs<b>{johtoOrbs.length}</b></button>
         </div>
+
+        <label className="map-level-filter">
+          <span>Filtrar Pokémon por level</span>
+          <select value={activeLayer === 'monster' ? levelFilter : 'all'} disabled={activeLayer !== 'monster'} onChange={(event) => setLevelFilter(event.target.value)}>
+            <option value="all">Todos os levels</option>
+            {levelOptions.map((level) => <option value={level} key={level}>Level {level}</option>)}
+            {hasUnknownLevel && <option value="unknown">Level não informado</option>}
+          </select>
+        </label>
 
         <div className="map-region-card">
           <span><MapIcon size={16} /></span>
@@ -488,11 +631,13 @@ export default function MapPage() {
         </div>
 
         <div className="map-results-heading">
-          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados em Johto' : `posições visíveis · andar ${floor}`}</span></div>
+          <div><strong>{resultCount}</strong><span>{activeLayer === 'monster' ? (normalizedQuery ? 'Pokémon encontrados' : `Pokémon no andar ${floor}`) : (normalizedQuery ? 'resultados em Johto' : `posições no andar ${floor}`)}</span></div>
           {listLocations.length < resultCount && <small>Mostrando 120</small>}
         </div>
         <div className="map-results-list">
-          {listLocations.map((location) => <LocationListItem key={locationKey(location)} location={location} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
+          {listLocations.map((entry) => entry.locations
+            ? <PokemonLocationGroupItem key={entry.key} group={entry} selectedKey={selectedKey} onSelect={selectLocation} pokemonEntry={entry.pokemon} />
+            : <LocationListItem key={locationKey(entry)} location={entry} selected={selectedKey === locationKey(entry)} collected={entry.type === 'orb' && collectedOrbs.has(String(entry.id))} onSelect={selectLocation} />)}
           {!listLocations.length && (
             <div className="map-results-empty">
               <Search size={19} />
@@ -546,7 +691,7 @@ export default function MapPage() {
             />
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.tileX * TILE_SIZE, top: tile.tileY * TILE_SIZE }} key={`${floor}-${tile.tileX}-${tile.tileY}`} />)}
             {visiblePlaces.map((place) => <PlaceLabel key={place.map_uid} place={place} scale={view.scale} selected={selectedKey === place.map_uid} onSelect={selectLocation} />)}
-            {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
+            {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} pokemonEntry={location.type === 'monster' ? pokemonByName.get(normalizedMapName(location.name)) : null} />)}
           </div>
         </div>
 
