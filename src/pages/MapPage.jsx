@@ -31,6 +31,15 @@ const JOHTO_BOUNDS = {
   minY: JOHTO_TILES.minY * TILE_SIZE,
   maxY: (JOHTO_TILES.maxY + 1) * TILE_SIZE,
 }
+const PLACE_NAME_ALIASES = {
+  'ecrutreak city': 'Ecruteak City',
+  'new bark': 'New Bark Town',
+  'new bark town': 'New Bark Town',
+}
+const PLACE_LABEL_OFFSETS = {
+  'cherrygrove city': { x: 15, y: 65 },
+  'violet city': { x: -20, y: -65 },
+}
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -67,6 +76,49 @@ function insideJohto(location) {
     && location.x < JOHTO_BOUNDS.maxX
     && location.y >= JOHTO_BOUNDS.minY
     && location.y < JOHTO_BOUNDS.maxY
+}
+
+function median(values) {
+  const sorted = [...values].sort((a, b) => a - b)
+  return sorted[Math.floor(sorted.length / 2)]
+}
+
+function buildJohtoPlaces(tasks) {
+  const groups = new Map()
+  for (const task of tasks) {
+    const coordinates = task.npc?.coordinates
+    if (task.region !== 'johto' || !task.location || !insideJohto(coordinates)) continue
+    const normalizedName = normalizedMapName(task.location)
+    const name = PLACE_NAME_ALIASES[normalizedName] || String(task.location).trim()
+    const key = normalizedMapName(name)
+    const group = groups.get(key) || { name, xs: [], ys: [], taskCount: 0 }
+    group.xs.push(Number(coordinates.x))
+    group.ys.push(Number(coordinates.y))
+    group.taskCount += 1
+    groups.set(key, group)
+  }
+
+  return [...groups.values()].map((group) => {
+    const normalizedName = normalizedMapName(group.name)
+    const offset = PLACE_LABEL_OFFSETS[normalizedName] || { x: 0, y: 0 }
+    const x = median(group.xs)
+    const y = median(group.ys)
+    return {
+      id: `place:${normalizedName.replace(/ /g, '-')}`,
+      map_uid: `place:${normalizedName}`,
+      name: group.name,
+      region: 'Johto',
+      x,
+      y,
+      label_x: x + offset.x,
+      label_y: y + offset.y,
+      z: JOHTO_DEFAULT_FLOOR,
+      floor: JOHTO_DEFAULT_FLOOR,
+      type: 'place',
+      task_count: group.taskCount,
+      comment: `${group.taskCount} ${group.taskCount === 1 ? 'NPC de task catalogado' : 'NPCs de task catalogados'}`,
+    }
+  }).sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
 }
 
 function constrainView(nextView, viewport) {
@@ -135,9 +187,23 @@ function LocationListItem({ location, selected, collected, onSelect }) {
   )
 }
 
+function PlaceLabel({ place, scale, selected, onSelect }) {
+  return (
+    <button
+      type="button"
+      className={`atlas-map-place-label ${place.task_count >= 5 ? 'major' : ''} ${selected ? 'selected' : ''}`}
+      style={{ left: place.label_x, top: place.label_y, '--label-scale': 1 / scale }}
+      onPointerDown={(event) => event.stopPropagation()}
+      onClick={() => onSelect(place)}
+    >
+      {place.name}
+    </button>
+  )
+}
+
 export default function MapPage() {
   const { data, loading, error, monsters, orbs, localTilePositionSet, localTileHome } = useMapData()
-  const { pokemon } = usePokemonData()
+  const { pokemon, tasks } = usePokemonData()
   const [searchParams, setSearchParams] = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('pokemon') || '')
   const [activeLayer, setActiveLayer] = useState('monster')
@@ -175,15 +241,17 @@ export default function MapPage() {
   )).length, [data])
   const johtoMonsters = useMemo(() => monsters.filter((location) => location.region === 'Johto' && insideJohto(location)), [monsters])
   const johtoOrbs = useMemo(() => orbs.filter((location) => !String(location.region || '').startsWith('Mt Silver') && insideJohto(location)), [orbs])
+  const johtoPlaces = useMemo(() => buildJohtoPlaces(tasks), [tasks])
   const regionLocations = useMemo(() => {
     const source = activeLayer === 'monster' ? johtoMonsters : johtoOrbs
     return source.map((location) => ({ ...location, type: activeLayer }))
   }, [activeLayer, johtoMonsters, johtoOrbs])
   const normalizedQuery = normalizedMapName(query)
-  const matchingLocations = useMemo(
-    () => regionLocations.filter((location) => matchesLocation(location, normalizedQuery)),
-    [normalizedQuery, regionLocations],
-  )
+  const matchingLocations = useMemo(() => {
+    const layerMatches = regionLocations.filter((location) => matchesLocation(location, normalizedQuery))
+    if (!normalizedQuery) return layerMatches
+    return [...layerMatches, ...johtoPlaces.filter((place) => matchesLocation(place, normalizedQuery))]
+  }, [johtoPlaces, normalizedQuery, regionLocations])
   const floorLocations = useMemo(
     () => matchingLocations.filter((location) => locationFloor(location) === floor),
     [floor, matchingLocations],
@@ -204,14 +272,18 @@ export default function MapPage() {
   const resultCount = normalizedQuery ? matchingLocations.length : visibleFloorLocations.length
   const markerLocations = useMemo(() => {
     const markers = normalizedQuery || view.scale >= MARKER_MIN_SCALE
-      ? visibleFloorLocations.slice(0, MAX_RENDERED_MARKERS)
+      ? visibleFloorLocations.filter((location) => location.type !== 'place').slice(0, MAX_RENDERED_MARKERS)
       : []
-    if (selectedLocation && locationFloor(selectedLocation) === floor) {
+    if (selectedLocation?.type !== 'place' && selectedLocation && locationFloor(selectedLocation) === floor) {
       const selectedKey = locationKey(selectedLocation)
       if (!markers.some((location) => locationKey(location) === selectedKey)) return [...markers, selectedLocation]
     }
     return markers
   }, [floor, normalizedQuery, selectedLocation, view.scale, visibleFloorLocations])
+  const visiblePlaces = useMemo(() => {
+    if (floor !== JOHTO_DEFAULT_FLOOR) return []
+    return johtoPlaces.filter((place) => place.task_count >= 3 || view.scale >= 0.62 || selectedLocation?.map_uid === place.map_uid)
+  }, [floor, johtoPlaces, selectedLocation, view.scale])
 
   useEffect(() => {
     if (availableFloors.length && !availableFloors.includes(floor)) {
@@ -272,14 +344,18 @@ export default function MapPage() {
     const requestedY = Number(requestedYParam)
     const requestedZ = Number(requestedZParam)
     const requestedPokemon = normalizedMapName(searchParams.get('pokemon'))
-    const requestedLabel = searchParams.get('pokemon') || searchParams.get('npc')
+    const requestedPlace = normalizedMapName(searchParams.get('place'))
+    const requestedLabel = searchParams.get('pokemon') || searchParams.get('npc') || searchParams.get('place')
     const pokemonLocation = requestedPokemon
       ? johtoMonsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
       : null
-    const coordinateLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
-      ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, floor: requestedZ, type: 'coordinate', id: 'requested', region: 'Johto' }
+    const placeLocation = requestedPlace
+      ? johtoPlaces.find((location) => normalizedMapName(location.name) === requestedPlace)
       : null
-    const requestedLocation = insideJohto(coordinateLocation) ? coordinateLocation : pokemonLocation
+    const coordinateLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
+      ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, floor: requestedZ, type: requestedPlace ? 'place' : 'coordinate', id: 'requested', region: 'Johto' }
+      : null
+    const requestedLocation = insideJohto(coordinateLocation) ? coordinateLocation : pokemonLocation || placeLocation
 
     if (requestedLocation) {
       setSelectedLocation({ ...requestedLocation, type: requestedLocation.type || 'monster' })
@@ -288,7 +364,7 @@ export default function MapPage() {
       setFloor(JOHTO_DEFAULT_FLOOR)
       setView(fitJohtoView(viewportSize))
     }
-  }, [data, johtoMonsters, navigateToLocation, searchParams, viewportSize])
+  }, [data, johtoMonsters, johtoPlaces, navigateToLocation, searchParams, viewportSize])
 
   const visibleTiles = useMemo(() => {
     if (!localTileHome || !viewportSize.width || !viewportSize.height) return []
@@ -335,6 +411,7 @@ export default function MapPage() {
     const params = { region: 'Johto', x: String(location.x), y: String(location.y), z: String(locationFloor(location)) }
     if (location.type === 'monster') params.pokemon = location.name
     if (location.type === 'orb') params.orb = location.id
+    if (location.type === 'place') params.place = location.name
     setSearchParams(params, { replace: true })
   }
 
@@ -391,7 +468,7 @@ export default function MapPage() {
         <header>
           <span className="eyebrow"><MapIcon size={14} />Exploração</span>
           <h1>Mapa de Johto</h1>
-          <p>Navegue pelo mapa real do jogo, extraído diretamente do minimap.otmm.</p>
+          <p>Navegue pelo mapa real do jogo, com localidades cruzadas pelas coordenadas das tasks.</p>
         </header>
 
         <label className="map-search-field">
@@ -468,6 +545,7 @@ export default function MapPage() {
               }}
             />
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.tileX * TILE_SIZE, top: tile.tileY * TILE_SIZE }} key={`${floor}-${tile.tileX}-${tile.tileY}`} />)}
+            {visiblePlaces.map((place) => <PlaceLabel key={place.map_uid} place={place} scale={view.scale} selected={selectedKey === place.map_uid} onSelect={selectLocation} />)}
             {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
           </div>
         </div>
