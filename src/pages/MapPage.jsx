@@ -219,7 +219,10 @@ function PokemonLocationGroupItem({ group, selectedKey, onSelect, pokemonEntry }
   const [expanded, setExpanded] = useState(false)
   const selected = group.locations.some((location) => locationKey(location) === selectedKey)
   const level = pokemonLevel(pokemonEntry)
-  const elements = pokemonElements(pokemonEntry)
+  // Map data can include Pokémon that are not present in the current Pokédex
+  // export. Keep the grouped result usable instead of trying to read
+  // `general_info` from a missing entry and taking down the whole map.
+  const elements = pokemonEntry ? pokemonElements(pokemonEntry) : []
   const firstLocation = group.locations[0]
   const [imageFailed, setImageFailed] = useState(false)
 
