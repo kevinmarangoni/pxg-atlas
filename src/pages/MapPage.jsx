@@ -1,7 +1,6 @@
 import {
   ChevronDown,
   ChevronUp,
-  ExternalLink,
   LoaderCircle,
   Map as MapIcon,
   MapPin,
@@ -19,11 +18,19 @@ import { usePokemonData } from '../data/PokemonDataContext'
 import { displayName, pokemonPath } from '../lib/pokemon'
 
 const TILE_SIZE = 256
-const MIN_SCALE = 0.4
-const MAX_SCALE = 3
-const LEGACY_FLOORS = Array.from({ length: 16 }, (_, index) => index)
+const MIN_SCALE = 0.12
+const MAX_SCALE = 4
+const MARKER_MIN_SCALE = 0.68
+const MAX_RENDERED_MARKERS = 160
 const ORB_STORAGE_KEY = 'pxg-atlas:collected-orbs'
-const ORB_DESTINATIONS = new Set(['Johto', 'Mt Silver'])
+const JOHTO_DEFAULT_FLOOR = 6
+const JOHTO_TILES = { minX: 5, maxX: 15, minY: 115, maxY: 124 }
+const JOHTO_BOUNDS = {
+  minX: JOHTO_TILES.minX * TILE_SIZE,
+  maxX: (JOHTO_TILES.maxX + 1) * TILE_SIZE,
+  minY: JOHTO_TILES.minY * TILE_SIZE,
+  maxY: (JOHTO_TILES.maxY + 1) * TILE_SIZE,
+}
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -31,14 +38,6 @@ function clamp(value, minimum, maximum) {
 
 function locationKey(location) {
   return location.map_uid || `${location.type}:${location.id}:${location.x}:${location.y}:${location.z}`
-}
-
-function nearestDestination(destinations, location) {
-  if (!destinations?.length || !location) return null
-  return destinations.reduce((nearest, destination) => {
-    const distance = ((destination.x - location.x) ** 2) + ((destination.y - location.y) ** 2)
-    return !nearest || distance < nearest.distance ? { name: destination.name, distance } : nearest
-  }, null)?.name
 }
 
 function matchesLocation(location, query) {
@@ -54,12 +53,6 @@ function matchesLocation(location, query) {
   ].filter(Boolean).join(' ')).includes(query)
 }
 
-function locationBelongsToDestination(location, destination, type) {
-  if (type === 'monster') return location.region === destination
-  const isMtSilver = String(location.region || '').startsWith('Mt Silver')
-  return destination === 'Mt Silver' ? isMtSilver : destination === 'Johto' && !isMtSilver
-}
-
 function coordinates(location) {
   return `${location.x.toLocaleString('pt-BR')}, ${location.y.toLocaleString('pt-BR')}, ${location.z}`
 }
@@ -68,8 +61,43 @@ function locationFloor(location) {
   return Number.isFinite(Number(location?.floor)) ? Number(location.floor) : Number(location?.z) || 0
 }
 
-function mapSourceFor(destination, mapSources) {
-  return mapSources?.[String(destination || '').trim().toLowerCase()] || null
+function insideJohto(location) {
+  return location
+    && location.x >= JOHTO_BOUNDS.minX
+    && location.x < JOHTO_BOUNDS.maxX
+    && location.y >= JOHTO_BOUNDS.minY
+    && location.y < JOHTO_BOUNDS.maxY
+}
+
+function constrainView(nextView, viewport) {
+  if (!viewport.width || !viewport.height) return nextView
+  const padding = 42
+  const scale = clamp(nextView.scale, MIN_SCALE, MAX_SCALE)
+
+  const constrainAxis = (position, minimum, maximum, viewportLength) => {
+    const contentLength = (maximum - minimum) * scale
+    if (contentLength <= viewportLength - (padding * 2)) {
+      return (viewportLength - contentLength) / 2 - (minimum * scale)
+    }
+    return clamp(position, viewportLength - padding - (maximum * scale), padding - (minimum * scale))
+  }
+
+  return {
+    scale,
+    x: constrainAxis(nextView.x, JOHTO_BOUNDS.minX, JOHTO_BOUNDS.maxX, viewport.width),
+    y: constrainAxis(nextView.y, JOHTO_BOUNDS.minY, JOHTO_BOUNDS.maxY, viewport.height),
+  }
+}
+
+function fitJohtoView(viewport) {
+  const width = JOHTO_BOUNDS.maxX - JOHTO_BOUNDS.minX
+  const height = JOHTO_BOUNDS.maxY - JOHTO_BOUNDS.minY
+  const scale = clamp(Math.min((viewport.width - 84) / width, (viewport.height - 84) / height), MIN_SCALE, 0.72)
+  return constrainView({
+    scale,
+    x: (viewport.width / 2) - (((JOHTO_BOUNDS.minX + JOHTO_BOUNDS.maxX) / 2) * scale),
+    y: (viewport.height / 2) - (((JOHTO_BOUNDS.minY + JOHTO_BOUNDS.maxY) / 2) * scale),
+  }, viewport)
 }
 
 function MapMarker({ location, scale, selected, collected, onSelect }) {
@@ -108,14 +136,12 @@ function LocationListItem({ location, selected, collected, onSelect }) {
 }
 
 export default function MapPage() {
-  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet, localTilePositionSet, localTileHome, mapSources } = useMapData()
+  const { data, loading, error, monsters, orbs, localTilePositionSet, localTileHome } = useMapData()
   const { pokemon } = usePokemonData()
   const [searchParams, setSearchParams] = useSearchParams()
-  const initialPokemon = searchParams.get('pokemon') || ''
-  const [query, setQuery] = useState(initialPokemon)
+  const [query, setQuery] = useState(searchParams.get('pokemon') || '')
   const [activeLayer, setActiveLayer] = useState('monster')
-  const [floor, setFloor] = useState(0)
-  const [selectedDestination, setSelectedDestination] = useState('Johto')
+  const [floor, setFloor] = useState(JOHTO_DEFAULT_FLOOR)
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 })
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 })
@@ -132,28 +158,27 @@ export default function MapPage() {
   const initialNavigationRef = useRef(false)
 
   const pokemonByName = useMemo(() => new Map(pokemon.map((entry) => [normalizedMapName(displayName(entry)), entry])), [pokemon])
-  const destinationOptions = useMemo(
-    () => (data?.destinations || []).filter((destination) => activeLayer === 'monster' || ORB_DESTINATIONS.has(destination.name)),
-    [activeLayer, data],
-  )
-  const activeMapSource = useMemo(() => mapSourceFor(selectedDestination, mapSources), [mapSources, selectedDestination])
-  const localFocusKey = selectedLocation ? `${floor},${Math.floor(selectedLocation.x / TILE_SIZE)},${Math.floor(selectedLocation.y / TILE_SIZE)}` : null
-  const renderFullMap = Boolean(activeMapSource && !(localTileHome && localFocusKey && localTilePositionSet?.has(localFocusKey)))
-  const availableFloors = useMemo(() => activeMapSource?.available_floors || LEGACY_FLOORS, [activeMapSource])
-  const monsterCount = useMemo(
-    () => monsters.filter((location) => locationBelongsToDestination(location, selectedDestination, 'monster')).length,
-    [monsters, selectedDestination],
-  )
-  const orbCount = useMemo(
-    () => orbs.filter((location) => locationBelongsToDestination(location, selectedDestination, 'orb')).length,
-    [orbs, selectedDestination],
-  )
+  const availableFloors = useMemo(() => {
+    const floors = new Set()
+    for (const [tileFloor, tileX, tileY] of data?.metadata?.local_tile_positions || []) {
+      if (tileX >= JOHTO_TILES.minX && tileX <= JOHTO_TILES.maxX && tileY >= JOHTO_TILES.minY && tileY <= JOHTO_TILES.maxY) {
+        floors.add(tileFloor)
+      }
+    }
+    return [...floors].sort((a, b) => a - b)
+  }, [data])
+  const johtoTileCount = useMemo(() => (data?.metadata?.local_tile_positions || []).filter(([, tileX, tileY]) => (
+    tileX >= JOHTO_TILES.minX
+    && tileX <= JOHTO_TILES.maxX
+    && tileY >= JOHTO_TILES.minY
+    && tileY <= JOHTO_TILES.maxY
+  )).length, [data])
+  const johtoMonsters = useMemo(() => monsters.filter((location) => location.region === 'Johto' && insideJohto(location)), [monsters])
+  const johtoOrbs = useMemo(() => orbs.filter((location) => !String(location.region || '').startsWith('Mt Silver') && insideJohto(location)), [orbs])
   const regionLocations = useMemo(() => {
-    const source = activeLayer === 'monster' ? monsters : orbs
-    return source
-      .filter((location) => locationBelongsToDestination(location, selectedDestination, activeLayer))
-      .map((location) => ({ ...location, type: activeLayer }))
-  }, [activeLayer, monsters, orbs, selectedDestination])
+    const source = activeLayer === 'monster' ? johtoMonsters : johtoOrbs
+    return source.map((location) => ({ ...location, type: activeLayer }))
+  }, [activeLayer, johtoMonsters, johtoOrbs])
   const normalizedQuery = normalizedMapName(query)
   const matchingLocations = useMemo(
     () => regionLocations.filter((location) => matchesLocation(location, normalizedQuery)),
@@ -178,22 +203,20 @@ export default function MapPage() {
   )
   const resultCount = normalizedQuery ? matchingLocations.length : visibleFloorLocations.length
   const markerLocations = useMemo(() => {
-    if (activeLayer === 'orb') {
-      const selectedAnchor = selectedLocation
-        && locationFloor(selectedLocation) === floor
-        && ['destination', 'coordinate'].includes(selectedLocation.type)
-        ? selectedLocation
-        : null
-      return selectedAnchor ? [...visibleFloorLocations, selectedAnchor] : visibleFloorLocations
+    const markers = normalizedQuery || view.scale >= MARKER_MIN_SCALE
+      ? visibleFloorLocations.slice(0, MAX_RENDERED_MARKERS)
+      : []
+    if (selectedLocation && locationFloor(selectedLocation) === floor) {
+      const selectedKey = locationKey(selectedLocation)
+      if (!markers.some((location) => locationKey(location) === selectedKey)) return [...markers, selectedLocation]
     }
-    if (selectedLocation && locationFloor(selectedLocation) === floor && ['monster', 'destination', 'coordinate'].includes(selectedLocation.type)) {
-      return [selectedLocation]
-    }
-    return []
-  }, [activeLayer, floor, selectedLocation, visibleFloorLocations])
+    return markers
+  }, [floor, normalizedQuery, selectedLocation, view.scale, visibleFloorLocations])
 
   useEffect(() => {
-    if (!availableFloors.includes(floor)) setFloor(availableFloors.includes(0) ? 0 : availableFloors[0])
+    if (availableFloors.length && !availableFloors.includes(floor)) {
+      setFloor(availableFloors.includes(JOHTO_DEFAULT_FLOOR) ? JOHTO_DEFAULT_FLOOR : availableFloors[0])
+    }
   }, [availableFloors, floor])
 
   useEffect(() => {
@@ -213,16 +236,30 @@ export default function MapPage() {
     return () => observer.disconnect()
   }, [loading])
 
+  useEffect(() => {
+    if (!viewportSize.width || !viewportSize.height || !initialNavigationRef.current) return
+    setView((current) => constrainView(current, viewportSize))
+  }, [viewportSize])
+
   const navigateToLocation = useCallback((location, preferredScale) => {
     if (!location || !viewportSize.width || !viewportSize.height) return
-    const scale = clamp(preferredScale ?? Math.max(view.scale, 0.8), MIN_SCALE, MAX_SCALE)
+    const scale = clamp(preferredScale ?? Math.max(view.scale, 0.9), MIN_SCALE, MAX_SCALE)
     setFloor(locationFloor(location))
-    setView({
+    setView(constrainView({
       scale,
       x: (viewportSize.width / 2) - (location.x * scale),
       y: (viewportSize.height / 2) - (location.y * scale),
-    })
+    }, viewportSize))
   }, [view.scale, viewportSize])
+
+  const resetJohtoView = useCallback(() => {
+    if (!viewportSize.width || !viewportSize.height) return
+    setFloor(JOHTO_DEFAULT_FLOOR)
+    setSelectedLocation(null)
+    setQuery('')
+    setView(fitJohtoView(viewportSize))
+    setSearchParams({ region: 'Johto' }, { replace: true })
+  }, [setSearchParams, viewportSize])
 
   useEffect(() => {
     if (!data || !viewportSize.width || initialNavigationRef.current) return
@@ -230,56 +267,57 @@ export default function MapPage() {
     const requestedXParam = searchParams.get('x')
     const requestedYParam = searchParams.get('y')
     const requestedZParam = searchParams.get('z')
-    const hasRequestedCoordinates = [requestedXParam, requestedYParam, requestedZParam]
-      .every((value) => value !== null && value !== '')
+    const hasRequestedCoordinates = [requestedXParam, requestedYParam, requestedZParam].every((value) => value !== null && value !== '')
     const requestedX = Number(requestedXParam)
     const requestedY = Number(requestedYParam)
     const requestedZ = Number(requestedZParam)
     const requestedPokemon = normalizedMapName(searchParams.get('pokemon'))
     const requestedLabel = searchParams.get('pokemon') || searchParams.get('npc')
-    const requestedRegion = searchParams.get('region')
     const pokemonLocation = requestedPokemon
-      ? monsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
+      ? johtoMonsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
       : null
-    const regionDestination = data.destinations?.find((entry) => entry.name === requestedRegion)
-    const requestedSource = mapSourceFor(requestedRegion || 'Johto', mapSources)
-    const defaultDestination = data.destinations?.find((entry) => entry.name === 'Johto')
-    const fallbackDestination = regionDestination || defaultDestination
-    const defaultFloor = requestedSource?.available_floors?.includes(0) ? 0 : fallbackDestination?.z
-    const requestedLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
-      ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, type: 'coordinate', id: 'requested' }
-      : pokemonLocation
-        ? { ...pokemonLocation, type: 'monster' }
-        : { ...(regionDestination || defaultDestination), z: defaultFloor, floor: defaultFloor, type: 'destination' }
+    const coordinateLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
+      ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, floor: requestedZ, type: 'coordinate', id: 'requested', region: 'Johto' }
+      : null
+    const requestedLocation = insideJohto(coordinateLocation) ? coordinateLocation : pokemonLocation
+
     if (requestedLocation) {
-      setSelectedLocation(requestedLocation)
-      setSelectedDestination(regionDestination?.name || nearestDestination(data.destinations, requestedLocation) || 'Johto')
-      navigateToLocation(requestedLocation, 1)
+      setSelectedLocation({ ...requestedLocation, type: requestedLocation.type || 'monster' })
+      navigateToLocation(requestedLocation, 1.15)
+    } else {
+      setFloor(JOHTO_DEFAULT_FLOOR)
+      setView(fitJohtoView(viewportSize))
     }
-  }, [data, mapSources, monsters, navigateToLocation, searchParams, viewportSize.width])
+  }, [data, johtoMonsters, navigateToLocation, searchParams, viewportSize])
 
   const visibleTiles = useMemo(() => {
-    if (renderFullMap || !viewportSize.width || !viewportSize.height) return []
-    const left = -view.x / view.scale
-    const top = -view.y / view.scale
-    const right = (viewportSize.width - view.x) / view.scale
-    const bottom = (viewportSize.height - view.y) / view.scale
+    if (!localTileHome || !viewportSize.width || !viewportSize.height) return []
+    const left = Math.max(JOHTO_BOUNDS.minX, -view.x / view.scale)
+    const top = Math.max(JOHTO_BOUNDS.minY, -view.y / view.scale)
+    const right = Math.min(JOHTO_BOUNDS.maxX, (viewportSize.width - view.x) / view.scale)
+    const bottom = Math.min(JOHTO_BOUNDS.maxY, (viewportSize.height - view.y) / view.scale)
+    const startX = Math.max(JOHTO_TILES.minX, Math.floor(left / TILE_SIZE) - 1)
+    const endX = Math.min(JOHTO_TILES.maxX, Math.ceil(right / TILE_SIZE) + 1)
+    const startY = Math.max(JOHTO_TILES.minY, Math.floor(top / TILE_SIZE) - 1)
+    const endY = Math.min(JOHTO_TILES.maxY, Math.ceil(bottom / TILE_SIZE) + 1)
     const tiles = []
-    for (let x = Math.floor(left / TILE_SIZE) - 1; x <= Math.ceil(right / TILE_SIZE) + 1; x += 1) {
-      for (let y = Math.floor(top / TILE_SIZE) - 1; y <= Math.ceil(bottom / TILE_SIZE) + 1; y += 1) {
-        const key = `${floor},${x},${y}`
-        if (!tileSet.has(key)) continue
-        const local = localTileHome && localTilePositionSet?.has(key)
-        tiles.push({ x, y, src: local ? `${localTileHome}/tile_${floor}_${x}_${y}.png` : `${data.metadata.cdn_home}/tile_${floor}_${x}_${y}.png` })
+
+    for (let tileX = startX; tileX <= endX; tileX += 1) {
+      for (let tileY = startY; tileY <= endY; tileY += 1) {
+        const key = `${floor},${tileX},${tileY}`
+        if (!localTilePositionSet.has(key)) continue
+        tiles.push({ tileX, tileY, src: `${localTileHome}/tile_${floor}_${tileX}_${tileY}.png` })
       }
     }
     return tiles
-  }, [data, floor, localTileHome, localTilePositionSet, renderFullMap, tileSet, view, viewportSize])
+  }, [floor, localTileHome, localTilePositionSet, view, viewportSize])
 
   const changeFloor = (direction) => {
     const index = availableFloors.indexOf(floor)
-    const nextIndex = Math.min(availableFloors.length - 1, Math.max(0, index + direction))
-    setFloor(availableFloors[nextIndex] ?? floor)
+    const nextFloor = availableFloors[clamp(index + direction, 0, availableFloors.length - 1)]
+    if (!Number.isFinite(nextFloor) || nextFloor === floor) return
+    setFloor(nextFloor)
+    setSelectedLocation(null)
   }
 
   const zoomAt = (factor, screenX = viewportSize.width / 2, screenY = viewportSize.height / 2) => {
@@ -287,47 +325,25 @@ export default function MapPage() {
       const scale = clamp(current.scale * factor, MIN_SCALE, MAX_SCALE)
       const worldX = (screenX - current.x) / current.scale
       const worldY = (screenY - current.y) / current.scale
-      return { scale, x: screenX - (worldX * scale), y: screenY - (worldY * scale) }
+      return constrainView({ scale, x: screenX - (worldX * scale), y: screenY - (worldY * scale) }, viewportSize)
     })
   }
 
   const selectLocation = (location) => {
     setSelectedLocation(location)
-    setSelectedDestination(nearestDestination(data.destinations, location) || selectedDestination)
     navigateToLocation(location)
-    const params = { x: String(location.x), y: String(location.y), z: String(location.z) }
+    const params = { region: 'Johto', x: String(location.x), y: String(location.y), z: String(locationFloor(location)) }
     if (location.type === 'monster') params.pokemon = location.name
     if (location.type === 'orb') params.orb = location.id
     setSearchParams(params, { replace: true })
-  }
-
-  const selectDestination = (name) => {
-    const destination = data.destinations.find((entry) => entry.name === name)
-    if (!destination) return
-    const source = mapSourceFor(name, mapSources)
-    const destinationFloor = source?.available_floors?.includes(0) ? 0 : destination.z
-    const destinationLocation = { ...destination, z: destinationFloor, floor: destinationFloor, type: 'destination', id: `destination:${name}`, region: name }
-    setSelectedDestination(name)
-    setSelectedLocation(destinationLocation)
-    setQuery('')
-    navigateToLocation(destinationLocation, 1)
-    setSearchParams({ region: name }, { replace: true })
   }
 
   const selectLayer = (layer) => {
     if (layer === activeLayer) return
     setActiveLayer(layer)
     setQuery('')
-    if (layer === 'orb' && !ORB_DESTINATIONS.has(selectedDestination)) {
-      selectDestination('Johto')
-      return
-    }
-    const destination = data.destinations.find((entry) => entry.name === selectedDestination)
-    if (destination) {
-      const source = mapSourceFor(destination.name, mapSources)
-      const destinationFloor = source?.available_floors?.includes(0) ? 0 : destination.z
-      setSelectedLocation({ ...destination, z: destinationFloor, floor: destinationFloor, type: 'destination', id: `destination:${destination.name}`, region: destination.name })
-    }
+    setSelectedLocation(null)
+    setSearchParams({ region: 'Johto' }, { replace: true })
   }
 
   const toggleCollectedOrb = (id) => {
@@ -349,7 +365,11 @@ export default function MapPage() {
   const handlePointerMove = (event) => {
     const drag = dragRef.current
     if (!drag || drag.pointerId !== event.pointerId) return
-    setView((current) => ({ ...current, x: drag.x + event.clientX - drag.startX, y: drag.y + event.clientY - drag.startY }))
+    setView((current) => constrainView({
+      ...current,
+      x: drag.x + event.clientX - drag.startX,
+      y: drag.y + event.clientY - drag.startY,
+    }, viewportSize))
   }
 
   const handlePointerUp = (event) => {
@@ -358,36 +378,40 @@ export default function MapPage() {
 
   const selectedPokemon = selectedLocation?.type === 'monster' ? pokemonByName.get(normalizedMapName(selectedLocation.name)) : null
   const selectedKey = selectedLocation ? locationKey(selectedLocation) : ''
+  const floorIndex = availableFloors.indexOf(floor)
+  const markersHiddenAtOverview = !normalizedQuery && view.scale < MARKER_MIN_SCALE && floorLocations.length > 0
 
-  if (loading) return <div className="map-state"><LoaderCircle className="spin" size={30} /><strong>Preparando o mapa</strong><span>Carregando tiles, Pokémon e orbs…</span></div>
+  if (loading) return <div className="map-state"><LoaderCircle className="spin" size={30} /><strong>Preparando Johto</strong><span>Carregando os tiles do minimap.otmm…</span></div>
   if (error || !data) return <div className="map-state error"><MapPin size={30} /><strong>Mapa indisponível</strong><span>{error?.message || 'A base do mapa não foi encontrada.'}</span></div>
+  if (!localTileHome || !localTilePositionSet.size) return <div className="map-state error"><MapPin size={30} /><strong>OTMM indisponível</strong><span>Os tiles locais de Johto não foram encontrados. O mapa antigo não será usado como fallback.</span></div>
 
   return (
     <div className="atlas-map-page">
       <aside className="atlas-map-sidebar">
         <header>
           <span className="eyebrow"><MapIcon size={14} />Exploração</span>
-          <h1>Mapa PXG</h1>
-          <p>Encontre Pokémon, acompanhe orbs e navegue pelas coordenadas do jogo.</p>
+          <h1>Mapa de Johto</h1>
+          <p>Navegue pelo mapa real do jogo, extraído diretamente do minimap.otmm.</p>
         </header>
 
         <label className="map-search-field">
-          <span>Buscar no mapa</span>
-          <div><Search size={15} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Pokémon, região ou coordenada" /></div>
+          <span>Buscar em Johto</span>
+          <div><Search size={15} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Pokémon, local ou coordenada" /></div>
         </label>
 
         <div className="map-layer-controls" role="group" aria-label="Camadas do mapa">
-          <button type="button" className={activeLayer === 'monster' ? 'active monster' : ''} aria-pressed={activeLayer === 'monster'} onClick={() => selectLayer('monster')}><MapPin size={14} />Pokémon<b>{monsterCount}</b></button>
-          <button type="button" className={activeLayer === 'orb' ? 'active orb' : 'orb'} aria-pressed={activeLayer === 'orb'} onClick={() => selectLayer('orb')}><Sparkles size={14} />Orbs<b>{ORB_DESTINATIONS.has(selectedDestination) ? orbCount : 0}</b></button>
+          <button type="button" className={activeLayer === 'monster' ? 'active monster' : ''} aria-pressed={activeLayer === 'monster'} onClick={() => selectLayer('monster')}><MapPin size={14} />Pokémon<b>{johtoMonsters.length}</b></button>
+          <button type="button" className={activeLayer === 'orb' ? 'active orb' : 'orb'} aria-pressed={activeLayer === 'orb'} onClick={() => selectLayer('orb')}><Sparkles size={14} />Orbs<b>{johtoOrbs.length}</b></button>
         </div>
 
-        <label className="map-destination-field">
-          <span>Ir para</span>
-          <select value={selectedDestination} onChange={(event) => selectDestination(event.target.value)}>{destinationOptions.map((destination) => <option key={destination.name}>{destination.name}</option>)}</select>
-        </label>
+        <div className="map-region-card">
+          <span><MapIcon size={16} /></span>
+          <div><small>Região ativa</small><strong>Johto</strong></div>
+          <b>OTMM</b>
+        </div>
 
         <div className="map-results-heading">
-          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados nesta região' : `posições nesta área · andar ${floor}`}</span></div>
+          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados em Johto' : `posições visíveis · andar ${floor}`}</span></div>
           {listLocations.length < resultCount && <small>Mostrando 120</small>}
         </div>
         <div className="map-results-list">
@@ -395,33 +419,29 @@ export default function MapPage() {
           {!listLocations.length && (
             <div className="map-results-empty">
               <Search size={19} />
-              <strong>{regionLocations.length ? 'Nenhum marcador encontrado' : `Sem dados de ${activeLayer === 'monster' ? 'Pokémon' : 'orbs'} em ${selectedDestination}`}</strong>
-              <span>{regionLocations.length
-                ? 'Tente outro termo, andar ou posição no mapa.'
-                : activeLayer === 'monster'
-                  ? 'O PXGMap ainda não publica posições de Pokémon para esta região. O mapa e os andares continuam disponíveis.'
-                  : 'A fonte publica orbs apenas em Johto e Mt Silver.'}</span>
+              <strong>Nenhum marcador encontrado</strong>
+              <span>Tente outro termo, andar ou posição dentro de Johto.</span>
             </div>
           )}
         </div>
 
         <footer>
-          <span>{data.metadata.counts.tiles.toLocaleString('pt-BR')} tiles · atualização {new Date(data.metadata.synced_at).toLocaleDateString('pt-BR')}</span>
-          <a href={activeMapSource?.source_home || data.metadata.source_home} target="_blank" rel="noreferrer">Dados do {activeMapSource ? 'PXGMap Brasil' : 'PXGMap'}<ExternalLink size={12} /></a>
+          <span>{johtoTileCount.toLocaleString('pt-BR')} tiles de Johto · {availableFloors.length} andares disponíveis</span>
+          <strong>Fonte visual: minimap.otmm</strong>
         </footer>
       </aside>
 
-      <section className="atlas-map-stage" aria-label={`Mapa do andar ${floor}`}>
+      <section className="atlas-map-stage" aria-label={`Mapa OTMM de Johto no andar ${floor}`}>
         <div className="map-coordinate-hud"><span>X <b>{Math.round((-view.x + viewportSize.width / 2) / view.scale).toLocaleString('pt-BR')}</b></span><span>Y <b>{Math.round((-view.y + viewportSize.height / 2) / view.scale).toLocaleString('pt-BR')}</b></span><span>Z <b>{floor}</b></span></div>
         <div className="map-zoom-controls" aria-label="Controles do mapa">
           <button type="button" onClick={() => zoomAt(1.35)} aria-label="Aumentar zoom"><Plus size={18} /></button>
           <button type="button" onClick={() => zoomAt(0.74)} aria-label="Diminuir zoom"><Minus size={18} /></button>
-          <button type="button" onClick={() => selectDestination('Johto')} aria-label="Centralizar em Johto"><RotateCcw size={16} /></button>
+          <button type="button" onClick={resetJohtoView} aria-label="Enquadrar Johto"><RotateCcw size={16} /></button>
         </div>
         <div className="map-floor-controls" aria-label="Controle de andar">
-          <button type="button" disabled={availableFloors.indexOf(floor) >= availableFloors.length - 1} onClick={() => changeFloor(1)}><ChevronUp size={16} /><span>Subir</span></button>
+          <button type="button" disabled={floorIndex <= 0} onClick={() => changeFloor(-1)}><ChevronUp size={16} /><span>Subir</span></button>
           <b>Z {floor}</b>
-          <button type="button" disabled={availableFloors.indexOf(floor) <= 0} onClick={() => changeFloor(-1)}><ChevronDown size={16} /><span>Descer</span></button>
+          <button type="button" disabled={floorIndex < 0 || floorIndex >= availableFloors.length - 1} onClick={() => changeFloor(1)}><ChevronDown size={16} /><span>Descer</span></button>
         </div>
 
         <div
@@ -438,22 +458,21 @@ export default function MapPage() {
           }}
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
-            {renderFullMap && (
-              <img
-                alt=""
-                className="atlas-map-image"
-                draggable={false}
-                height={activeMapSource.image_height}
-                referrerPolicy="no-referrer"
-                src={floor === 0 ? activeMapSource.image_url : activeMapSource.floor_image_template.replace('{floor}', String(floor))}
-                style={{ left: activeMapSource.world_origin[0], top: activeMapSource.world_origin[1] }}
-                width={activeMapSource.image_width}
-              />
-            )}
-            {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} referrerPolicy="no-referrer" width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.x * TILE_SIZE, top: tile.y * TILE_SIZE }} key={`${floor}-${tile.x}-${tile.y}`} />)}
+            <div
+              className="atlas-map-world"
+              style={{
+                left: JOHTO_BOUNDS.minX,
+                top: JOHTO_BOUNDS.minY,
+                width: JOHTO_BOUNDS.maxX - JOHTO_BOUNDS.minX,
+                height: JOHTO_BOUNDS.maxY - JOHTO_BOUNDS.minY,
+              }}
+            />
+            {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.tileX * TILE_SIZE, top: tile.tileY * TILE_SIZE }} key={`${floor}-${tile.tileX}-${tile.tileY}`} />)}
             {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
           </div>
         </div>
+
+        {markersHiddenAtOverview && <div className="map-layer-hint"><Search size={13} />Aproxime ou pesquise para exibir os marcadores</div>}
 
         {selectedLocation && (
           <div className={`map-selection ${selectedLocation.type}`}>

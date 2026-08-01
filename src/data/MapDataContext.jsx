@@ -2,6 +2,11 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 const MapDataContext = createContext(null)
 
+const REGION_SURFACE_FLOOR = {
+  kanto: 7,
+  johto: 6,
+}
+
 export function normalizedMapName(value) {
   return String(value || '')
     .normalize('NFD')
@@ -9,6 +14,24 @@ export function normalizedMapName(value) {
     .toLocaleLowerCase('pt-BR')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim()
+}
+
+function normalizeMonsterLocation(location, index) {
+  const sourceFloor = Number.isFinite(Number(location.floor))
+    ? Number(location.floor)
+    : Number(location.z) || 0
+  const surfaceFloor = REGION_SURFACE_FLOOR[normalizedMapName(location.region)]
+  const floor = location.source === 'pxgmap.com.br' && Number.isFinite(surfaceFloor)
+    ? surfaceFloor - sourceFloor
+    : sourceFloor
+
+  return {
+    ...location,
+    source_floor: sourceFloor,
+    z: floor,
+    floor,
+    map_uid: `monster:${index}`,
+  }
 }
 
 export function MapDataProvider({ children }) {
@@ -32,11 +55,7 @@ export function MapDataProvider({ children }) {
   }, [])
 
   const value = useMemo(() => {
-    const monsters = (state.data?.monsters ?? []).map((location, index) => ({
-      ...location,
-      floor: Number.isFinite(Number(location.floor)) ? Number(location.floor) : Number(location.z) || 0,
-      map_uid: `monster:${index}`,
-    }))
+    const monsters = (state.data?.monsters ?? []).map(normalizeMonsterLocation)
     const orbs = (state.data?.orbs ?? []).map((location, index) => ({ ...location, map_uid: `orb:${index}` }))
     const tilePositionSet = new Set((state.data?.tile_positions ?? []).map((position) => position.join(',')))
     const localTilePositionSet = new Set((state.data?.metadata?.local_tile_positions ?? []).map((position) => position.join(',')))
