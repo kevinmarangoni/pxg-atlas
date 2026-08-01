@@ -46,7 +46,10 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
 
   const mapSource = mapSourceFor(selectedLocation, mapSources)
   const floor = locationFloor(selectedLocation)
-  const tiles = mapSource ? [] : visibleTiles(selectedLocation, tilePositionSet, cdnHome)
+  const tiles = visibleTiles(selectedLocation, tilePositionSet, cdnHome)
+  // Keep the Pokémon-sheet preview on the original high-definition tiles. The
+  // full PXGMap image is only a fallback for regions without tile coverage.
+  const useFullMapFallback = tiles.length === 0 && Boolean(mapSource)
   const nearbyLocations = locations
     .map((location, index) => ({ location, index }))
     .filter(({ location }) => locationFloor(location) === floor
@@ -60,7 +63,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
     <div className="pokemon-map-explorer">
       <div className="pokemon-map-preview" role="group" aria-label={`Recorte do mapa para ${name} nas coordenadas ${selectedLocation.x}, ${selectedLocation.y}, andar ${selectedLocation.z}`}>
         <div className="pokemon-map-preview-canvas" style={{ '--preview-scale': PREVIEW_SCALE }}>
-          {mapSource && (
+          {useFullMapFallback && (
             <img
               alt=""
               className="pokemon-map-preview-image"
