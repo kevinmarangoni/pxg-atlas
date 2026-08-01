@@ -240,12 +240,7 @@ export default function TeamBuilderPage() {
 
   return (
     <div className="team-builder-page">
-      <section className="team-builder-hero">
-        <div>
-          <div className="eyebrow"><Sparkles size={14} />Planejador de hunt PvE</div>
-          <h1>Monte o time.<br /><span>Encontre a hunt certa.</span></h1>
-          <p>Configure Pokémon, boost, helds e clan. O Atlas cruza os elementos dos movimentos PvE com resistências e bônus oficiais.</p>
-        </div>
+      <section className="builder-toolbar">
         <div className="builder-global-controls">
           <label><span>Seu level</span><input type="number" min="1" max="999" value={team.playerLevel} onChange={(event) => setTeam({ ...team, playerLevel: Math.max(1, Number(event.target.value) || 1) })} /></label>
           <label><span>Seu clan</span><select value={team.clanName} onChange={(event) => setTeam({ ...team, clanName: event.target.value })}><option value="">Sem bônus</option>{(data.clans || []).map((clan) => <option key={clan.name} value={clan.name}>{clan.name}</option>)}</select></label>

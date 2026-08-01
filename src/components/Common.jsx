@@ -20,10 +20,6 @@ export function AppShell({ children, metadata }) {
           <NavLink to="/map"><Map size={14} />Mapa</NavLink>
           <NavLink to="/team-builder"><Swords size={14} />Montar time</NavLink>
         </nav>
-        <div className="topbar-meta">
-          <span className="status-dot" />
-          {metadata?.total_pokemon_records ? `${metadata.total_pokemon_records.toLocaleString('pt-BR')} Pokémon` : 'Carregando base'}
-        </div>
       </header>
       <main>{children}</main>
       <footer className="footer">

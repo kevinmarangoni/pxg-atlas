@@ -29,15 +29,16 @@ A rota `/#/map` reúne o mapa por andares, posições de Pokémon e orbs. É
 possível buscar um Pokémon, alternar camadas, navegar para regiões conhecidas,
 usar links com coordenadas e marcar orbs já coletadas no navegador.
 
-Os dados públicos do PXGMap ficam consolidados em
-`public/data/pxg_map.json`. Para atualizar essa base:
+Os dados públicos do PXGMap e os mapas estruturados autorizados do PXGMap Brasil
+ficam consolidados em `public/data/pxg_map.json`. Para atualizar essa base:
 
 ```bash
 yarn sync:pxgmap
 ```
 
-O comando atualiza coordenadas e o índice de tiles. As imagens do mapa e os
-sprites são carregados da fonte original durante o uso da aplicação.
+O comando atualiza coordenadas, respawns de Kanto e Johto, metadados de andares
+e o índice de tiles. As imagens do mapa e os sprites são carregados das fontes
+originais durante o uso da aplicação.
 
 ## Build de produção
 

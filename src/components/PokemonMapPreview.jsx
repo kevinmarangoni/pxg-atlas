@@ -4,6 +4,14 @@ import { Link } from 'react-router-dom'
 const TILE_SIZE = 256
 const PREVIEW_SCALE = 0.92
 
+function locationFloor(location) {
+  return Number.isFinite(Number(location?.floor)) ? Number(location.floor) : Number(location?.z) || 0
+}
+
+function mapSourceFor(location, mapSources) {
+  return mapSources?.[String(location?.region || '').trim().toLowerCase()] || null
+}
+
 function locationKey(location, index) {
   return `${location.x}-${location.y}-${location.z}-${index}`
 }
@@ -32,14 +40,16 @@ function visibleTiles(location, tilePositionSet, cdnHome) {
   return tiles
 }
 
-export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cdnHome, tilePositionSet }) {
+export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cdnHome, tilePositionSet, mapSources }) {
   const selectedLocation = locations[selectedIndex] || locations[0]
   if (!selectedLocation) return null
 
-  const tiles = visibleTiles(selectedLocation, tilePositionSet, cdnHome)
+  const mapSource = mapSourceFor(selectedLocation, mapSources)
+  const floor = locationFloor(selectedLocation)
+  const tiles = mapSource ? [] : visibleTiles(selectedLocation, tilePositionSet, cdnHome)
   const nearbyLocations = locations
     .map((location, index) => ({ location, index }))
-    .filter(({ location }) => location.z === selectedLocation.z
+    .filter(({ location }) => locationFloor(location) === floor
       && Math.abs(location.x - selectedLocation.x) <= 900
       && Math.abs(location.y - selectedLocation.y) <= 600)
   const mapUrl = `/map?pokemon=${encodeURIComponent(name)}&x=${selectedLocation.x}&y=${selectedLocation.y}&z=${selectedLocation.z}`
@@ -50,6 +60,18 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
     <div className="pokemon-map-explorer">
       <div className="pokemon-map-preview" role="group" aria-label={`Recorte do mapa para ${name} nas coordenadas ${selectedLocation.x}, ${selectedLocation.y}, andar ${selectedLocation.z}`}>
         <div className="pokemon-map-preview-canvas" style={{ '--preview-scale': PREVIEW_SCALE }}>
+          {mapSource && (
+            <img
+              alt=""
+              className="pokemon-map-preview-image"
+              draggable={false}
+              height={mapSource.image_height}
+              referrerPolicy="no-referrer"
+              src={floor === 0 ? mapSource.image_url : mapSource.floor_image_template.replace('{floor}', String(floor))}
+              style={{ left: mapSource.world_origin[0] - selectedLocation.x, top: mapSource.world_origin[1] - selectedLocation.y }}
+              width={mapSource.image_width}
+            />
+          )}
           {tiles.map((tile) => (
             <img
               alt=""
@@ -83,7 +105,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
           })}
         </div>
 
-        <span className="pokemon-map-region">{selectedLocation.region || 'Região não informada'} · Andar {selectedLocation.z}</span>
+        <span className="pokemon-map-region">{selectedLocation.region || 'Região não informada'} · Andar {floor}</span>
         {locations.length > 1 && (
           <div className="pokemon-map-navigation" aria-label="Navegar pelas posições mapeadas">
             <button type="button" onClick={selectPrevious} aria-label="Posição anterior"><ChevronLeft size={16} /></button>
@@ -98,7 +120,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
         <div>
           <small>Coordenadas selecionadas</small>
           <strong>{selectedLocation.x.toLocaleString('pt-BR')}, {selectedLocation.y.toLocaleString('pt-BR')}, {selectedLocation.z}</strong>
-          <p>{selectedLocation.comment || `${selectedLocation.region || 'Localização'} · andar ${selectedLocation.z}`}</p>
+          <p>{selectedLocation.comment || `${selectedLocation.region || 'Localização'} · andar ${floor}`}</p>
         </div>
         <Link to={mapUrl}>Abrir no mapa <ExternalLink size={13} /></Link>
       </div>

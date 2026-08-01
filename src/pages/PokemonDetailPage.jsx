@@ -25,6 +25,7 @@ import { Link, useParams } from 'react-router-dom'
 import { BackLink, ElementBadge, PokemonImage, RoleBadge, SourceLink } from '../components/Common'
 import { PokemonMapPreview } from '../components/PokemonMapPreview'
 import { PokemonModelViewer } from '../components/PokemonModelViewer'
+import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import {
@@ -624,7 +625,7 @@ function EffectivenessSection({ name, effectiveness }) {
   )
 }
 
-function MapLocationsSection({ name, locations, cdnHome, tilePositionSet }) {
+function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, mapSources }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   useEffect(() => setSelectedIndex(0), [name])
@@ -643,12 +644,13 @@ function MapLocationsSection({ name, locations, cdnHome, tilePositionSet }) {
         onSelect={setSelectedIndex}
         selectedIndex={selectedIndex}
         tilePositionSet={tilePositionSet}
+        mapSources={mapSources}
       />
       <div className="pokemon-location-grid">
         {locations.slice(0, 8).map((location, index) => (
           <button type="button" className={selectedIndex === index ? 'selected' : ''} aria-pressed={selectedIndex === index} onClick={() => setSelectedIndex(index)} key={`${location.x}-${location.y}-${location.z}-${index}`}>
             <span><MapPin size={15} /></span>
-            <div><small>{location.region} · Andar {location.z}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
+            <div><small>{location.region} · Andar {location.floor ?? location.z}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
             <ChevronRight size={14} />
           </button>
         ))}
@@ -844,6 +846,7 @@ export default function PokemonDetailPage() {
   const hasTasks = taskOccurrences.length > 0
   const sectionLinks = [
     { id: 'overview', label: 'Resumo' },
+    info.boost && { id: 'boost-cost', label: 'Custo de boost' },
     mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapLocations.length})` },
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
@@ -904,7 +907,9 @@ export default function PokemonDetailPage() {
         <div className="detail-main">
           <DecisionOverview pokemon={entry} roleCatalog={roleCatalog} captureBallCatalog={captureBallCatalog} />
 
-          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} />
+          <BoostCalculator boost={info.boost} matter={info.matter} />
+
+          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} mapSources={mapData?.map_sources} />
 
           <CaptureSection pokemon={entry} catalog={captureBallCatalog} metadata={data?.metadata?.capture_enrichment} />
 

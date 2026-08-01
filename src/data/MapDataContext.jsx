@@ -32,7 +32,11 @@ export function MapDataProvider({ children }) {
   }, [])
 
   const value = useMemo(() => {
-    const monsters = (state.data?.monsters ?? []).map((location, index) => ({ ...location, map_uid: `monster:${index}` }))
+    const monsters = (state.data?.monsters ?? []).map((location, index) => ({
+      ...location,
+      floor: Number.isFinite(Number(location.floor)) ? Number(location.floor) : Number(location.z) || 0,
+      map_uid: `monster:${index}`,
+    }))
     const orbs = (state.data?.orbs ?? []).map((location, index) => ({ ...location, map_uid: `orb:${index}` }))
     const tilePositionSet = new Set((state.data?.tile_positions ?? []).map((position) => position.join(',')))
     const byPokemonName = new Map()
@@ -42,7 +46,7 @@ export function MapDataProvider({ children }) {
       locations.push(location)
       byPokemonName.set(key, locations)
     }
-    return { ...state, monsters, orbs, byPokemonName, tilePositionSet }
+    return { ...state, monsters, orbs, byPokemonName, tilePositionSet, mapSources: state.data?.map_sources ?? {} }
   }, [state])
 
   return <MapDataContext.Provider value={value}>{children}</MapDataContext.Provider>

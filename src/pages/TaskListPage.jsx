@@ -1,4 +1,4 @@
-import { ArrowDownAZ, ClipboardList, MapPinned, SearchX, Sparkles, Target, X } from 'lucide-react'
+import { ArrowDownAZ, ClipboardList, MapPinned, SearchX, Sparkles, Target } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import TaskCard from '../components/TaskCard'
@@ -72,13 +72,6 @@ export default function TaskListPage() {
           <div><Target size={18} /><span><strong>{(taskMeta?.matched_pokemon_target_labels ?? 0).toLocaleString('pt-BR')}</strong>alvos vinculados</span></div>
         </div>
       </section>
-
-      {selectedTaskId && (
-        <div className="selected-task-notice">
-          <span><ClipboardList size={16} />Exibindo a task relacionada ao Pokémon selecionado.</span>
-          <button type="button" onClick={() => setSearchParams({}, { replace: true })}><X size={15} />Ver todas</button>
-        </div>
-      )}
 
       <div className="tasks-layout">
         <TaskFilterPanel filters={filters} options={options} locations={locations} onChange={updateFilters} onReset={resetFilters} />

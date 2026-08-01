@@ -21,8 +21,7 @@ import { displayName, pokemonPath } from '../lib/pokemon'
 const TILE_SIZE = 256
 const MIN_SCALE = 0.4
 const MAX_SCALE = 3
-const MIN_FLOOR = 0
-const MAX_FLOOR = 14
+const LEGACY_FLOORS = Array.from({ length: 16 }, (_, index) => index)
 const ORB_STORAGE_KEY = 'pxg-atlas:collected-orbs'
 const ORB_DESTINATIONS = new Set(['Johto', 'Mt Silver'])
 
@@ -65,6 +64,14 @@ function coordinates(location) {
   return `${location.x.toLocaleString('pt-BR')}, ${location.y.toLocaleString('pt-BR')}, ${location.z}`
 }
 
+function locationFloor(location) {
+  return Number.isFinite(Number(location?.floor)) ? Number(location.floor) : Number(location?.z) || 0
+}
+
+function mapSourceFor(destination, mapSources) {
+  return mapSources?.[String(destination || '').trim().toLowerCase()] || null
+}
+
 function MapMarker({ location, scale, selected, collected, onSelect }) {
   const [imageFailed, setImageFailed] = useState(false)
   const isMonster = location.type === 'monster'
@@ -101,13 +108,13 @@ function LocationListItem({ location, selected, collected, onSelect }) {
 }
 
 export default function MapPage() {
-  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet } = useMapData()
+  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet, mapSources } = useMapData()
   const { pokemon } = usePokemonData()
   const [searchParams, setSearchParams] = useSearchParams()
   const initialPokemon = searchParams.get('pokemon') || ''
   const [query, setQuery] = useState(initialPokemon)
   const [activeLayer, setActiveLayer] = useState('monster')
-  const [floor, setFloor] = useState(6)
+  const [floor, setFloor] = useState(0)
   const [selectedDestination, setSelectedDestination] = useState('Johto')
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [view, setView] = useState({ scale: 1, x: 0, y: 0 })
@@ -129,6 +136,8 @@ export default function MapPage() {
     () => (data?.destinations || []).filter((destination) => activeLayer === 'monster' || ORB_DESTINATIONS.has(destination.name)),
     [activeLayer, data],
   )
+  const activeMapSource = useMemo(() => mapSourceFor(selectedDestination, mapSources), [mapSources, selectedDestination])
+  const availableFloors = useMemo(() => activeMapSource?.available_floors || LEGACY_FLOORS, [activeMapSource])
   const monsterCount = useMemo(
     () => monsters.filter((location) => locationBelongsToDestination(location, selectedDestination, 'monster')).length,
     [monsters, selectedDestination],
@@ -149,7 +158,7 @@ export default function MapPage() {
     [normalizedQuery, regionLocations],
   )
   const floorLocations = useMemo(
-    () => matchingLocations.filter((location) => location.z === floor),
+    () => matchingLocations.filter((location) => locationFloor(location) === floor),
     [floor, matchingLocations],
   )
   const visibleFloorLocations = useMemo(() => {
@@ -169,17 +178,21 @@ export default function MapPage() {
   const markerLocations = useMemo(() => {
     if (activeLayer === 'orb') {
       const selectedAnchor = selectedLocation
-        && selectedLocation.z === floor
+        && locationFloor(selectedLocation) === floor
         && ['destination', 'coordinate'].includes(selectedLocation.type)
         ? selectedLocation
         : null
       return selectedAnchor ? [...visibleFloorLocations, selectedAnchor] : visibleFloorLocations
     }
-    if (selectedLocation && selectedLocation.z === floor && ['monster', 'destination', 'coordinate'].includes(selectedLocation.type)) {
+    if (selectedLocation && locationFloor(selectedLocation) === floor && ['monster', 'destination', 'coordinate'].includes(selectedLocation.type)) {
       return [selectedLocation]
     }
     return []
   }, [activeLayer, floor, selectedLocation, visibleFloorLocations])
+
+  useEffect(() => {
+    if (!availableFloors.includes(floor)) setFloor(availableFloors.includes(0) ? 0 : availableFloors[0])
+  }, [availableFloors, floor])
 
   useEffect(() => {
     try { localStorage.setItem(ORB_STORAGE_KEY, JSON.stringify([...collectedOrbs])) } catch { /* storage is optional */ }
@@ -201,7 +214,7 @@ export default function MapPage() {
   const navigateToLocation = useCallback((location, preferredScale) => {
     if (!location || !viewportSize.width || !viewportSize.height) return
     const scale = clamp(preferredScale ?? Math.max(view.scale, 0.8), MIN_SCALE, MAX_SCALE)
-    setFloor(location.z)
+    setFloor(locationFloor(location))
     setView({
       scale,
       x: (viewportSize.width / 2) - (location.x * scale),
@@ -227,20 +240,24 @@ export default function MapPage() {
       ? monsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
       : null
     const regionDestination = data.destinations?.find((entry) => entry.name === requestedRegion)
+    const requestedSource = mapSourceFor(requestedRegion || 'Johto', mapSources)
+    const defaultDestination = data.destinations?.find((entry) => entry.name === 'Johto')
+    const fallbackDestination = regionDestination || defaultDestination
+    const defaultFloor = requestedSource?.available_floors?.includes(0) ? 0 : fallbackDestination?.z
     const requestedLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
       ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, type: 'coordinate', id: 'requested' }
       : pokemonLocation
         ? { ...pokemonLocation, type: 'monster' }
-        : { ...(regionDestination || data.destinations?.find((entry) => entry.name === 'Johto')), type: 'destination' }
+        : { ...(regionDestination || defaultDestination), z: defaultFloor, floor: defaultFloor, type: 'destination' }
     if (requestedLocation) {
       setSelectedLocation(requestedLocation)
       setSelectedDestination(regionDestination?.name || nearestDestination(data.destinations, requestedLocation) || 'Johto')
       navigateToLocation(requestedLocation, 1)
     }
-  }, [data, monsters, navigateToLocation, searchParams, viewportSize.width])
+  }, [data, mapSources, monsters, navigateToLocation, searchParams, viewportSize.width])
 
   const visibleTiles = useMemo(() => {
-    if (!viewportSize.width || !viewportSize.height) return []
+    if (activeMapSource || !viewportSize.width || !viewportSize.height) return []
     const left = -view.x / view.scale
     const top = -view.y / view.scale
     const right = (viewportSize.width - view.x) / view.scale
@@ -253,7 +270,13 @@ export default function MapPage() {
       }
     }
     return tiles
-  }, [data, floor, tileSet, view, viewportSize])
+  }, [activeMapSource, data, floor, tileSet, view, viewportSize])
+
+  const changeFloor = (direction) => {
+    const index = availableFloors.indexOf(floor)
+    const nextIndex = Math.min(availableFloors.length - 1, Math.max(0, index + direction))
+    setFloor(availableFloors[nextIndex] ?? floor)
+  }
 
   const zoomAt = (factor, screenX = viewportSize.width / 2, screenY = viewportSize.height / 2) => {
     setView((current) => {
@@ -277,7 +300,9 @@ export default function MapPage() {
   const selectDestination = (name) => {
     const destination = data.destinations.find((entry) => entry.name === name)
     if (!destination) return
-    const destinationLocation = { ...destination, type: 'destination', id: `destination:${name}`, region: name }
+    const source = mapSourceFor(name, mapSources)
+    const destinationFloor = source?.available_floors?.includes(0) ? 0 : destination.z
+    const destinationLocation = { ...destination, z: destinationFloor, floor: destinationFloor, type: 'destination', id: `destination:${name}`, region: name }
     setSelectedDestination(name)
     setSelectedLocation(destinationLocation)
     setQuery('')
@@ -294,7 +319,11 @@ export default function MapPage() {
       return
     }
     const destination = data.destinations.find((entry) => entry.name === selectedDestination)
-    if (destination) setSelectedLocation({ ...destination, type: 'destination', id: `destination:${destination.name}`, region: destination.name })
+    if (destination) {
+      const source = mapSourceFor(destination.name, mapSources)
+      const destinationFloor = source?.available_floors?.includes(0) ? 0 : destination.z
+      setSelectedLocation({ ...destination, z: destinationFloor, floor: destinationFloor, type: 'destination', id: `destination:${destination.name}`, region: destination.name })
+    }
   }
 
   const toggleCollectedOrb = (id) => {
@@ -374,7 +403,7 @@ export default function MapPage() {
 
         <footer>
           <span>{data.metadata.counts.tiles.toLocaleString('pt-BR')} tiles · atualização {new Date(data.metadata.synced_at).toLocaleDateString('pt-BR')}</span>
-          <a href={data.metadata.source_home} target="_blank" rel="noreferrer">Dados do PXGMap<ExternalLink size={12} /></a>
+          <a href={activeMapSource?.source_home || data.metadata.source_home} target="_blank" rel="noreferrer">Dados do {activeMapSource ? 'PXGMap Brasil' : 'PXGMap'}<ExternalLink size={12} /></a>
         </footer>
       </aside>
 
@@ -386,9 +415,9 @@ export default function MapPage() {
           <button type="button" onClick={() => selectDestination('Johto')} aria-label="Centralizar em Johto"><RotateCcw size={16} /></button>
         </div>
         <div className="map-floor-controls" aria-label="Controle de andar">
-          <button type="button" disabled={floor <= MIN_FLOOR} onClick={() => setFloor((value) => Math.max(MIN_FLOOR, value - 1))}><ChevronUp size={16} /><span>Subir</span></button>
+          <button type="button" disabled={availableFloors.indexOf(floor) >= availableFloors.length - 1} onClick={() => changeFloor(1)}><ChevronUp size={16} /><span>Subir</span></button>
           <b>Z {floor}</b>
-          <button type="button" disabled={floor >= MAX_FLOOR} onClick={() => setFloor((value) => Math.min(MAX_FLOOR, value + 1))}><ChevronDown size={16} /><span>Descer</span></button>
+          <button type="button" disabled={availableFloors.indexOf(floor) <= 0} onClick={() => changeFloor(-1)}><ChevronDown size={16} /><span>Descer</span></button>
         </div>
 
         <div
@@ -405,6 +434,18 @@ export default function MapPage() {
           }}
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
+            {activeMapSource && (
+              <img
+                alt=""
+                className="atlas-map-image"
+                draggable={false}
+                height={activeMapSource.image_height}
+                referrerPolicy="no-referrer"
+                src={floor === 0 ? activeMapSource.image_url : activeMapSource.floor_image_template.replace('{floor}', String(floor))}
+                style={{ left: activeMapSource.world_origin[0], top: activeMapSource.world_origin[1] }}
+                width={activeMapSource.image_width}
+              />
+            )}
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} referrerPolicy="no-referrer" width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.x * TILE_SIZE, top: tile.y * TILE_SIZE }} key={`${floor}-${tile.x}-${tile.y}`} />)}
             {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
           </div>
