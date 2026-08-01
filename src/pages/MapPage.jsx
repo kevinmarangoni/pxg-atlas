@@ -21,7 +21,6 @@ import { ELEMENT_COLORS, displayName, normalizedElement, pokemonElements, pokemo
 const TILE_SIZE = 256
 const MIN_SCALE = 0.12
 const MAX_SCALE = 4
-const MARKER_MIN_SCALE = 0.68
 const MAX_RENDERED_MARKERS = 160
 const ORB_STORAGE_KEY = 'pxg-atlas:collected-orbs'
 const JOHTO_DEFAULT_FLOOR = 6
@@ -77,31 +76,16 @@ function pokemonLevel(pokemon) {
   return pokemon ? primaryLevel(pokemon) : null
 }
 
-function pokemonTooltipText(pokemon) {
-  if (!pokemon) return ''
-  const elements = pokemonElements(pokemon)
-  const strong = effectivenessElements(pokemon, 'very_effective')
-  const weak = effectivenessElements(pokemon, 'very_ineffective')
-  return [
-    `${displayName(pokemon)}${primaryLevel(pokemon) ? ` · Level ${primaryLevel(pokemon)}` : ''}`,
-    elements.length ? `Tipos: ${elements.join(', ')}` : null,
-    strong.length ? `Fortes contra ele: ${strong.join(', ')}` : null,
-    weak.length ? `Fracos contra ele: ${weak.join(', ')}` : null,
-  ].filter(Boolean).join(' · ')
-}
-
-function PokemonInfoTooltip({ pokemon }) {
-  if (!pokemon) return null
+function PokemonElementSummary({ pokemon }) {
   const elements = pokemonElements(pokemon)
   const strong = effectivenessElements(pokemon, 'very_effective')
   const weak = effectivenessElements(pokemon, 'very_ineffective')
   return (
-    <span className="map-pokemon-tooltip" role="tooltip">
-      <strong>{displayName(pokemon)}</strong>
-      <span><small>Tipos</small><div>{elements.length ? elements.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
-      <span><small>Fortes contra ele</small><div>{strong.length ? strong.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
-      <span><small>Fracos contra ele</small><div>{weak.length ? weak.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
-    </span>
+    <div className="map-selection-pokemon-details">
+      <span><small>Tipos do Pokémon</small><div>{elements.length ? elements.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+      <span><small>Elementos fortes contra ele</small><div>{strong.length ? strong.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+      <span><small>Elementos fracos contra ele</small><div>{weak.length ? weak.map((element) => <ElementBadge key={element} element={element} compact />) : <em>Não informado</em>}</div></span>
+    </div>
   )
 }
 
@@ -191,23 +175,27 @@ function fitJohtoView(viewport) {
   }, viewport)
 }
 
-function MapMarker({ location, scale, selected, collected, onSelect, pokemonEntry }) {
+function MapMarker({ location, scale, selected, collected, onSelect, pokemonEntry, activeFloor }) {
   const [imageFailed, setImageFailed] = useState(false)
   const isMonster = location.type === 'monster'
+  const markerFloor = locationFloor(location)
+  const floorRelation = isMonster && markerFloor !== activeFloor
+    ? markerFloor < activeFloor ? 'upper' : 'lower'
+    : ''
   return (
     <button
       type="button"
-      className={`atlas-map-marker ${location.type} ${selected ? 'selected' : ''} ${collected ? 'collected' : ''}`}
+      className={`atlas-map-marker ${location.type} ${floorRelation ? `wrong-floor ${floorRelation}` : ''} ${selected ? 'selected' : ''} ${collected ? 'collected' : ''}`}
       style={{ left: location.x, top: location.y, '--marker-scale': 1 / scale }}
       aria-label={`${location.name}${pokemonEntry && primaryLevel(pokemonEntry) ? `, Level ${primaryLevel(pokemonEntry)}` : ''}, coordenadas ${coordinates(location)}`}
-      title={isMonster ? pokemonTooltipText(pokemonEntry) : `${location.name}, coordenadas ${coordinates(location)}`}
       onPointerDown={(event) => event.stopPropagation()}
       onClick={() => onSelect(location)}
     >
       {isMonster && location.sprite_url && !imageFailed
         ? <img src={location.sprite_url} alt="" loading="lazy" draggable={false} referrerPolicy="no-referrer" onError={() => setImageFailed(true)} />
         : location.type === 'orb' ? <Sparkles size={17} /> : <MapPin size={17} />}
-      <span>{location.name}{pokemonEntry && primaryLevel(pokemonEntry) ? ` · Lv. ${primaryLevel(pokemonEntry)}` : ''}</span>
+      <span className="atlas-map-marker-label">{location.name}{pokemonEntry && primaryLevel(pokemonEntry) ? ` · Lv. ${primaryLevel(pokemonEntry)}` : ''}</span>
+      {floorRelation && <span className={`atlas-map-marker-floor-indicator ${floorRelation}`} aria-label={floorRelation === 'upper' ? `Pokémon no andar ${markerFloor}, suba` : `Pokémon no andar ${markerFloor}, desça`}>{floorRelation === 'upper' ? <ChevronUp size={13} /> : <ChevronDown size={13} />}</span>}
     </button>
   )
 }
@@ -238,7 +226,7 @@ function PokemonLocationGroupItem({ group, selectedKey, onSelect, pokemonEntry }
   return (
     <div className={`map-result-group ${selected ? 'selected' : ''}`}>
       <div className="map-result-group-header">
-        <button type="button" className={`map-result-item map-result-pokemon ${selected ? 'selected' : ''}`} onClick={() => onSelect(firstLocation)} title={pokemonTooltipText(pokemonEntry)}>
+        <button type="button" className={`map-result-item map-result-pokemon ${selected ? 'selected' : ''}`} onClick={() => onSelect(firstLocation)}>
           <span className="map-result-art monster">
             {firstLocation.sprite_url && !imageFailed
               ? <img src={firstLocation.sprite_url} alt="" loading="lazy" referrerPolicy="no-referrer" onError={() => setImageFailed(true)} />
@@ -250,7 +238,6 @@ function PokemonLocationGroupItem({ group, selectedKey, onSelect, pokemonEntry }
             <small className="map-result-location-count">{group.locations.length} {group.locations.length === 1 ? 'localização' : 'localizações'}</small>
           </span>
           <Target size={14} />
-          <PokemonInfoTooltip pokemon={pokemonEntry} />
         </button>
         {group.locations.length > 1 && (
           <button type="button" className="map-result-dropdown-toggle" aria-label={`${expanded ? 'Ocultar' : 'Mostrar'} localizações de ${group.name}`} aria-expanded={expanded} onClick={() => setExpanded((current) => !current)}>
@@ -386,6 +373,17 @@ export default function MapPage() {
     const bottom = ((viewportSize.height - view.y) / view.scale) + padding
     return floorLocations.filter((location) => location.x >= left && location.x <= right && location.y >= top && location.y <= bottom)
   }, [floorLocations, view, viewportSize])
+  const visibleMapLocations = useMemo(() => {
+    if (!viewportSize.width || !viewportSize.height) return []
+    const padding = 30 / view.scale
+    const left = (-view.x / view.scale) - padding
+    const top = (-view.y / view.scale) - padding
+    const right = ((viewportSize.width - view.x) / view.scale) + padding
+    const bottom = ((viewportSize.height - view.y) / view.scale) + padding
+    const source = activeLayer === 'monster' ? matchingLocations : floorLocations
+    return source.filter((location) => location.type !== 'place'
+      && location.x >= left && location.x <= right && location.y >= top && location.y <= bottom)
+  }, [activeLayer, floorLocations, matchingLocations, view, viewportSize])
   const listSourceLocations = normalizedQuery ? matchingLocations : activeLayer === 'monster' ? floorLocations : visibleFloorLocations
   const listEntries = useMemo(() => {
     if (activeLayer !== 'monster') return listSourceLocations
@@ -398,15 +396,13 @@ export default function MapPage() {
   const listLocations = listEntries.slice(0, 120)
   const resultCount = listEntries.length
   const markerLocations = useMemo(() => {
-    const markers = normalizedQuery || view.scale >= MARKER_MIN_SCALE
-      ? visibleFloorLocations.filter((location) => location.type !== 'place').slice(0, MAX_RENDERED_MARKERS)
-      : []
-    if (selectedLocation?.type !== 'place' && selectedLocation && locationFloor(selectedLocation) === floor && floorLocations.some((location) => locationKey(location) === locationKey(selectedLocation))) {
+    const markers = visibleMapLocations.slice(0, MAX_RENDERED_MARKERS)
+    if (selectedLocation?.type !== 'place' && selectedLocation && matchingLocations.some((location) => locationKey(location) === locationKey(selectedLocation))) {
       const selectedKey = locationKey(selectedLocation)
       if (!markers.some((location) => locationKey(location) === selectedKey)) return [...markers, selectedLocation]
     }
     return markers
-  }, [floor, floorLocations, normalizedQuery, selectedLocation, view.scale, visibleFloorLocations])
+  }, [matchingLocations, selectedLocation, visibleMapLocations])
   const visiblePlaces = useMemo(() => {
     if (floor !== JOHTO_DEFAULT_FLOOR) return []
     return johtoPlaces.filter((place) => place.task_count >= 3 || view.scale >= 0.62 || selectedLocation?.map_uid === place.map_uid)
@@ -538,6 +534,14 @@ export default function MapPage() {
     })
   }
 
+  const handleMapWheel = (event) => {
+    event.preventDefault()
+    const viewport = viewportRef.current
+    if (!viewport) return
+    const rect = viewport.getBoundingClientRect()
+    zoomAt(event.deltaY < 0 ? 1.12 : 0.89, event.clientX - rect.left, event.clientY - rect.top)
+  }
+
   const selectLocation = (location) => {
     setSelectedLocation(location)
     navigateToLocation(location)
@@ -590,8 +594,6 @@ export default function MapPage() {
   const selectedPokemon = selectedLocation?.type === 'monster' ? pokemonByName.get(normalizedMapName(selectedLocation.name)) : null
   const selectedKey = selectedLocation ? locationKey(selectedLocation) : ''
   const floorIndex = availableFloors.indexOf(floor)
-  const markersHiddenAtOverview = !normalizedQuery && view.scale < MARKER_MIN_SCALE && floorLocations.length > 0
-
   if (loading) return <div className="map-state"><LoaderCircle className="spin" size={30} /><strong>Preparando Johto</strong><span>Carregando os tiles do minimap.otmm…</span></div>
   if (error || !data) return <div className="map-state error"><MapPin size={30} /><strong>Mapa indisponível</strong><span>{error?.message || 'A base do mapa não foi encontrada.'}</span></div>
   if (!localTileHome || !localTilePositionSet.size) return <div className="map-state error"><MapPin size={30} /><strong>OTMM indisponível</strong><span>Os tiles locais de Johto não foram encontrados. O mapa antigo não será usado como fallback.</span></div>
@@ -653,7 +655,7 @@ export default function MapPage() {
         </footer>
       </aside>
 
-      <section className="atlas-map-stage" aria-label={`Mapa OTMM de Johto no andar ${floor}`}>
+      <section className="atlas-map-stage" aria-label={`Mapa OTMM de Johto no andar ${floor}`} onWheelCapture={handleMapWheel}>
         <div className="map-coordinate-hud"><span>X <b>{Math.round((-view.x + viewportSize.width / 2) / view.scale).toLocaleString('pt-BR')}</b></span><span>Y <b>{Math.round((-view.y + viewportSize.height / 2) / view.scale).toLocaleString('pt-BR')}</b></span><span>Z <b>{floor}</b></span></div>
         <div className="map-zoom-controls" aria-label="Controles do mapa">
           <button type="button" onClick={() => zoomAt(1.35)} aria-label="Aumentar zoom"><Plus size={18} /></button>
@@ -673,11 +675,6 @@ export default function MapPage() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
-          onWheel={(event) => {
-            event.preventDefault()
-            const rect = event.currentTarget.getBoundingClientRect()
-            zoomAt(event.deltaY < 0 ? 1.12 : 0.89, event.clientX - rect.left, event.clientY - rect.top)
-          }}
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
             <div
@@ -691,11 +688,9 @@ export default function MapPage() {
             />
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.tileX * TILE_SIZE, top: tile.tileY * TILE_SIZE }} key={`${floor}-${tile.tileX}-${tile.tileY}`} />)}
             {visiblePlaces.map((place) => <PlaceLabel key={place.map_uid} place={place} scale={view.scale} selected={selectedKey === place.map_uid} onSelect={selectLocation} />)}
-            {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} pokemonEntry={location.type === 'monster' ? pokemonByName.get(normalizedMapName(location.name)) : null} />)}
+            {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} activeFloor={floor} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} pokemonEntry={location.type === 'monster' ? pokemonByName.get(normalizedMapName(location.name)) : null} />)}
           </div>
         </div>
-
-        {markersHiddenAtOverview && <div className="map-layer-hint"><Search size={13} />Aproxime ou pesquise para exibir os marcadores</div>}
 
         {selectedLocation && (
           <div className={`map-selection ${selectedLocation.type}`}>
@@ -703,6 +698,7 @@ export default function MapPage() {
             <div><small>{selectedLocation.region || 'Coordenada selecionada'}</small><strong>{selectedLocation.name}</strong><span>{coordinates(selectedLocation)}{selectedLocation.comment ? ` · ${selectedLocation.comment}` : ''}</span></div>
             {selectedLocation.type === 'orb' && <button type="button" className={collectedOrbs.has(String(selectedLocation.id)) ? 'collected' : ''} onClick={() => toggleCollectedOrb(selectedLocation.id)}>{collectedOrbs.has(String(selectedLocation.id)) ? 'Coletada' : 'Marcar coletada'}</button>}
             {selectedPokemon && <Link to={pokemonPath(selectedPokemon)}>Abrir ficha</Link>}
+            {selectedPokemon && <PokemonElementSummary pokemon={selectedPokemon} />}
           </div>
         )}
       </section>
