@@ -32,8 +32,8 @@ export function MapDataProvider({ children }) {
   }, [])
 
   const value = useMemo(() => {
-    const monsters = state.data?.monsters ?? []
-    const orbs = state.data?.orbs ?? []
+    const monsters = (state.data?.monsters ?? []).map((location, index) => ({ ...location, map_uid: `monster:${index}` }))
+    const orbs = (state.data?.orbs ?? []).map((location, index) => ({ ...location, map_uid: `orb:${index}` }))
     const tilePositionSet = new Set((state.data?.tile_positions ?? []).map((position) => position.join(',')))
     const byPokemonName = new Map()
     for (const location of monsters) {

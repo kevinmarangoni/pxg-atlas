@@ -844,11 +844,11 @@ export default function PokemonDetailPage() {
   const hasTasks = taskOccurrences.length > 0
   const sectionLinks = [
     { id: 'overview', label: 'Resumo' },
+    mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapLocations.length})` },
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
     hasEffectiveness && { id: 'effectiveness', label: 'Efetividades' },
     hasEffectiveness && { id: 'counters', label: 'Indicações' },
-    mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapLocations.length})` },
     hasMoves && { id: 'moves', label: 'Movimentos' },
     hasPokelog && { id: 'pokelog', label: 'Pokélog' },
     hasTasks && { id: 'tasks', label: `Tasks (${new Set(taskOccurrences.map((occurrence) => occurrence.task_id)).size})` },
@@ -904,6 +904,8 @@ export default function PokemonDetailPage() {
         <div className="detail-main">
           <DecisionOverview pokemon={entry} roleCatalog={roleCatalog} captureBallCatalog={captureBallCatalog} />
 
+          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} />
+
           <CaptureSection pokemon={entry} catalog={captureBallCatalog} metadata={data?.metadata?.capture_enrichment} />
 
           <Section id="combat" title="Clans e funções" icon={<Swords size={18} />} description="Cada card preserva a classificação e a disponibilidade publicadas para PvE e PvP.">
@@ -917,8 +919,6 @@ export default function PokemonDetailPage() {
           <EffectivenessSection name={name} effectiveness={entry.effectiveness} />
 
           {hasEffectiveness && <CounterRecommendationsSection key={entry.source_url} target={entry} pokemon={pokemon} />}
-
-          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} />
 
           <MovesSection key={entry.source_url} moves={entry.moves} />
 

@@ -30,7 +30,15 @@ function clamp(value, minimum, maximum) {
 }
 
 function locationKey(location) {
-  return `${location.type}:${location.id}:${location.x}:${location.y}:${location.z}`
+  return location.map_uid || `${location.type}:${location.id}:${location.x}:${location.y}:${location.z}`
+}
+
+function nearestDestination(destinations, location) {
+  if (!destinations?.length || !location) return null
+  return destinations.reduce((nearest, destination) => {
+    const distance = ((destination.x - location.x) ** 2) + ((destination.y - location.y) ** 2)
+    return !nearest || distance < nearest.distance ? { name: destination.name, distance } : nearest
+  }, null)?.name
 }
 
 function matchesLocation(location, query) {
@@ -94,6 +102,7 @@ export default function MapPage() {
   const [showMonsters, setShowMonsters] = useState(true)
   const [showOrbs, setShowOrbs] = useState(true)
   const [floor, setFloor] = useState(6)
+  const [selectedDestination, setSelectedDestination] = useState('Johto')
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [view, setView] = useState({ scale: 0.8, x: 0, y: 0 })
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 })
@@ -123,10 +132,20 @@ export default function MapPage() {
     () => matchingLocations.filter((location) => location.z === floor),
     [floor, matchingLocations],
   )
+  const visibleFloorLocations = useMemo(() => {
+    if (!viewportSize.width || !viewportSize.height) return []
+    const padding = 30 / view.scale
+    const left = (-view.x / view.scale) - padding
+    const top = (-view.y / view.scale) - padding
+    const right = ((viewportSize.width - view.x) / view.scale) + padding
+    const bottom = ((viewportSize.height - view.y) / view.scale) + padding
+    return floorLocations.filter((location) => location.x >= left && location.x <= right && location.y >= top && location.y <= bottom)
+  }, [floorLocations, view, viewportSize])
   const listLocations = useMemo(
-    () => (normalizedQuery ? matchingLocations : floorLocations).slice(0, 120),
-    [floorLocations, matchingLocations, normalizedQuery],
+    () => (normalizedQuery ? matchingLocations : visibleFloorLocations).slice(0, 120),
+    [matchingLocations, normalizedQuery, visibleFloorLocations],
   )
+  const resultCount = normalizedQuery ? matchingLocations.length : visibleFloorLocations.length
 
   useEffect(() => {
     try { localStorage.setItem(ORB_STORAGE_KEY, JSON.stringify([...collectedOrbs])) } catch { /* storage is optional */ }
@@ -176,6 +195,7 @@ export default function MapPage() {
       : pokemonLocation ? { ...pokemonLocation, type: 'monster' } : data.destinations?.find((entry) => entry.name === 'Johto')
     if (requestedLocation) {
       if (requestedLocation.type) setSelectedLocation(requestedLocation)
+      setSelectedDestination(nearestDestination(data.destinations, requestedLocation) || 'Johto')
       navigateToLocation(requestedLocation, 0.9)
     }
   }, [data, monsters, navigateToLocation, searchParams, viewportSize.width])
@@ -207,6 +227,7 @@ export default function MapPage() {
 
   const selectLocation = (location) => {
     setSelectedLocation(location)
+    setSelectedDestination(nearestDestination(data.destinations, location) || selectedDestination)
     navigateToLocation(location)
     const params = { x: String(location.x), y: String(location.y), z: String(location.z) }
     if (location.type === 'monster') params.pokemon = location.name
@@ -217,6 +238,7 @@ export default function MapPage() {
   const selectDestination = (name) => {
     const destination = data.destinations.find((entry) => entry.name === name)
     if (!destination) return
+    setSelectedDestination(name)
     setSelectedLocation(null)
     navigateToLocation(destination, 0.75)
   }
@@ -274,12 +296,12 @@ export default function MapPage() {
 
         <label className="map-destination-field">
           <span>Ir para</span>
-          <select defaultValue="Johto" onChange={(event) => selectDestination(event.target.value)}>{data.destinations.map((destination) => <option key={destination.name}>{destination.name}</option>)}</select>
+          <select value={selectedDestination} onChange={(event) => selectDestination(event.target.value)}>{data.destinations.map((destination) => <option key={destination.name}>{destination.name}</option>)}</select>
         </label>
 
         <div className="map-results-heading">
-          <div><strong>{normalizedQuery ? matchingLocations.length : floorLocations.length}</strong><span>{normalizedQuery ? 'resultados' : `marcadores no andar ${floor}`}</span></div>
-          {listLocations.length < (normalizedQuery ? matchingLocations.length : floorLocations.length) && <small>Mostrando 120</small>}
+          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados' : `marcadores nesta área · andar ${floor}`}</span></div>
+          {listLocations.length < resultCount && <small>Mostrando 120</small>}
         </div>
         <div className="map-results-list">
           {listLocations.map((location) => <LocationListItem key={locationKey(location)} location={location} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
@@ -320,7 +342,7 @@ export default function MapPage() {
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} referrerPolicy="no-referrer" width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.x * TILE_SIZE, top: tile.y * TILE_SIZE }} key={`${floor}-${tile.x}-${tile.y}`} />)}
-            {floorLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
+            {visibleFloorLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
           </div>
         </div>
 
