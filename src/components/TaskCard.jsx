@@ -1,6 +1,8 @@
 import { ChevronDown, Crosshair, Gift, MapPin, PackageOpen, Route, UserRound } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { pokemonPath } from '../lib/pokemon'
+import { TaskNpcMapPreview } from './TaskNpcMapPreview'
 import {
   REWARD_KIND_LABELS,
   formatTaskNumber,
@@ -66,10 +68,15 @@ function TaskReward({ reward }) {
 }
 
 export default function TaskCard({ task, expanded = false }) {
+  const [detailsOpen, setDetailsOpen] = useState(expanded)
   const level = taskLevel(task)
   const nightmareLevel = taskNightmareLevel(task)
   const coordinates = taskCoordinates(task)
   const targetCount = taskTargetCount(task)
+
+  useEffect(() => {
+    if (expanded) setDetailsOpen(true)
+  }, [expanded])
 
   return (
     <article className={`task-card region-${task.region}`} id={`task-${task.id}`}>
@@ -94,9 +101,10 @@ export default function TaskCard({ task, expanded = false }) {
 
       {task.requirements?.additional?.length > 0 && <div className="task-extra-requirements">{task.requirements.additional.map((requirement, index) => <span key={`${requirement}-${index}`}>{requirement}</span>)}</div>}
 
-      <details className="task-card-details" open={expanded || undefined}>
+      <details className="task-card-details" open={detailsOpen || undefined} onToggle={(event) => setDetailsOpen(event.currentTarget.open)}>
         <summary><span><PackageOpen size={15} />Ver objetivos e recompensas</span><ChevronDown size={16} /></summary>
         <div className="task-card-content">
+          {detailsOpen && <TaskNpcMapPreview task={task} />}
           <section className="task-steps"><h3>Objetivos</h3>{task.steps?.map((step, index) => <TaskStep step={step} key={`${step.number}-${index}`} />)}</section>
           <section className="task-rewards"><h3>Recompensas</h3><div>{task.rewards?.map((reward, index) => <TaskReward reward={reward} key={`${reward.name}-${index}`} />)}</div></section>
         </div>
@@ -104,4 +112,3 @@ export default function TaskCard({ task, expanded = false }) {
     </article>
   )
 }
-

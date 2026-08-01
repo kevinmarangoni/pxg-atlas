@@ -221,13 +221,14 @@ export default function MapPage() {
     const requestedY = Number(requestedYParam)
     const requestedZ = Number(requestedZParam)
     const requestedPokemon = normalizedMapName(searchParams.get('pokemon'))
+    const requestedLabel = searchParams.get('pokemon') || searchParams.get('npc')
     const requestedRegion = searchParams.get('region')
     const pokemonLocation = requestedPokemon
       ? monsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
       : null
     const regionDestination = data.destinations?.find((entry) => entry.name === requestedRegion)
     const requestedLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
-      ? { name: searchParams.get('pokemon') || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, type: 'coordinate', id: 'requested' }
+      ? { name: requestedLabel || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, type: 'coordinate', id: 'requested' }
       : pokemonLocation
         ? { ...pokemonLocation, type: 'monster' }
         : { ...(regionDestination || data.destinations?.find((entry) => entry.name === 'Johto')), type: 'destination' }

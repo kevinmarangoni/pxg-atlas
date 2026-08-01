@@ -655,6 +655,7 @@ main { flex: 1; }
 .task-card-details > summary > svg { transition: transform .18s ease; }
 .task-card-details[open] > summary > svg { transform: rotate(180deg); }
 .task-card-content { padding: 14px; border-top: 1px solid rgba(173,196,232,.08); background: #090f19; display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: start; gap: 12px; }
+.task-npc-map { min-width: 0; grid-column: 1 / -1; overflow: hidden; border: 1px solid rgba(173,196,232,.1); border-radius: 11px; background: #080d16; }.task-npc-map-heading { min-height: 38px; padding: 0 11px; border-bottom: 1px solid rgba(173,196,232,.08); display: flex; align-items: center; justify-content: space-between; gap: 10px; }.task-npc-map-heading > span { display: flex; align-items: center; gap: 6px; color: var(--task-region); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }.task-npc-map-heading > small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #68788e; font-size: 10px; }.task-npc-map-preview { min-height: 230px; }.task-npc-map-preview .pokemon-map-preview-marker { pointer-events: none; cursor: default; }.task-npc-map-preview .pokemon-map-preview-marker img { image-rendering: auto; }.task-npc-map .pokemon-map-selected-location { min-height: 62px; }.task-npc-map .pokemon-map-selected-location strong { font-size: 12px; }
 .task-card-content section { min-width: 0; }
 .task-card-content h3 { margin: 0 0 8px; color: #74849a; font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .task-steps { display: grid; gap: 8px; }
@@ -742,7 +743,7 @@ main { flex: 1; }
   .tasks-toolbar { align-items: flex-start; flex-direction: column; gap: 9px; }.tasks-toolbar > label { width: 100%; }.tasks-toolbar select { flex: 1; }
   .task-card-heading { grid-template-columns: 52px minmax(0, 1fr); }.task-artwork.npc { width: 52px; height: 52px; }.task-requirement-badges { grid-column: 1 / -1; }.task-requirement-badges > span { min-width: 70px; height: 39px; grid-template-columns: auto auto; justify-content: center; gap: 5px; }
   .task-card-facts { min-height: 52px; gap: 7px; justify-content: space-between; }.task-card-facts > span { min-width: 0; flex-direction: column; gap: 2px; text-align: center; }.task-card-facts svg { display: none; }
-  .task-card-content { grid-template-columns: 1fr; }
+  .task-card-content { grid-template-columns: 1fr; }.task-npc-map-heading { align-items: flex-start; flex-direction: column; justify-content: center; gap: 3px; padding-top: 8px; padding-bottom: 8px; }.task-npc-map-preview { min-height: 210px; }
   .pokemon-task-region-filter { align-items: flex-start; flex-direction: column; }.pokemon-task-region-filter > div { width: 100%; }.pokemon-task-region-filter button { flex: 1; justify-content: space-between; }.pokemon-task-region-filter > small { margin-left: 0; }
 }
 
