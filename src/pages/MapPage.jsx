@@ -19,11 +19,12 @@ import { usePokemonData } from '../data/PokemonDataContext'
 import { displayName, pokemonPath } from '../lib/pokemon'
 
 const TILE_SIZE = 256
-const MIN_SCALE = 0.35
+const MIN_SCALE = 0.4
 const MAX_SCALE = 3
 const MIN_FLOOR = 0
-const MAX_FLOOR = 15
+const MAX_FLOOR = 14
 const ORB_STORAGE_KEY = 'pxg-atlas:collected-orbs'
+const ORB_DESTINATIONS = new Set(['Johto', 'Mt Silver'])
 
 function clamp(value, minimum, maximum) {
   return Math.min(maximum, Math.max(minimum, value))
@@ -52,6 +53,12 @@ function matchesLocation(location, query) {
     location.y,
     location.z,
   ].filter(Boolean).join(' ')).includes(query)
+}
+
+function locationBelongsToDestination(location, destination, type) {
+  if (type === 'monster') return location.region === destination
+  const isMtSilver = String(location.region || '').startsWith('Mt Silver')
+  return destination === 'Mt Silver' ? isMtSilver : destination === 'Johto' && !isMtSilver
 }
 
 function coordinates(location) {
@@ -99,12 +106,11 @@ export default function MapPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const initialPokemon = searchParams.get('pokemon') || ''
   const [query, setQuery] = useState(initialPokemon)
-  const [showMonsters, setShowMonsters] = useState(true)
-  const [showOrbs, setShowOrbs] = useState(true)
+  const [activeLayer, setActiveLayer] = useState('monster')
   const [floor, setFloor] = useState(6)
   const [selectedDestination, setSelectedDestination] = useState('Johto')
   const [selectedLocation, setSelectedLocation] = useState(null)
-  const [view, setView] = useState({ scale: 0.8, x: 0, y: 0 })
+  const [view, setView] = useState({ scale: 1, x: 0, y: 0 })
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 })
   const [collectedOrbs, setCollectedOrbs] = useState(() => {
     try {
@@ -119,14 +125,28 @@ export default function MapPage() {
   const initialNavigationRef = useRef(false)
 
   const pokemonByName = useMemo(() => new Map(pokemon.map((entry) => [normalizedMapName(displayName(entry)), entry])), [pokemon])
-  const allLocations = useMemo(() => [
-    ...(showMonsters ? monsters.map((location) => ({ ...location, type: 'monster' })) : []),
-    ...(showOrbs ? orbs.map((location) => ({ ...location, type: 'orb' })) : []),
-  ], [monsters, orbs, showMonsters, showOrbs])
+  const destinationOptions = useMemo(
+    () => (data?.destinations || []).filter((destination) => activeLayer === 'monster' || ORB_DESTINATIONS.has(destination.name)),
+    [activeLayer, data],
+  )
+  const monsterCount = useMemo(
+    () => monsters.filter((location) => locationBelongsToDestination(location, selectedDestination, 'monster')).length,
+    [monsters, selectedDestination],
+  )
+  const orbCount = useMemo(
+    () => orbs.filter((location) => locationBelongsToDestination(location, selectedDestination, 'orb')).length,
+    [orbs, selectedDestination],
+  )
+  const regionLocations = useMemo(() => {
+    const source = activeLayer === 'monster' ? monsters : orbs
+    return source
+      .filter((location) => locationBelongsToDestination(location, selectedDestination, activeLayer))
+      .map((location) => ({ ...location, type: activeLayer }))
+  }, [activeLayer, monsters, orbs, selectedDestination])
   const normalizedQuery = normalizedMapName(query)
   const matchingLocations = useMemo(
-    () => allLocations.filter((location) => matchesLocation(location, normalizedQuery)),
-    [allLocations, normalizedQuery],
+    () => regionLocations.filter((location) => matchesLocation(location, normalizedQuery)),
+    [normalizedQuery, regionLocations],
   )
   const floorLocations = useMemo(
     () => matchingLocations.filter((location) => location.z === floor),
@@ -146,6 +166,20 @@ export default function MapPage() {
     [matchingLocations, normalizedQuery, visibleFloorLocations],
   )
   const resultCount = normalizedQuery ? matchingLocations.length : visibleFloorLocations.length
+  const markerLocations = useMemo(() => {
+    if (activeLayer === 'orb') {
+      const selectedAnchor = selectedLocation
+        && selectedLocation.z === floor
+        && ['destination', 'coordinate'].includes(selectedLocation.type)
+        ? selectedLocation
+        : null
+      return selectedAnchor ? [...visibleFloorLocations, selectedAnchor] : visibleFloorLocations
+    }
+    if (selectedLocation && selectedLocation.z === floor && ['monster', 'destination', 'coordinate'].includes(selectedLocation.type)) {
+      return [selectedLocation]
+    }
+    return []
+  }, [activeLayer, floor, selectedLocation, visibleFloorLocations])
 
   useEffect(() => {
     try { localStorage.setItem(ORB_STORAGE_KEY, JSON.stringify([...collectedOrbs])) } catch { /* storage is optional */ }
@@ -187,16 +221,20 @@ export default function MapPage() {
     const requestedY = Number(requestedYParam)
     const requestedZ = Number(requestedZParam)
     const requestedPokemon = normalizedMapName(searchParams.get('pokemon'))
+    const requestedRegion = searchParams.get('region')
     const pokemonLocation = requestedPokemon
       ? monsters.find((location) => normalizedMapName(location.name) === requestedPokemon)
       : null
+    const regionDestination = data.destinations?.find((entry) => entry.name === requestedRegion)
     const requestedLocation = hasRequestedCoordinates && Number.isFinite(requestedX) && Number.isFinite(requestedY) && Number.isFinite(requestedZ)
       ? { name: searchParams.get('pokemon') || 'Coordenada', x: requestedX, y: requestedY, z: requestedZ, type: 'coordinate', id: 'requested' }
-      : pokemonLocation ? { ...pokemonLocation, type: 'monster' } : data.destinations?.find((entry) => entry.name === 'Johto')
+      : pokemonLocation
+        ? { ...pokemonLocation, type: 'monster' }
+        : { ...(regionDestination || data.destinations?.find((entry) => entry.name === 'Johto')), type: 'destination' }
     if (requestedLocation) {
-      if (requestedLocation.type) setSelectedLocation(requestedLocation)
-      setSelectedDestination(nearestDestination(data.destinations, requestedLocation) || 'Johto')
-      navigateToLocation(requestedLocation, 0.9)
+      setSelectedLocation(requestedLocation)
+      setSelectedDestination(regionDestination?.name || nearestDestination(data.destinations, requestedLocation) || 'Johto')
+      navigateToLocation(requestedLocation, 1)
     }
   }, [data, monsters, navigateToLocation, searchParams, viewportSize.width])
 
@@ -238,9 +276,24 @@ export default function MapPage() {
   const selectDestination = (name) => {
     const destination = data.destinations.find((entry) => entry.name === name)
     if (!destination) return
+    const destinationLocation = { ...destination, type: 'destination', id: `destination:${name}`, region: name }
     setSelectedDestination(name)
-    setSelectedLocation(null)
-    navigateToLocation(destination, 0.75)
+    setSelectedLocation(destinationLocation)
+    setQuery('')
+    navigateToLocation(destinationLocation, 1)
+    setSearchParams({ region: name }, { replace: true })
+  }
+
+  const selectLayer = (layer) => {
+    if (layer === activeLayer) return
+    setActiveLayer(layer)
+    setQuery('')
+    if (layer === 'orb' && !ORB_DESTINATIONS.has(selectedDestination)) {
+      selectDestination('Johto')
+      return
+    }
+    const destination = data.destinations.find((entry) => entry.name === selectedDestination)
+    if (destination) setSelectedLocation({ ...destination, type: 'destination', id: `destination:${destination.name}`, region: destination.name })
   }
 
   const toggleCollectedOrb = (id) => {
@@ -290,22 +343,32 @@ export default function MapPage() {
         </label>
 
         <div className="map-layer-controls" role="group" aria-label="Camadas do mapa">
-          <button type="button" className={showMonsters ? 'active monster' : ''} aria-pressed={showMonsters} onClick={() => setShowMonsters((value) => !value)}><MapPin size={14} />Pokémon<b>{monsters.length}</b></button>
-          <button type="button" className={showOrbs ? 'active orb' : ''} aria-pressed={showOrbs} onClick={() => setShowOrbs((value) => !value)}><Sparkles size={14} />Orbs<b>{orbs.length}</b></button>
+          <button type="button" className={activeLayer === 'monster' ? 'active monster' : ''} aria-pressed={activeLayer === 'monster'} onClick={() => selectLayer('monster')}><MapPin size={14} />Pokémon<b>{monsterCount}</b></button>
+          <button type="button" className={activeLayer === 'orb' ? 'active orb' : 'orb'} aria-pressed={activeLayer === 'orb'} onClick={() => selectLayer('orb')}><Sparkles size={14} />Orbs<b>{ORB_DESTINATIONS.has(selectedDestination) ? orbCount : 0}</b></button>
         </div>
 
         <label className="map-destination-field">
           <span>Ir para</span>
-          <select value={selectedDestination} onChange={(event) => selectDestination(event.target.value)}>{data.destinations.map((destination) => <option key={destination.name}>{destination.name}</option>)}</select>
+          <select value={selectedDestination} onChange={(event) => selectDestination(event.target.value)}>{destinationOptions.map((destination) => <option key={destination.name}>{destination.name}</option>)}</select>
         </label>
 
         <div className="map-results-heading">
-          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados' : `marcadores nesta área · andar ${floor}`}</span></div>
+          <div><strong>{resultCount}</strong><span>{normalizedQuery ? 'resultados nesta região' : `posições nesta área · andar ${floor}`}</span></div>
           {listLocations.length < resultCount && <small>Mostrando 120</small>}
         </div>
         <div className="map-results-list">
           {listLocations.map((location) => <LocationListItem key={locationKey(location)} location={location} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
-          {!listLocations.length && <div className="map-results-empty"><Search size={19} /><span>Nenhum marcador encontrado.</span></div>}
+          {!listLocations.length && (
+            <div className="map-results-empty">
+              <Search size={19} />
+              <strong>{regionLocations.length ? 'Nenhum marcador encontrado' : `Sem dados de ${activeLayer === 'monster' ? 'Pokémon' : 'orbs'} em ${selectedDestination}`}</strong>
+              <span>{regionLocations.length
+                ? 'Tente outro termo, andar ou posição no mapa.'
+                : activeLayer === 'monster'
+                  ? 'O PXGMap ainda não publica posições de Pokémon para esta região. O mapa e os andares continuam disponíveis.'
+                  : 'A fonte publica orbs apenas em Johto e Mt Silver.'}</span>
+            </div>
+          )}
         </div>
 
         <footer>
@@ -342,7 +405,7 @@ export default function MapPage() {
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
             {visibleTiles.map((tile) => <img className="atlas-map-tile" src={tile.src} alt="" draggable={false} referrerPolicy="no-referrer" width={TILE_SIZE} height={TILE_SIZE} style={{ left: tile.x * TILE_SIZE, top: tile.y * TILE_SIZE }} key={`${floor}-${tile.x}-${tile.y}`} />)}
-            {visibleFloorLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
+            {markerLocations.map((location) => <MapMarker key={locationKey(location)} location={location} scale={view.scale} selected={selectedKey === locationKey(location)} collected={location.type === 'orb' && collectedOrbs.has(String(location.id))} onSelect={selectLocation} />)}
           </div>
         </div>
 
