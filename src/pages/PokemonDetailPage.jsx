@@ -625,7 +625,7 @@ function EffectivenessSection({ name, effectiveness }) {
   )
 }
 
-function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, mapSources }) {
+function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, localTilePositionSet, localTileHome, mapSources }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   useEffect(() => setSelectedIndex(0), [name])
@@ -644,6 +644,8 @@ function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, mapSou
         onSelect={setSelectedIndex}
         selectedIndex={selectedIndex}
         tilePositionSet={tilePositionSet}
+        localTilePositionSet={localTilePositionSet}
+        localTileHome={localTileHome}
         mapSources={mapSources}
       />
       <div className="pokemon-location-grid">
@@ -803,7 +805,7 @@ function DetailPager({ previous, next }) {
 export default function PokemonDetailPage() {
   const { pokemonId: routeId } = useParams()
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
-  const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet } = useMapData()
+  const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
@@ -909,7 +911,7 @@ export default function PokemonDetailPage() {
 
           <BoostCalculator boost={info.boost} matter={info.matter} />
 
-          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} mapSources={mapData?.map_sources} />
+          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} localTilePositionSet={localTilePositionSet} localTileHome={localTileHome} mapSources={mapData?.map_sources} />
 
           <CaptureSection pokemon={entry} catalog={captureBallCatalog} metadata={data?.metadata?.capture_enrichment} />
 

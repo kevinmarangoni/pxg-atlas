@@ -20,7 +20,7 @@ function tileKey(z, x, y) {
   return `${z},${x},${y}`
 }
 
-function visibleTiles(location, tilePositionSet, cdnHome) {
+function visibleTiles(location, tilePositionSet, cdnHome, localTilePositionSet, localTileHome) {
   if (!location || !cdnHome) return []
   const centerX = Math.floor(location.x / TILE_SIZE)
   const centerY = Math.floor(location.y / TILE_SIZE)
@@ -29,10 +29,12 @@ function visibleTiles(location, tilePositionSet, cdnHome) {
   for (let x = centerX - 3; x <= centerX + 3; x += 1) {
     for (let y = centerY - 2; y <= centerY + 2; y += 1) {
       if (tilePositionSet?.size && !tilePositionSet.has(tileKey(location.z, x, y))) continue
+      const key = tileKey(location.z, x, y)
+      const local = localTileHome && localTilePositionSet?.has(key)
       tiles.push({
         x,
         y,
-        src: `${cdnHome}/tile_${location.z}_${x}_${y}.png`,
+        src: local ? `${localTileHome}/tile_${location.z}_${x}_${y}.png` : `${cdnHome}/tile_${location.z}_${x}_${y}.png`,
       })
     }
   }
@@ -40,13 +42,13 @@ function visibleTiles(location, tilePositionSet, cdnHome) {
   return tiles
 }
 
-export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cdnHome, tilePositionSet, mapSources }) {
+export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cdnHome, tilePositionSet, localTilePositionSet, localTileHome, mapSources }) {
   const selectedLocation = locations[selectedIndex] || locations[0]
   if (!selectedLocation) return null
 
   const mapSource = mapSourceFor(selectedLocation, mapSources)
   const floor = locationFloor(selectedLocation)
-  const tiles = visibleTiles(selectedLocation, tilePositionSet, cdnHome)
+  const tiles = visibleTiles(selectedLocation, tilePositionSet, cdnHome, localTilePositionSet, localTileHome)
   // Keep the Pokémon-sheet preview on the original high-definition tiles. The
   // full PXGMap image is only a fallback for regions without tile coverage.
   const useFullMapFallback = tiles.length === 0 && Boolean(mapSource)

@@ -19,7 +19,7 @@ function taskCoordinates(task) {
 }
 
 export function TaskNpcMapPreview({ task }) {
-  const { data, loading, tilePositionSet } = useMapData()
+  const { data, loading, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const location = taskCoordinates(task)
   if (loading || !data || !location) return null
 
@@ -29,10 +29,12 @@ export function TaskNpcMapPreview({ task }) {
   for (let x = centerX - 3; x <= centerX + 3; x += 1) {
     for (let y = centerY - 2; y <= centerY + 2; y += 1) {
       if (tilePositionSet?.size && !tilePositionSet.has(tileKey(location.z, x, y))) continue
+      const key = tileKey(location.z, x, y)
+      const local = localTileHome && localTilePositionSet?.has(key)
       tiles.push({
         x,
         y,
-        src: `${data.metadata.cdn_home}/tile_${location.z}_${x}_${y}.png`,
+        src: local ? `${localTileHome}/tile_${location.z}_${x}_${y}.png` : `${data.metadata.cdn_home}/tile_${location.z}_${x}_${y}.png`,
       })
     }
   }

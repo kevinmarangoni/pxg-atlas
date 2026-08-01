@@ -36,9 +36,21 @@ ficam consolidados em `public/data/pxg_map.json`. Para atualizar essa base:
 yarn sync:pxgmap
 ```
 
+Para usar a minimap original do cliente, converta o arquivo OTMM antes de
+sincronizar os dados:
+
+```bash
+yarn convert:otmm /caminho/para/minimap.otmm
+yarn sync:pxgmap
+```
+
+Os tiles convertidos ficam em `public/data/otmm_tiles` e são usados quando
+estão disponíveis; pontos sem cobertura continuam usando a fonte remota como
+fallback.
+
 O comando atualiza coordenadas, respawns de Kanto e Johto, metadados de andares
-e o índice de tiles. As imagens do mapa e os sprites são carregados das fontes
-originais durante o uso da aplicação.
+e o índice de tiles. Os sprites continuam sendo carregados das fontes originais
+durante o uso da aplicação; os tiles locais têm prioridade no mapa.
 
 ## Build de produção
 
@@ -72,8 +84,10 @@ remoção estão disponíveis na rota `/#/legal` e pelo rodapé da aplicação.
 ├── public/
 │   └── data/
 │       ├── pxg_map.json
+│       ├── otmm_tiles/
 │       └── pxg_pokemon_capture.json
 ├── scripts/
+│   ├── convert-otmm.mjs
 │   └── sync-pxgmap.mjs
 ├── src/
 ├── index.html

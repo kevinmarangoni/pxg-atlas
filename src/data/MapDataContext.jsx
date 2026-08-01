@@ -39,6 +39,7 @@ export function MapDataProvider({ children }) {
     }))
     const orbs = (state.data?.orbs ?? []).map((location, index) => ({ ...location, map_uid: `orb:${index}` }))
     const tilePositionSet = new Set((state.data?.tile_positions ?? []).map((position) => position.join(',')))
+    const localTilePositionSet = new Set((state.data?.metadata?.local_tile_positions ?? []).map((position) => position.join(',')))
     const byPokemonName = new Map()
     for (const location of monsters) {
       const key = normalizedMapName(location.name)
@@ -46,7 +47,16 @@ export function MapDataProvider({ children }) {
       locations.push(location)
       byPokemonName.set(key, locations)
     }
-    return { ...state, monsters, orbs, byPokemonName, tilePositionSet, mapSources: state.data?.map_sources ?? {} }
+    return {
+      ...state,
+      monsters,
+      orbs,
+      byPokemonName,
+      tilePositionSet,
+      localTilePositionSet,
+      localTileHome: state.data?.metadata?.local_tile_home || null,
+      mapSources: state.data?.map_sources ?? {},
+    }
   }, [state])
 
   return <MapDataContext.Provider value={value}>{children}</MapDataContext.Provider>

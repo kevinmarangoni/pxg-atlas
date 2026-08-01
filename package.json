@@ -11,7 +11,8 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "sync:pxgmap": "node scripts/sync-pxgmap.mjs"
+    "sync:pxgmap": "node scripts/sync-pxgmap.mjs",
+    "convert:otmm": "node scripts/convert-otmm.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.25.0",

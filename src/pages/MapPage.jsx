@@ -108,7 +108,7 @@ function LocationListItem({ location, selected, collected, onSelect }) {
 }
 
 export default function MapPage() {
-  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet, mapSources } = useMapData()
+  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet, localTilePositionSet, localTileHome, mapSources } = useMapData()
   const { pokemon } = usePokemonData()
   const [searchParams, setSearchParams] = useSearchParams()
   const initialPokemon = searchParams.get('pokemon') || ''
@@ -137,6 +137,8 @@ export default function MapPage() {
     [activeLayer, data],
   )
   const activeMapSource = useMemo(() => mapSourceFor(selectedDestination, mapSources), [mapSources, selectedDestination])
+  const localFocusKey = selectedLocation ? `${floor},${Math.floor(selectedLocation.x / TILE_SIZE)},${Math.floor(selectedLocation.y / TILE_SIZE)}` : null
+  const renderFullMap = Boolean(activeMapSource && !(localTileHome && localFocusKey && localTilePositionSet?.has(localFocusKey)))
   const availableFloors = useMemo(() => activeMapSource?.available_floors || LEGACY_FLOORS, [activeMapSource])
   const monsterCount = useMemo(
     () => monsters.filter((location) => locationBelongsToDestination(location, selectedDestination, 'monster')).length,
@@ -257,7 +259,7 @@ export default function MapPage() {
   }, [data, mapSources, monsters, navigateToLocation, searchParams, viewportSize.width])
 
   const visibleTiles = useMemo(() => {
-    if (activeMapSource || !viewportSize.width || !viewportSize.height) return []
+    if (renderFullMap || !viewportSize.width || !viewportSize.height) return []
     const left = -view.x / view.scale
     const top = -view.y / view.scale
     const right = (viewportSize.width - view.x) / view.scale
@@ -265,12 +267,14 @@ export default function MapPage() {
     const tiles = []
     for (let x = Math.floor(left / TILE_SIZE) - 1; x <= Math.ceil(right / TILE_SIZE) + 1; x += 1) {
       for (let y = Math.floor(top / TILE_SIZE) - 1; y <= Math.ceil(bottom / TILE_SIZE) + 1; y += 1) {
-        if (!tileSet.has(`${floor},${x},${y}`)) continue
-        tiles.push({ x, y, src: `${data.metadata.cdn_home}/tile_${floor}_${x}_${y}.png` })
+        const key = `${floor},${x},${y}`
+        if (!tileSet.has(key)) continue
+        const local = localTileHome && localTilePositionSet?.has(key)
+        tiles.push({ x, y, src: local ? `${localTileHome}/tile_${floor}_${x}_${y}.png` : `${data.metadata.cdn_home}/tile_${floor}_${x}_${y}.png` })
       }
     }
     return tiles
-  }, [activeMapSource, data, floor, tileSet, view, viewportSize])
+  }, [data, floor, localTileHome, localTilePositionSet, renderFullMap, tileSet, view, viewportSize])
 
   const changeFloor = (direction) => {
     const index = availableFloors.indexOf(floor)
@@ -434,7 +438,7 @@ export default function MapPage() {
           }}
         >
           <div className="atlas-map-canvas" style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})` }}>
-            {activeMapSource && (
+            {renderFullMap && (
               <img
                 alt=""
                 className="atlas-map-image"

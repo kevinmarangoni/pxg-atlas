@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -20,6 +20,11 @@ const PXGMAP_BR_FILES = {
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
 const outputPath = resolve(scriptDirectory, '../public/data/pxg_map.json')
+const localTileManifestPath = resolve(scriptDirectory, '../public/data/otmm_tiles/manifest.json')
+
+async function readLocalTileManifest() {
+  try { return JSON.parse(await readFile(localTileManifestPath, 'utf8')) } catch { return null }
+}
 
 async function fetchText(url) {
   const response = await fetch(url, { headers: { 'user-agent': 'PXG-Atlas map data sync' } })
@@ -198,6 +203,7 @@ const tilePositions = positionsSource.text
   .map((line) => line.trim())
   .filter(Boolean)
   .map((line) => line.split(',').map((part) => Number.parseInt(part, 10)))
+const localTileManifest = await readLocalTileManifest()
 
 assertCoordinates(monsters, 'Pokémon')
 assertCoordinates(orbs, 'Orbs')
@@ -235,6 +241,8 @@ const payload = {
     source_home: SOURCE_HOME,
     source_files: SOURCE_FILES,
     cdn_home: CDN_HOME,
+    local_tile_home: localTileManifest?.tile_home || null,
+    local_tile_positions: localTileManifest?.positions || [],
     synced_at: new Date().toISOString(),
     additional_sources: {
       pxgmap_br_home: PXGMAP_BR_HOME,
