@@ -23,6 +23,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BackLink, ElementBadge, PokemonImage, RoleBadge, SourceLink } from '../components/Common'
+import { PokemonMapPreview } from '../components/PokemonMapPreview'
 import { PokemonModelViewer } from '../components/PokemonModelViewer'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
@@ -623,7 +624,11 @@ function EffectivenessSection({ name, effectiveness }) {
   )
 }
 
-function MapLocationsSection({ name, locations }) {
+function MapLocationsSection({ name, locations, cdnHome, tilePositionSet }) {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+
+  useEffect(() => setSelectedIndex(0), [name])
+
   if (!locations.length) return null
   return (
     <Section id="locations" title="Onde encontrar" icon={<MapPin size={18} />} description={`Posições publicadas no PXGMap para encontrar ${name}.`}>
@@ -631,13 +636,21 @@ function MapLocationsSection({ name, locations }) {
         <div><strong>{locations.length}</strong><span>{locations.length === 1 ? 'posição mapeada' : 'posições mapeadas'}</span></div>
         <Link to={`/map?pokemon=${encodeURIComponent(name)}`}>Explorar no mapa<ChevronRight size={14} /></Link>
       </div>
+      <PokemonMapPreview
+        cdnHome={cdnHome}
+        locations={locations}
+        name={name}
+        onSelect={setSelectedIndex}
+        selectedIndex={selectedIndex}
+        tilePositionSet={tilePositionSet}
+      />
       <div className="pokemon-location-grid">
         {locations.slice(0, 8).map((location, index) => (
-          <Link to={`/map?pokemon=${encodeURIComponent(name)}&x=${location.x}&y=${location.y}&z=${location.z}`} key={`${location.x}-${location.y}-${location.z}-${index}`}>
+          <button type="button" className={selectedIndex === index ? 'selected' : ''} aria-pressed={selectedIndex === index} onClick={() => setSelectedIndex(index)} key={`${location.x}-${location.y}-${location.z}-${index}`}>
             <span><MapPin size={15} /></span>
             <div><small>{location.region} · Andar {location.z}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
             <ChevronRight size={14} />
-          </Link>
+          </button>
         ))}
       </div>
       {locations.length > 8 && <p className="pokemon-location-more">Mais {locations.length - 8} posições disponíveis no mapa interativo.</p>}
@@ -788,7 +801,7 @@ function DetailPager({ previous, next }) {
 export default function PokemonDetailPage() {
   const { pokemonId: routeId } = useParams()
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
-  const { byPokemonName: mapLocationsByPokemon } = useMapData()
+  const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet } = useMapData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
@@ -905,7 +918,7 @@ export default function PokemonDetailPage() {
 
           {hasEffectiveness && <CounterRecommendationsSection key={entry.source_url} target={entry} pokemon={pokemon} />}
 
-          <MapLocationsSection name={name} locations={mapLocations} />
+          <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} />
 
           <MovesSection key={entry.source_url} moves={entry.moves} />
 

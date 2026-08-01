@@ -86,7 +86,7 @@ function LocationListItem({ location, selected, collected, onSelect }) {
 }
 
 export default function MapPage() {
-  const { data, loading, error, monsters, orbs } = useMapData()
+  const { data, loading, error, monsters, orbs, tilePositionSet: tileSet } = useMapData()
   const { pokemon } = usePokemonData()
   const [searchParams, setSearchParams] = useSearchParams()
   const initialPokemon = searchParams.get('pokemon') || ''
@@ -110,7 +110,6 @@ export default function MapPage() {
   const initialNavigationRef = useRef(false)
 
   const pokemonByName = useMemo(() => new Map(pokemon.map((entry) => [normalizedMapName(displayName(entry)), entry])), [pokemon])
-  const tileSet = useMemo(() => new Set((data?.tile_positions || []).map((position) => position.join(','))), [data])
   const allLocations = useMemo(() => [
     ...(showMonsters ? monsters.map((location) => ({ ...location, type: 'monster' })) : []),
     ...(showOrbs ? orbs.map((location) => ({ ...location, type: 'orb' })) : []),

@@ -34,6 +34,7 @@ export function MapDataProvider({ children }) {
   const value = useMemo(() => {
     const monsters = state.data?.monsters ?? []
     const orbs = state.data?.orbs ?? []
+    const tilePositionSet = new Set((state.data?.tile_positions ?? []).map((position) => position.join(',')))
     const byPokemonName = new Map()
     for (const location of monsters) {
       const key = normalizedMapName(location.name)
@@ -41,7 +42,7 @@ export function MapDataProvider({ children }) {
       locations.push(location)
       byPokemonName.set(key, locations)
     }
-    return { ...state, monsters, orbs, byPokemonName }
+    return { ...state, monsters, orbs, byPokemonName, tilePositionSet }
   }, [state])
 
   return <MapDataContext.Provider value={value}>{children}</MapDataContext.Provider>
