@@ -46,6 +46,7 @@ import {
 } from '../lib/pokemon'
 import { REGION_LABELS, formatTaskNumber, taskActionLabel, taskCoordinates, taskLevel, taskNightmareLevel, taskRegionLabel } from '../lib/tasks'
 import { buildCounterRecommendations, counterWeaknesses } from '../lib/counterRecommendations'
+import { groupNearbyRespawns } from '../lib/mapLocations'
 
 const MODE_LABELS = { pve: 'PvE', pvp: 'PvP' }
 
@@ -627,19 +628,54 @@ function EffectivenessSection({ name, effectiveness }) {
 
 function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, localTilePositionSet, localTileHome, mapSources }) {
   const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedRegion, setSelectedRegion] = useState('all')
+  const groupedLocations = useMemo(() => groupNearbyRespawns(locations), [locations])
+  const regionOptions = useMemo(() => {
+    const counts = new Map()
+    groupedLocations.forEach((location) => {
+      const region = String(location.region || 'Região não informada').trim()
+      counts.set(region, (counts.get(region) || 0) + 1)
+    })
+    const priority = ['Kanto', 'Johto', 'Nightmare World', 'Nightmare']
+    return [...counts].map(([region, count]) => ({ region, count })).sort((left, right) => {
+      const leftIndex = priority.indexOf(left.region)
+      const rightIndex = priority.indexOf(right.region)
+      return (leftIndex === -1 ? priority.length : leftIndex) - (rightIndex === -1 ? priority.length : rightIndex)
+        || left.region.localeCompare(right.region, 'pt-BR')
+    })
+  }, [groupedLocations])
+  const filteredLocations = selectedRegion === 'all'
+    ? groupedLocations
+    : groupedLocations.filter((location) => location.region === selectedRegion)
+  const filteredPointCount = filteredLocations.reduce((total, location) => total + location.point_count, 0)
+  const selectedLocation = filteredLocations[selectedIndex] || filteredLocations[0]
+  const mapUrl = selectedLocation
+    ? `/map?region=${encodeURIComponent(selectedLocation.region || '')}&pokemon=${encodeURIComponent(name)}&x=${selectedLocation.x}&y=${selectedLocation.y}&z=${selectedLocation.z}`
+    : `/map?pokemon=${encodeURIComponent(name)}`
 
-  useEffect(() => setSelectedIndex(0), [name])
+  useEffect(() => {
+    setSelectedIndex(0)
+    setSelectedRegion('all')
+  }, [name])
+
+  useEffect(() => setSelectedIndex(0), [selectedRegion])
 
   if (!locations.length) return null
   return (
-    <Section id="locations" title="Onde encontrar" icon={<MapPin size={18} />} description={`Posições publicadas no PXGMap para encontrar ${name}.`}>
+    <Section id="locations" title="Onde encontrar" icon={<MapPin size={18} />} description={`Respawns de ${name}; coordenadas próximas na mesma região e andar são consolidadas.`}>
       <div className="pokemon-location-summary">
-        <div><strong>{locations.length}</strong><span>{locations.length === 1 ? 'posição mapeada' : 'posições mapeadas'}</span></div>
-        <Link to={`/map?pokemon=${encodeURIComponent(name)}`}>Explorar no mapa<ChevronRight size={14} /></Link>
+        <div><strong>{filteredLocations.length}</strong><span>{filteredLocations.length === 1 ? 'respawn' : 'respawns'}<small> · {filteredPointCount} {filteredPointCount === 1 ? 'ponto mapeado' : 'pontos agrupados'}</small></span></div>
+        <Link to={mapUrl}>Explorar no mapa<ChevronRight size={14} /></Link>
+      </div>
+      <div className="pokemon-location-filters" role="group" aria-label="Filtrar respawns por região">
+        <button type="button" className={selectedRegion === 'all' ? 'active' : ''} aria-pressed={selectedRegion === 'all'} onClick={() => setSelectedRegion('all')}>Todos<b>{groupedLocations.length}</b></button>
+        {regionOptions.map(({ region, count }) => (
+          <button type="button" className={selectedRegion === region ? 'active' : ''} aria-pressed={selectedRegion === region} onClick={() => setSelectedRegion(region)} key={region}>{region}<b>{count}</b></button>
+        ))}
       </div>
       <PokemonMapPreview
         cdnHome={cdnHome}
-        locations={locations}
+        locations={filteredLocations}
         name={name}
         onSelect={setSelectedIndex}
         selectedIndex={selectedIndex}
@@ -649,15 +685,15 @@ function MapLocationsSection({ name, locations, cdnHome, tilePositionSet, localT
         mapSources={mapSources}
       />
       <div className="pokemon-location-grid">
-        {locations.slice(0, 8).map((location, index) => (
+        {filteredLocations.slice(0, 8).map((location, index) => (
           <button type="button" className={selectedIndex === index ? 'selected' : ''} aria-pressed={selectedIndex === index} onClick={() => setSelectedIndex(index)} key={`${location.x}-${location.y}-${location.z}-${index}`}>
-            <span><MapPin size={15} /></span>
-            <div><small>{location.region} · Andar {location.floor ?? location.z}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
+            <span><MapPin size={15} />{location.point_count > 1 && <em>{location.point_count}</em>}</span>
+            <div><small>{location.region} · Andar {location.floor ?? location.z}{location.point_count > 1 ? ` · ${location.point_count} pontos` : ''}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
             <ChevronRight size={14} />
           </button>
         ))}
       </div>
-      {locations.length > 8 && <p className="pokemon-location-more">Mais {locations.length - 8} posições disponíveis no mapa interativo.</p>}
+      {filteredLocations.length > 8 && <p className="pokemon-location-more">Mais {filteredLocations.length - 8} respawns disponíveis no mapa interativo.</p>}
     </Section>
   )
 }
@@ -823,6 +859,7 @@ export default function PokemonDetailPage() {
 
   const name = displayName(entry)
   const mapLocations = mapLocationsByPokemon.get(normalizedMapName(name)) ?? []
+  const mapRespawnCount = groupNearbyRespawns(mapLocations).length
   const levels = pokemonLevels(entry)
   const elements = pokemonElements(entry)
   const clans = pokemonClans(entry)
@@ -849,7 +886,7 @@ export default function PokemonDetailPage() {
   const sectionLinks = [
     { id: 'overview', label: 'Resumo' },
     info.boost && { id: 'boost-cost', label: 'Custo de boost' },
-    mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapLocations.length})` },
+    mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapRespawnCount})` },
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
     hasEffectiveness && { id: 'effectiveness', label: 'Efetividades' },

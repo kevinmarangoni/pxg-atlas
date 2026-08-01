@@ -57,7 +57,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
     .filter(({ location }) => locationFloor(location) === floor
       && Math.abs(location.x - selectedLocation.x) <= 900
       && Math.abs(location.y - selectedLocation.y) <= 600)
-  const mapUrl = `/map?pokemon=${encodeURIComponent(name)}&x=${selectedLocation.x}&y=${selectedLocation.y}&z=${selectedLocation.z}`
+  const mapUrl = `/map?region=${encodeURIComponent(selectedLocation.region || '')}&pokemon=${encodeURIComponent(name)}&x=${selectedLocation.x}&y=${selectedLocation.y}&z=${selectedLocation.z}`
   const selectPrevious = () => onSelect((selectedIndex - 1 + locations.length) % locations.length)
   const selectNext = () => onSelect((selectedIndex + 1) % locations.length)
 
@@ -105,6 +105,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
                 {selected && selectedLocation.sprite_url
                   ? <img alt="" draggable={false} referrerPolicy="no-referrer" src={selectedLocation.sprite_url} />
                   : <MapPin size={selected ? 18 : 12} />}
+                {location.point_count > 1 && <b>{location.point_count}</b>}
               </button>
             )
           })}
