@@ -4,6 +4,7 @@ import { usePokemonData } from './data/PokemonDataContext'
 import PokemonDetailPage from './pages/PokemonDetailPage'
 import PokemonListPage from './pages/PokemonListPage'
 import LegalPage from './pages/LegalPage'
+import MapPage from './pages/MapPage'
 import TaskListPage from './pages/TaskListPage'
 import TeamBuilderPage from './pages/TeamBuilderPage'
 
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<PokemonListPage />} />
           <Route path="/tasks" element={<TaskListPage />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="/team-builder" element={<TeamBuilderPage />} />
           <Route path="/legal" element={<LegalPage />} />
           <Route path="/pokemon/:pokemonId" element={<PokemonDetailPage />} />

@@ -33,6 +33,11 @@ const DATA_SOURCES = [
     href: 'https://www.pxgdex.pro/',
     description: 'Referência indicada nos metadados da base para classificações de dificuldade de captura.',
   },
+  {
+    name: 'PXGMap',
+    href: 'https://www.pxgmap.com/',
+    description: 'Coordenadas comunitárias de Pokémon e orbs, além da camada visual usada pelo mapa interativo.',
+  },
 ]
 
 const OFFICIAL_REFERENCES = [
@@ -126,7 +131,7 @@ export default function LegalPage() {
           </LegalSection>
 
           <LegalSection id="third-parties" icon={<Globe2 size={20} />} title="Links, imagens e serviços de terceiros">
-            <p>Algumas imagens são carregadas diretamente de servidores mantidos pela Wiki PokeXGames ou pelo Project Pokémon. Ao carregar esses arquivos ou abrir um link externo, seu navegador se comunica com o respectivo serviço, que possui termos e práticas de privacidade próprios.</p>
+            <p>Algumas imagens são carregadas diretamente de servidores mantidos pela Wiki PokeXGames, pelo Project Pokémon ou pelo PXGMap. Ao carregar esses arquivos ou abrir um link externo, seu navegador se comunica com o respectivo serviço, que possui termos e práticas de privacidade próprios.</p>
             <p>O PXG Atlas não controla a disponibilidade, segurança, conteúdo ou alterações desses serviços. Um link não representa recomendação, parceria ou responsabilidade pelo conteúdo encontrado fora deste site.</p>
             <div className="legal-reference-row">
               {OFFICIAL_REFERENCES.map((reference) => <ExternalReference {...reference} key={reference.href} />)}

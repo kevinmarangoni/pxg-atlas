@@ -24,6 +24,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BackLink, ElementBadge, PokemonImage, RoleBadge, SourceLink } from '../components/Common'
 import { PokemonModelViewer } from '../components/PokemonModelViewer'
+import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import {
   ELEMENT_COLORS,
@@ -622,6 +623,28 @@ function EffectivenessSection({ name, effectiveness }) {
   )
 }
 
+function MapLocationsSection({ name, locations }) {
+  if (!locations.length) return null
+  return (
+    <Section id="locations" title="Onde encontrar" icon={<MapPin size={18} />} description={`Posições publicadas no PXGMap para encontrar ${name}.`}>
+      <div className="pokemon-location-summary">
+        <div><strong>{locations.length}</strong><span>{locations.length === 1 ? 'posição mapeada' : 'posições mapeadas'}</span></div>
+        <Link to={`/map?pokemon=${encodeURIComponent(name)}`}>Explorar no mapa<ChevronRight size={14} /></Link>
+      </div>
+      <div className="pokemon-location-grid">
+        {locations.slice(0, 8).map((location, index) => (
+          <Link to={`/map?pokemon=${encodeURIComponent(name)}&x=${location.x}&y=${location.y}&z=${location.z}`} key={`${location.x}-${location.y}-${location.z}-${index}`}>
+            <span><MapPin size={15} /></span>
+            <div><small>{location.region} · Andar {location.z}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong>{location.comment && <p>{location.comment}</p>}</div>
+            <ChevronRight size={14} />
+          </Link>
+        ))}
+      </div>
+      {locations.length > 8 && <p className="pokemon-location-more">Mais {locations.length - 8} posições disponíveis no mapa interativo.</p>}
+    </Section>
+  )
+}
+
 const COUNTER_PAGE_SIZE = 6
 
 function normalizedCounterSearch(value) {
@@ -765,6 +788,7 @@ function DetailPager({ previous, next }) {
 export default function PokemonDetailPage() {
   const { pokemonId: routeId } = useParams()
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
+  const { byPokemonName: mapLocationsByPokemon } = useMapData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
@@ -781,6 +805,7 @@ export default function PokemonDetailPage() {
   }
 
   const name = displayName(entry)
+  const mapLocations = mapLocationsByPokemon.get(normalizedMapName(name)) ?? []
   const levels = pokemonLevels(entry)
   const elements = pokemonElements(entry)
   const clans = pokemonClans(entry)
@@ -810,6 +835,7 @@ export default function PokemonDetailPage() {
     { id: 'combat', label: 'Clans e funções' },
     hasEffectiveness && { id: 'effectiveness', label: 'Efetividades' },
     hasEffectiveness && { id: 'counters', label: 'Indicações' },
+    mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapLocations.length})` },
     hasMoves && { id: 'moves', label: 'Movimentos' },
     hasPokelog && { id: 'pokelog', label: 'Pokélog' },
     hasTasks && { id: 'tasks', label: `Tasks (${new Set(taskOccurrences.map((occurrence) => occurrence.task_id)).size})` },
@@ -878,6 +904,8 @@ export default function PokemonDetailPage() {
           <EffectivenessSection name={name} effectiveness={entry.effectiveness} />
 
           {hasEffectiveness && <CounterRecommendationsSection key={entry.source_url} target={entry} pokemon={pokemon} />}
+
+          <MapLocationsSection name={name} locations={mapLocations} />
 
           <MovesSection key={entry.source_url} moves={entry.moves} />
 

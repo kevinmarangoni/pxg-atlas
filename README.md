@@ -23,6 +23,22 @@ yarn dev
 
 A aplicação ficará disponível em `http://localhost:5173`.
 
+## Mapa interativo
+
+A rota `/#/map` reúne o mapa por andares, posições de Pokémon e orbs. É
+possível buscar um Pokémon, alternar camadas, navegar para regiões conhecidas,
+usar links com coordenadas e marcar orbs já coletadas no navegador.
+
+Os dados públicos do PXGMap ficam consolidados em
+`public/data/pxg_map.json`. Para atualizar essa base:
+
+```bash
+yarn sync:pxgmap
+```
+
+O comando atualiza coordenadas e o índice de tiles. As imagens do mapa e os
+sprites são carregados da fonte original durante o uso da aplicação.
+
 ## Build de produção
 
 ```bash
@@ -42,7 +58,7 @@ Os arquivos gerados ficam em `dist/`.
 4. Publique o projeto.
 
 O rewrite configurado em `vercel.json` entrega `index.html` para rotas como
-`/pokemon/:id`, `/tasks` e `/team-builder`, permitindo que o React Router cuide
+`/pokemon/:id`, `/tasks`, `/map` e `/team-builder`, permitindo que o React Router cuide
 da navegação sem erros 404 ao atualizar a página.
 
 Os avisos de independência, atribuições, privacidade básica e solicitações de
@@ -54,7 +70,10 @@ remoção estão disponíveis na rota `/#/legal` e pelo rodapé da aplicação.
 .
 ├── public/
 │   └── data/
+│       ├── pxg_map.json
 │       └── pxg_pokemon_capture.json
+├── scripts/
+│   └── sync-pxgmap.mjs
 ├── src/
 ├── index.html
 ├── package.json

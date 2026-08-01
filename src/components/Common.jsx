@@ -1,4 +1,4 @@
-import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, SearchX, Shield, Sparkles, Swords } from 'lucide-react'
+import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, SearchX, Shield, Sparkles, Swords } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
@@ -17,6 +17,7 @@ export function AppShell({ children, metadata }) {
         <nav className="topbar-nav" aria-label="Navegação principal">
           <NavLink to="/" end>Pokédex</NavLink>
           <NavLink to="/tasks"><ClipboardList size={14} />Tasks</NavLink>
+          <NavLink to="/map"><Map size={14} />Mapa</NavLink>
           <NavLink to="/team-builder"><Swords size={14} />Montar time</NavLink>
         </nav>
         <div className="topbar-meta">
