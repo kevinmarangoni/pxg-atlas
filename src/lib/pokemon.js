@@ -232,6 +232,18 @@ export function pokelogStages(pokemon) {
   return pokemonPokelog(pokemon)?.stages ?? []
 }
 
+export function pokelogStageId(stage, index = 0) {
+  return String(stage?.stage || `stage-${index + 1}`).trim().replace(/\s+/g, '_')
+}
+
+export function migratePokelogStageProgress(stored = [], stages = []) {
+  return [...new Set(stored.map((entry) => {
+    if (!String(entry).startsWith('legacy-index:')) return entry
+    const index = Number(String(entry).split(':')[1])
+    return Number.isInteger(index) && stages[index] ? pokelogStageId(stages[index], index) : null
+  }).filter(Boolean))]
+}
+
 export function pokemonClans(pokemon) {
   return [...new Set((pokemon.clan_memberships ?? []).map((entry) => entry.clan).filter(Boolean))]
 }

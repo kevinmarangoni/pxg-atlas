@@ -1,4 +1,4 @@
-import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, SearchX, Shield, Sparkles, Swords } from 'lucide-react'
+import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, SearchX, Shield, Sparkles, Swords, Wrench } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
@@ -19,6 +19,7 @@ export function AppShell({ children, metadata }) {
           <NavLink to="/tasks"><ClipboardList size={14} />Tasks</NavLink>
           <NavLink to="/map"><Map size={14} />Mapa</NavLink>
           <NavLink to="/team-builder"><Swords size={14} />Montar time</NavLink>
+          <NavLink to="/tools"><Wrench size={14} />Ferramentas</NavLink>
         </nav>
       </header>
       <main>{children}</main>

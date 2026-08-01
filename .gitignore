@@ -1,6 +1,7 @@
 node_modules
 dist
 .vite
+.cache
 .vercel
 *.local
 .DS_Store

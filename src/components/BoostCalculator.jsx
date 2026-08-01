@@ -1,24 +1,7 @@
 import { Calculator, Coins, Info, RotateCcw } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useAtlasStorage } from '../data/AtlasStorageContext'
 import { calculateBoostCost, formatK, materiaNamesFromMatter, parseBoostProfile } from '../lib/boostCalculator'
-
-const STORAGE_KEY = 'pxg-atlas:boost-prices:v1'
-
-function readStoredPrices() {
-  if (typeof window === 'undefined') return { stones: {}, materia: {}, boostStone: '', poweredBoostStone: '', pinkStarPiece: '' }
-  try {
-    const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}')
-    return {
-      stones: saved.stones || {},
-      materia: saved.materia || {},
-      boostStone: saved.boostStone ?? '',
-      poweredBoostStone: saved.poweredBoostStone ?? '',
-      pinkStarPiece: saved.pinkStarPiece ?? '',
-    }
-  } catch {
-    return { stones: {}, materia: {}, boostStone: '', poweredBoostStone: '', pinkStarPiece: '' }
-  }
-}
 
 function formatQuantity(value) {
   return Number(value || 0).toLocaleString('pt-BR')
@@ -37,14 +20,16 @@ function PriceInput({ label, value, onChange, hint }) {
 export function BoostCalculator({ boost, matter }) {
   const profile = useMemo(() => parseBoostProfile(boost), [boost])
   const materiaNames = useMemo(() => materiaNamesFromMatter(matter), [matter])
+  const { activePriceProfile, getPrice, setPrice, clearActivePrices } = useAtlasStorage()
   const [startBoost, setStartBoost] = useState(0)
   const [targetBoost, setTargetBoost] = useState(50)
-  const [prices, setPrices] = useState(readStoredPrices)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(prices))
-  }, [prices])
+  const prices = useMemo(() => ({
+    stones: Object.fromEntries((profile.materials || []).map((material) => [material, getPrice(material)])),
+    materia: Object.fromEntries(materiaNames.map((material) => [material, getPrice(material)])),
+    boostStone: getPrice('Boost Stone'),
+    poweredBoostStone: getPrice('Powered Boost Stone'),
+    pinkStarPiece: getPrice('Pink Star Piece'),
+  }), [profile, materiaNames, getPrice, activePriceProfile])
 
   const result = useMemo(() => calculateBoostCost({
     profile,
@@ -69,9 +54,9 @@ export function BoostCalculator({ boost, matter }) {
     )
   }
 
-  const updateStonePrice = (material, value) => setPrices((current) => ({ ...current, stones: { ...current.stones, [material]: value } }))
-  const updateMateriaPrice = (material, value) => setPrices((current) => ({ ...current, materia: { ...current.materia, [material]: value } }))
-  const resetPrices = () => setPrices({ stones: {}, materia: {}, boostStone: '', poweredBoostStone: '', pinkStarPiece: '' })
+  const updateStonePrice = (material, value) => setPrice(material, value)
+  const updateMateriaPrice = (material, value) => setPrice(material, value)
+  const resetPrices = clearActivePrices
   const currentLabel = startBoost === 0 ? '+0' : `+${startBoost}`
   const targetLabel = `+${targetBoost}`
   const hasExtended = targetBoost > 50
@@ -103,7 +88,7 @@ export function BoostCalculator({ boost, matter }) {
           <header><Coins size={15} /><div><strong>Preços das stones</strong><span>Informe em K. Em alternativas, usamos automaticamente a opção mais barata preenchida.</span></div></header>
           <div className="boost-price-grid">
             {profile.materials.map((material) => <PriceInput key={material} label={material} value={prices.stones[material] ?? ''} onChange={(value) => updateStonePrice(material, value)} />)}
-            <PriceInput label="Boost Stone (opcional)" value={prices.boostStone} onChange={(value) => setPrices((current) => ({ ...current, boostStone: value }))} hint="Usada quando sair mais barata que as stones comuns." />
+            <PriceInput label="Boost Stone (opcional)" value={prices.boostStone} onChange={(value) => setPrice('Boost Stone', value)} hint="Usada quando sair mais barata que as stones comuns." />
           </div>
         </div>
 
@@ -111,8 +96,8 @@ export function BoostCalculator({ boost, matter }) {
           <header><Coins size={15} /><div><strong>Materiais de +50 a +80</strong><span>Os nomes abaixo vêm do clã/tier publicado na ficha.</span></div></header>
           <div className="boost-price-grid">
             {materiaNames.map((material) => <PriceInput key={material} label={material} value={prices.materia[material] ?? ''} onChange={(value) => updateMateriaPrice(material, value)} />)}
-            <PriceInput label="Powered Boost Stone (opcional)" value={prices.poweredBoostStone} onChange={(value) => setPrices((current) => ({ ...current, poweredBoostStone: value }))} hint="Alternativa para cada boost entre +50 e +70." />
-            {targetBoost > 70 && <PriceInput label="Pink Star Piece" value={prices.pinkStarPiece} onChange={(value) => setPrices((current) => ({ ...current, pinkStarPiece: value }))} />}
+            <PriceInput label="Powered Boost Stone (opcional)" value={prices.poweredBoostStone} onChange={(value) => setPrice('Powered Boost Stone', value)} hint="Alternativa para cada boost entre +50 e +70." />
+            {targetBoost > 70 && <PriceInput label="Pink Star Piece" value={prices.pinkStarPiece} onChange={(value) => setPrice('Pink Star Piece', value)} />}
           </div>
         </div>}
       </div>

@@ -1,0 +1,279 @@
+{
+  "metadata": {
+    "source_type": "official_pokexgames_wiki",
+    "source_home": "https://wiki.pokexgames.com",
+    "domain": "world",
+    "generated_at": "2026-08-01T18:45:00.577Z",
+    "complete": true,
+    "pages": [
+      {
+        "page_title": "Tempo de Respawn",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      }
+    ],
+    "errors": [],
+    "total_respawn_entries": 42
+  },
+  "respawn": {
+    "pokemon": [
+      {
+        "name": "Tempo Padrão",
+        "time_raw": "1 a 3 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Shiny Whiscash",
+        "time_raw": "3 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Mega Houndoom",
+        "time_raw": "3 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Árvore Sudowoodo",
+        "time_raw": "5 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Galarian Weezing",
+        "time_raw": "5 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Riolu",
+        "time_raw": "6 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Lucario",
+        "time_raw": "6 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Tropius (Butwal Island)",
+        "time_raw": "6 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Árvore Headbutt",
+        "time_raw": "10 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Darkrai Minion",
+        "time_raw": "2 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Aerodactyl",
+        "time_raw": "18 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Kabuto",
+        "time_raw": "20 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Kabutops",
+        "time_raw": "35 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Omanyte",
+        "time_raw": "20 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Omastar",
+        "time_raw": "35 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Balão Rocket Team",
+        "time_raw": "2 horas e 47 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Mamoswine",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Porygon-Z",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Shiny Mega Metagross",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Big Snorlax",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Giant Pidgeot",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Giant Rhydon",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Giant Shiny Tentacruel",
+        "time_raw": "6 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Vault (Koga Quest)",
+        "time_raw": "3 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      }
+    ],
+    "npcs": [
+      {
+        "name": "Corrupted Trainer",
+        "time_raw": "30 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Sarkies Trooper",
+        "time_raw": "2 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Giovanni",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Officer Jenny",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Gardestrike Champion",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Ironhard Titan",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Malefic Lord / Lady",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Naturia Kepper",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Orebound Hero / Heroine",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Psycraft Medium",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Raibolt Legend",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Seavell King / Queen",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Volcanic Master",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Wingeon Dragon",
+        "time_raw": "5 horas",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Bikers Chosen",
+        "time_raw": "5 minutos",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      }
+    ],
+    "resources": [
+      {
+        "name": "Arbusto",
+        "time_raw": "Entre 1 e 2 horas a partir do religamento do servidor",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Minério",
+        "time_raw": "Entre 1 e 2 horas a partir do religamento do servidor",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      },
+      {
+        "name": "Baú",
+        "time_raw": "Entre 1 e 2 horas a partir do religamento do servidor",
+        "source_url": "https://wiki.pokexgames.com/index.php/Tempo_de_Respawn",
+        "revision_id": 101282
+      }
+    ]
+  },
+  "points": []
+}

@@ -16,6 +16,7 @@ import {
   Shield,
   ShieldCheck,
   Sparkles,
+  Sprout,
   Swords,
   Target,
   Zap,
@@ -28,6 +29,8 @@ import { PokemonModelViewer } from '../components/PokemonModelViewer'
 import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { useAtlasStorage } from '../data/AtlasStorageContext'
+import { useCatalogData } from '../data/DomainData'
 import {
   ELEMENT_COLORS,
   captureBallEntries,
@@ -36,11 +39,14 @@ import {
   pokemonCapture,
   pokemonElements,
   pokemonImage,
+  pokemonId,
   pokemonLevels,
+  migratePokelogStageProgress,
   pokemonPath,
   pokemonPokelog,
   pokemonTiers,
   pokelogStages,
+  pokelogStageId,
   normalizedElement,
   tierLabel,
 } from '../lib/pokemon'
@@ -375,22 +381,18 @@ function CaptureSection({ pokemon, catalog, metadata }) {
 function PokelogSection({ pokemon }) {
   const pokelog = pokemonPokelog(pokemon)
   const stages = pokelogStages(pokemon)
-  const storageKey = `pxg-pokelog-progress:${pokemon.source_url}`
-  const [completed, setCompleted] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]')
-      return Array.isArray(saved) ? saved : []
-    } catch { return [] }
-  })
-
-  useEffect(() => {
-    try { localStorage.setItem(storageKey, JSON.stringify(completed)) } catch { /* storage is optional */ }
-  }, [completed, storageKey])
+  const { state, setPokelogStages } = useAtlasStorage()
+  const id = pokemonId(pokemon)
+  const stored = state.progress.pokelog[id] || []
+  const completed = migratePokelogStageProgress(stored, stages)
 
   if (!pokelog || !stages.length) return null
-  const done = stages.filter((_, index) => completed.includes(index)).length
+  const done = stages.filter((stage, index) => completed.includes(pokelogStageId(stage, index))).length
   const percent = Math.round((done / stages.length) * 100)
-  const toggle = (index) => setCompleted((current) => current.includes(index) ? current.filter((item) => item !== index) : [...current, index].sort((a, b) => a - b))
+  const toggle = (stage, index) => {
+    const stageId = pokelogStageId(stage, index)
+    setPokelogStages(id, completed.includes(stageId) ? completed.filter((item) => item !== stageId) : [...completed, stageId])
+  }
   const rawOrValue = (raw, value) => raw || formatNumber(value)
 
   return (
@@ -404,13 +406,13 @@ function PokelogSection({ pokemon }) {
       {pokemon.scrape_status === 'not_published' && <p className="pokelog-note">Esta forma existe no compilado do Pokélog, mas ainda não possui uma ficha individual publicada na Wiki.</p>}
       <div className="pokelog-stage-grid">
         {stages.map((stage, index) => {
-          const isDone = completed.includes(index)
+          const isDone = completed.includes(pokelogStageId(stage, index))
           return (
             <article className={`pokelog-stage ${isDone ? 'completed' : ''}`} key={`${stage.stage}-${index}`}>
               <header>
                 <div><small>Estágio</small><strong>{stage.stage}</strong></div>
                 <label className="pokelog-check">
-                  <input type="checkbox" checked={isDone} onChange={() => toggle(index)} aria-label={`Marcar estágio ${stage.stage} como concluído`} />
+                  <input type="checkbox" checked={isDone} onChange={() => toggle(stage, index)} aria-label={`Marcar estágio ${stage.stage} como concluído`} />
                   <span><Check size={15} /></span>
                 </label>
               </header>
@@ -420,7 +422,36 @@ function PokelogSection({ pokemon }) {
           )
         })}
       </div>
-      {done > 0 && <button type="button" className="text-action" onClick={() => setCompleted([])}>Limpar progresso</button>}
+      {done > 0 && <button type="button" className="text-action" onClick={() => setPokelogStages(id, [])}>Limpar progresso</button>}
+    </Section>
+  )
+}
+
+function BerryRecommendationsSection({ pokemon, berries = [] }) {
+  const weaknesses = counterWeaknesses(pokemon).map((entry) => normalizedElement(entry.element))
+  const moveTags = [...new Set(Object.values(pokemon.moves || {}).flat().flatMap((move) => move.tags || []).map((tag) => String(tag).toLocaleLowerCase('pt-BR')))]
+  const statusTerms = { stun: ['stun', 'atordo'], blind: ['blind', 'cegue'], poison: ['poison', 'enven'], burn: ['burn', 'queima'], slow: ['slow', 'lentid'], paralysis: ['paraly', 'paralis'], confusion: ['confus'] }
+  const recommendations = berries.map((berry) => {
+    const effect = normalizedMapName(berry.effect)
+    const elemental = weaknesses.filter((element) => effect.includes(normalizedMapName(element)))
+    const statuses = Object.entries(statusTerms).filter(([tag, terms]) => moveTags.includes(tag) && terms.some((term) => effect.includes(term))).map(([tag]) => tag)
+    return { berry, elemental, statuses }
+  }).filter((entry) => entry.elemental.length || entry.statuses.length).slice(0, 10)
+  if (!recommendations.length) return null
+  return (
+    <Section id="berries" title="Berries úteis" icon={<Sprout size={18} />} description="Sugestões derivadas das efetividades e dos efeitos de controle publicados nesta ficha.">
+      <div className="pokemon-berry-grid">{recommendations.map(({ berry, elemental, statuses }) => <Link to="/berries" key={berry.id}>{berry.image_url && <img src={berry.image_url} alt="" />}<div><strong>{berry.name}</strong><p>{berry.effect}</p><small>{elemental.length ? `Proteção: ${elemental.join(', ')}` : `Status: ${statuses.join(', ')}`}</small></div></Link>)}</div>
+    </Section>
+  )
+}
+
+function PokemonDropsSection({ pokemon, items = [] }) {
+  const target = normalizedMapName(displayName(pokemon))
+  const drops = items.filter((item) => (item.dropped_by || []).some((name) => normalizedMapName(name) === target))
+  if (!drops.length) return null
+  return (
+    <Section id="drops" title="Drops publicados" icon={<Package size={18} />} description="Itens relacionados a este Pokémon nas tabelas oficiais de drop.">
+      <div className="pokemon-drop-grid">{drops.map((item) => <Link to={`/items/${encodeURIComponent(item.id)}`} key={item.id}>{item.image_url && <img src={item.image_url} alt="" />}<span><strong>{item.name}</strong><small>{item.categories?.[0] || 'Item'}</small></span></Link>)}</div>
     </Section>
   )
 }
@@ -842,6 +873,7 @@ export default function PokemonDetailPage() {
   const { pokemonId: routeId } = useParams()
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
   const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
+  const { data: catalogData } = useCatalogData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
@@ -883,14 +915,17 @@ export default function PokemonDetailPage() {
   const capture = pokemonCapture(entry)
   const taskOccurrences = entry.task_occurrences ?? []
   const hasTasks = taskOccurrences.length > 0
+  const hasDrops = catalogData?.items?.some((item) => (item.dropped_by || []).some((dropper) => normalizedMapName(dropper) === normalizedMapName(name)))
   const sectionLinks = [
     { id: 'overview', label: 'Resumo' },
     info.boost && { id: 'boost-cost', label: 'Custo de boost' },
     mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapRespawnCount})` },
+    hasDrops && { id: 'drops', label: 'Drops' },
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
     hasEffectiveness && { id: 'effectiveness', label: 'Efetividades' },
     hasEffectiveness && { id: 'counters', label: 'Indicações' },
+    catalogData?.berries?.length > 0 && { id: 'berries', label: 'Berries' },
     hasMoves && { id: 'moves', label: 'Movimentos' },
     hasPokelog && { id: 'pokelog', label: 'Pokélog' },
     hasTasks && { id: 'tasks', label: `Tasks (${new Set(taskOccurrences.map((occurrence) => occurrence.task_id)).size})` },
@@ -950,6 +985,8 @@ export default function PokemonDetailPage() {
 
           <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} localTilePositionSet={localTilePositionSet} localTileHome={localTileHome} mapSources={mapData?.map_sources} />
 
+          <PokemonDropsSection pokemon={entry} items={catalogData?.items} />
+
           <CaptureSection pokemon={entry} catalog={captureBallCatalog} metadata={data?.metadata?.capture_enrichment} />
 
           <Section id="combat" title="Clans e funções" icon={<Swords size={18} />} description="Cada card preserva a classificação e a disponibilidade publicadas para PvE e PvP.">
@@ -963,6 +1000,8 @@ export default function PokemonDetailPage() {
           <EffectivenessSection name={name} effectiveness={entry.effectiveness} />
 
           {hasEffectiveness && <CounterRecommendationsSection key={entry.source_url} target={entry} pokemon={pokemon} />}
+
+          <BerryRecommendationsSection pokemon={entry} berries={catalogData?.berries} />
 
           <MovesSection key={entry.source_url} moves={entry.moves} />
 
