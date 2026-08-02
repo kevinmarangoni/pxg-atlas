@@ -6,6 +6,17 @@
     <meta name="theme-color" content="#070a12" />
     <meta name="description" content="Pokédex avançada para os dados públicos da wiki PokeXGames." />
     <title>PXG Atlas</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('pxg-theme');
+          var theme = stored === 'light' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

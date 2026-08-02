@@ -1,7 +1,29 @@
-import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, SearchX, Shield, Sparkles, Swords, Wrench } from 'lucide-react'
-import { useState } from 'react'
+import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, Moon, SearchX, Shield, Sparkles, Sun, Swords, Wrench } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
+import { applyTheme, getStoredTheme } from '../lib/theme'
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(getStoredTheme)
+
+  useEffect(() => {
+    applyTheme(theme)
+  }, [theme])
+
+  const isDark = theme === 'dark'
+  return (
+    <button
+      type="button"
+      className="theme-toggle"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      title={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
+      aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
+    >
+      {isDark ? <Sun size={18} /> : <Moon size={18} />}
+    </button>
+  )
+}
 
 export function AppShell({ children, metadata }) {
   return (
@@ -21,6 +43,7 @@ export function AppShell({ children, metadata }) {
           <NavLink to="/team-builder"><Swords size={14} />Montar time</NavLink>
           <NavLink to="/tools"><Wrench size={14} />Ferramentas</NavLink>
         </nav>
+        <ThemeToggle />
       </header>
       <main>{children}</main>
       <footer className="footer">
