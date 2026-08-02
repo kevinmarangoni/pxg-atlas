@@ -19,6 +19,7 @@ import {
   Sprout,
   Swords,
   Target,
+  UserRound,
   Zap,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
@@ -30,7 +31,7 @@ import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { useAtlasStorage } from '../data/AtlasStorageContext'
-import { useCatalogData } from '../data/DomainData'
+import { useCatalogData, useNpcObtainedData } from '../data/DomainData'
 import {
   EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
@@ -438,6 +439,45 @@ function PokemonDropsSection({ pokemon, items = [] }) {
   )
 }
 
+function npcObtainedEntries(data, pokemonName) {
+  const target = normalizedMapName(pokemonName)
+  return (data?.groups || []).flatMap((group) => (group.entries || []).map((entry) => ({
+    ...group,
+    ...entry,
+    npc: entry.npc || group.npc,
+    location: entry.location || group.location,
+    notes: [...(group.notes || []), ...(entry.notes || [])],
+  }))).filter((entry) => normalizedMapName(entry.pokemon) === target)
+}
+
+function PokemonNpcObtainedSection({ entries, metadata }) {
+  if (!entries.length) return null
+  return (
+    <Section id="npc-obtained" title="Obtido via NPC" icon={<UserRound size={18} />} description="Requisitos, custos e locais publicados pela Wiki oficial para obter esta forma.">
+      <div className="pokemon-npc-obtained-grid">
+        {entries.map((entry) => {
+          const delivered = [...new Set([...(entry.source_pokemon || []), ...(entry.source_items || []), ...(entry.requirements || [])])]
+          return (
+            <article className="pokemon-npc-obtained-card" key={entry.id}>
+              <header><div><small>{entry.category || 'Obtenção publicada'}</small><strong>{entry.title}</strong></div><b>{entry.reward || entry.pokemon}</b></header>
+              <div className="pokemon-npc-obtained-facts">
+                <span><UserRound size={13} /><small>NPC</small><strong>{entry.npc || 'Não informado'}</strong></span>
+                <span><MapPin size={13} /><small>Local</small><strong>{entry.location || 'Não informado'}</strong></span>
+              </div>
+              <div className="pokemon-npc-obtained-flow">
+                <div><small>Entregar / cumprir</small><p>{delivered.length ? delivered.join(' · ') : 'Requisito não informado'}</p></div>
+                <div><small>Custo</small><p>{entry.cost?.length ? entry.cost.join(' · ') : 'Sem custo informado'}</p></div>
+              </div>
+              {entry.notes?.length > 0 && <details><summary>Restrições e observações</summary><ul>{entry.notes.map((note, index) => <li key={`${entry.id}-note-${index}`}>{note}</li>)}</ul></details>}
+            </article>
+          )
+        })}
+      </div>
+      {metadata?.source_url && <p className="pokemon-npc-source"><SourceLink href={metadata.source_url}>Ver página oficial de obtenção</SourceLink><span>Revisão {metadata.revision_id || '—'}</span></p>}
+    </Section>
+  )
+}
+
 function TaskOccurrencesSection({ occurrences, tasksById }) {
   const [regionFilter, setRegionFilter] = useState('all')
   if (!occurrences.length) return null
@@ -835,10 +875,12 @@ export default function PokemonDetailPage() {
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
   const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const { data: catalogData } = useCatalogData()
+  const { data: npcObtainedData } = useNpcObtainedData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
   const entry = byId.get(decodedId)
+  const npcObtained = useMemo(() => npcObtainedEntries(npcObtainedData, entry && displayName(entry)), [entry, npcObtainedData])
   const orderedPokemon = useMemo(() => [...pokemon].sort((a, b) => displayName(a).localeCompare(displayName(b), 'pt-BR')), [pokemon])
   const currentIndex = entry ? orderedPokemon.findIndex((candidate) => candidate.source_url === entry.source_url) : -1
   const previous = currentIndex > 0 ? orderedPokemon[currentIndex - 1] : null
@@ -881,6 +923,7 @@ export default function PokemonDetailPage() {
     { id: 'overview', label: 'Resumo' },
     info.boost && { id: 'boost-cost', label: 'Custo de boost' },
     mapLocations.length > 0 && { id: 'locations', label: `Mapa (${mapRespawnCount})` },
+    npcObtained.length > 0 && { id: 'npc-obtained', label: 'Obtido via NPC' },
     hasDrops && { id: 'drops', label: 'Drops' },
     capture && { id: 'capture', label: 'Captura' },
     { id: 'combat', label: 'Clans e funções' },
@@ -945,6 +988,8 @@ export default function PokemonDetailPage() {
           <BoostCalculator boost={info.boost} matter={info.matter} />
 
           <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} localTilePositionSet={localTilePositionSet} localTileHome={localTileHome} mapSources={mapData?.map_sources} />
+
+          <PokemonNpcObtainedSection entries={npcObtained} metadata={npcObtainedData?.metadata} />
 
           <PokemonDropsSection pokemon={entry} items={catalogData?.items} />
 

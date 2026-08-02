@@ -20,12 +20,12 @@ function uniqueIds(entries, label) {
   assert(new Set(ids).size === ids.length, `${label}: há ids duplicados.`)
 }
 
-const [catalog, crafting, guides, progression, world, pokemon] = await Promise.all([
+const [catalog, crafting, guides, progression, world, pokemon, npcObtained] = await Promise.all([
   load('pxg_catalog.json'), load('pxg_crafting.json'), load('pxg_guides.json'),
-  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'),
+  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'), load('pxg_npc_obtained.json'),
 ])
 
-for (const [name, payload] of Object.entries({ catalog, crafting, guides, progression, world })) {
+for (const [name, payload] of Object.entries({ catalog, crafting, guides, progression, world, npcObtained })) {
   if (!payload) continue
   assert(payload.metadata?.complete === true, `${name}: snapshot não está marcado como completo.`)
   assert(payload.metadata?.generated_at, `${name}: generated_at ausente.`)
@@ -94,6 +94,17 @@ if (pokemon) {
   assert((pokemon.pokemon || []).length >= 1000, 'pokemon: menos de 1.000 registros no snapshot principal.')
   assert((pokemon.tasks || []).length >= 500, 'pokemon: menos de 500 tasks no snapshot principal.')
   checks.push(`${pokemon.pokemon.length} Pokémon`, `${pokemon.tasks.length} tasks`)
+}
+
+if (npcObtained) {
+  const groups = npcObtained.groups || []
+  const entries = groups.flatMap((group) => group.entries || [])
+  uniqueIds(groups, 'npcObtained.groups')
+  uniqueIds(entries, 'npcObtained.entries')
+  assert(Number(npcObtained.metadata?.record_count) === entries.length, `npcObtained: record_count divergente (${npcObtained.metadata?.record_count} != ${entries.length}).`)
+  assert(entries.every((entry) => entry.pokemon && entry.reward), 'npcObtained: há registros sem Pokémon ou recompensa.')
+  assert(groups.every((group) => group.title && group.category), 'npcObtained: há grupos sem título ou categoria.')
+  checks.push(`${entries.length} obtenções via NPC`)
 }
 
 if (failures.length) {

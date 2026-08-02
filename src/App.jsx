@@ -1,4 +1,5 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { AppShell, DataError, DataLoading } from './components/Common'
 import { PokemonDataProvider, usePokemonData } from './data/PokemonDataContext'
 import { MapDataProvider } from './data/MapDataContext'
@@ -33,9 +34,30 @@ function PokemonRoute({ children, withMap = false }) {
   return withMap ? <MapDataProvider>{content}</MapDataProvider> : content
 }
 
+function HashRouteSync() {
+  const location = useLocation()
+
+  useEffect(() => {
+    const hashPath = window.location.hash.replace(/^#/, '') || '/'
+    const routerPath = `${location.pathname}${location.search}${location.hash}` || '/'
+    if (hashPath === routerPath) return
+
+    // A click during the first render can update the URL before HashRouter
+    // subscribes to hashchange. Re-emit it so the route catches up to the URL.
+    try {
+      window.dispatchEvent(new HashChangeEvent('hashchange', { oldURL: window.location.href, newURL: window.location.href }))
+    } catch {
+      window.dispatchEvent(new Event('hashchange'))
+    }
+  }, [location.hash, location.pathname, location.search])
+
+  return null
+}
+
 export default function App() {
   return (
     <AppShell>
+      <HashRouteSync />
       <Routes>
         <Route path="/" element={<PokemonRoute><PokemonListPage /></PokemonRoute>} />
         <Route path="/tasks" element={<PokemonRoute><TaskListPage /></PokemonRoute>} />
