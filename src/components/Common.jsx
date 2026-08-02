@@ -1,4 +1,4 @@
-import { ArrowLeft, ClipboardList, Database, ExternalLink, Languages, LoaderCircle, Map, Moon, SearchX, Shield, Sparkles, Sun, Swords, Wrench } from 'lucide-react'
+import { ArrowLeft, ClipboardList, Database, ExternalLink, Languages, Map, Moon, SearchX, Shield, Sun, Swords, Wrench } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { CookieConsentBanner } from './CookieConsentBanner'
@@ -134,7 +134,7 @@ export function AppShell({ children, metadata }) {
     <div className="app-shell">
       <header className="topbar">
         <Link className="brand" to="/" aria-label={t('Ir para a Pokédex')}>
-          <span className="brand-mark"><Sparkles size={18} /></span>
+          <span className="brand-mark"><img src="/logo/compass.png" alt="" /></span>
           <span>
             <strong>PXG Atlas</strong>
             <small>{t('Pokédex avançada')}</small>
@@ -167,7 +167,7 @@ export function DataLoading() {
   const { t } = useLanguage()
   return (
     <section className="state-screen" aria-live="polite">
-      <div className="loader-orbit"><LoaderCircle size={34} /></div>
+      <div className="loader-orbit"><img src="/logo/compass.png" alt="" /></div>
       <h1>{t('Preparando a Pokédex')}</h1>
       <p>{t('Carregando Pokémon, tasks, clans, tiers e funções de combate…')}</p>
       <div className="loading-lines"><i /><i /><i /></div>
