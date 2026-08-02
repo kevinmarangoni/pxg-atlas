@@ -144,7 +144,7 @@ export default function LegalPage() {
           </LegalSection>
 
           <LegalSection id="privacy" icon={<HardDrive size={20} />} title="Privacidade e armazenamento no navegador">
-            <p>A versão atual não possui cadastro, área de login, formulário de contato ou API própria para receber dados pessoais. Perfis de preços por servidor, inventário e projetos de crafting, preferências de visualização, filtros temporários, o time montado e o progresso de Pokélog, quests, bosses e timers de berries ficam armazenados localmente no navegador por meio de <code>localStorage</code>. O backup e a restauração são feitos manualmente pela rota Ferramentas, em JSON, sem sincronização entre dispositivos.</p>
+            <p>A versão atual não possui cadastro, área de login, formulário de contato ou API própria para receber dados pessoais. Perfis de preços por servidor, inventário e projetos de crafting, preferências de visualização, filtros temporários, o time montado e o progresso de Pokélog, Unowns, quests, bosses e timers de berries ficam armazenados localmente no navegador por meio de <code>localStorage</code>. O backup e a restauração são feitos manualmente pela rota Ferramentas, em JSON, sem sincronização entre dispositivos.</p>
             <p>A hospedagem, as fontes tipográficas e os provedores das imagens remotas podem receber informações técnicas normais de uma requisição web, como endereço IP, navegador e horário de acesso, de acordo com as políticas desses terceiros.</p>
           </LegalSection>
 

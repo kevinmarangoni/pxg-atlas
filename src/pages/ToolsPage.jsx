@@ -1,4 +1,4 @@
-import { Calculator, ClipboardList, Download, FlaskConical, Gem, MapPinned, PackageSearch, ShieldCheck, Sprout, Upload, Wrench } from 'lucide-react'
+import { Calculator, ClipboardList, Download, FlaskConical, Gem, MapPinned, PackageSearch, ShieldCheck, Sprout, Target, Upload, Wrench } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PriceProfileBar, ToolHero } from '../components/ToolCommon'
@@ -9,6 +9,7 @@ const TOOLS = [
   { to: '/crafting', icon: Wrench, title: 'Planejador de crafting', description: 'Inventário, materiais faltantes e custo por servidor.' },
   { to: '/held-items', icon: Gem, title: 'Held Items', description: 'Compare tiers, efeitos e usos recomendados.' },
   { to: '/pokelog', icon: ClipboardList, title: 'Pokélog', description: 'Acompanhe o progresso global e encontre respawns.' },
+  { to: '/unowns', icon: Target, title: 'Tracker de Unowns', description: 'Marque as 28 formas capturadas e veja o que falta.' },
   { to: '/quests', icon: MapPinned, title: 'Quests', description: 'Requisitos, recompensas e spoilers controlados.' },
   { to: '/bosses', icon: ShieldCheck, title: 'Bosses', description: 'Conteúdo semanal e checklist por boss.' },
   { to: '/berries', icon: Sprout, title: 'BerryDex', description: 'Efeitos, plantio e temporizadores.' },
@@ -58,4 +59,3 @@ export default function ToolsPage() {
     </div>
   )
 }
-

@@ -19,6 +19,7 @@ import NpcsPage from './pages/NpcsPage'
 import BossesPage from './pages/BossesPage'
 import BerriesPage from './pages/BerriesPage'
 import CalculatorsPage from './pages/CalculatorsPage'
+import UnownTrackerPage from './pages/UnownTrackerPage'
 
 function PokemonDataGate({ children }) {
   const { data, loading, error } = usePokemonData()
@@ -42,6 +43,8 @@ export default function App() {
         <Route path="/team-builder" element={<PokemonRoute><TeamBuilderPage /></PokemonRoute>} />
         <Route path="/pokemon/:pokemonId" element={<PokemonRoute withMap><PokemonDetailPage /></PokemonRoute>} />
         <Route path="/pokelog" element={<PokemonRoute withMap><PokelogPage /></PokemonRoute>} />
+        <Route path="/unowns" element={<PokemonRoute><UnownTrackerPage /></PokemonRoute>} />
+        <Route path="/unown-tracker" element={<PokemonRoute><UnownTrackerPage /></PokemonRoute>} />
         <Route path="/npcs" element={<PokemonRoute><NpcsPage /></PokemonRoute>} />
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/items" element={<ItemListPage />} />

@@ -33,7 +33,7 @@ A aplicação ficará disponível em `http://localhost:5173`.
 ## Domínios e ferramentas
 
 Além da Pokédex, o menu **Ferramentas** oferece as rotas `/items`, `/crafting`,
-`/held-items`, `/pokelog`, `/quests`, `/npcs`, `/bosses`, `/berries` e
+`/held-items`, `/pokelog`, `/unowns`, `/quests`, `/npcs`, `/bosses`, `/berries` e
 `/calculators/*`. Preços são manuais e ficam em perfis nomeados por servidor no
 navegador. O backup em JSON da rota `/tools` exporta e restaura preços,
 inventário, projetos e progresso sem enviar dados para um backend.
