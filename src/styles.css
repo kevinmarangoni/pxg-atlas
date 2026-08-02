@@ -486,15 +486,15 @@ main { flex: 1; }
 .quickview-attacks .tabs { margin-bottom: 7px; gap: 4px; }
 .quickview-attacks .tabs button { min-height: 29px; padding: 0 8px; border-radius: 7px; font-size: 10px; }
 .quickview-attacks .tabs b { min-width: 16px; height: 16px; margin-left: 4px; padding: 0 4px; font-size: 9px; }
-.quickview-moves-list { gap: 4px; }
-.quickview-move { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 8px; }
-.quickview-move-name { font-size: 11px; }
-.quickview-move-meta { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 4px; }
+.quickview-moves-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 6px; }
+.quickview-move { min-height: 88px; aspect-ratio: 1 / .88; display: grid; grid-template-rows: auto minmax(0, 1fr); align-content: center; gap: 6px; padding: 7px; border-radius: 8px; }
+.quickview-move-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+.quickview-move-meta { display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: center; align-items: center; gap: 4px; }
 .quickview-move-meta .move-slot { min-width: 23px; height: 21px; font-size: 10px; }
 .quickview-move .element-badge { min-height: 20px; padding: 0 5px; gap: 4px; font-size: 10px; }
 .quickview-move .element-icon { width: 13px; height: 13px; }
-.quickview-move small { font-size: 10px; }
-.quickview-move-tags { gap: 2px; }
+.quickview-move small { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 9px; text-align: left; }
+.quickview-move-tags { grid-column: 1 / -1; justify-content: flex-start; gap: 2px; }
 .quickview-tag-icon img { width: 19px; height: 19px; }
 .quickview-move-tag-fallback { width: 18px; height: 18px; font-size: 9px; }
 .quickview-modal--with-extra { grid-template-rows: minmax(0, 1fr) auto; }
@@ -540,8 +540,8 @@ main { flex: 1; }
   .quickview-modal.quickview-modal--cols-2 .quickview-identity { border-right: 0; border-bottom: 1px solid var(--line); padding: 26px 20px 20px; }
   .quickview-modal.quickview-modal--cols-2 .quickview-effectiveness { border-left: 0; border-top: 1px solid var(--line); }
   .pokemon-location-overlay { padding: 12px; }
-  .quickview-move { grid-template-columns: 1fr; gap: 4px; }
-  .quickview-move-meta { justify-content: flex-start; }
+  .quickview-moves-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .quickview-move { min-height: 82px; }
   .quickview-extra { padding: 0 16px 16px; }
 }
 
