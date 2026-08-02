@@ -1,4 +1,4 @@
-import { ChevronRight, Crown } from 'lucide-react'
+import { ChevronRight, Crown, Maximize2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import {
   displayName,
@@ -15,6 +15,28 @@ import {
   tierLabel,
 } from '../lib/pokemon'
 import { ElementBadge, PokemonImage, RoleIcon } from './Common'
+
+function onActivateKey(handler) {
+  return (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    handler()
+  }
+}
+
+function GotoFullPageLink({ pokemon }) {
+  return (
+    <Link
+      className="card-goto-link"
+      to={pokemonPath(pokemon)}
+      onClick={(event) => event.stopPropagation()}
+      title="Ficha completa"
+      aria-label="Ir para a ficha completa"
+    >
+      <Maximize2 size={14} />
+    </Link>
+  )
+}
 
 function RoleSummary({ mode, roles, roleCatalog }) {
   if (!roles.length) return null
@@ -34,7 +56,7 @@ function PokelogBadge({ pokemon }) {
   return <span className="pokelog-badge" title={`Pokélog ${pokelog.category} · Experiência ${pokelog.experience_category}`}>PK {pokelog.category} · XP {pokelog.experience_category}</span>
 }
 
-function PokemonListRow({ pokemon, roleCatalog, withImage }) {
+function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
   const name = displayName(pokemon)
   const clans = pokemonClans(pokemon)
   const elements = pokemonElements(pokemon)
@@ -49,7 +71,7 @@ function PokemonListRow({ pokemon, roleCatalog, withImage }) {
 
   if (!withImage) {
     return (
-      <Link className="pokemon-list-row simple" to={pokemonPath(pokemon)}>
+      <div className="pokemon-list-row simple" role="button" tabIndex={0} onClick={() => onSelect(pokemon)} onKeyDown={onActivateKey(() => onSelect(pokemon))}>
         <div className="simple-row-identity">
           <span className="card-kicker" title={identityLabel}>{identityLabel}</span>
           <h2>{name}</h2>
@@ -65,13 +87,16 @@ function PokemonListRow({ pokemon, roleCatalog, withImage }) {
           <RoleSummary mode="pvp" roles={pvpRoles} roleCatalog={roleCatalog} />
           {!pveRoles.length && !pvpRoles.length && <span className="no-role">Sem função registrada</span>}
         </div>
-        <ChevronRight className="card-arrow" size={18} />
-      </Link>
+        <div className="list-row-actions">
+          <GotoFullPageLink pokemon={pokemon} />
+          <ChevronRight className="card-arrow" size={18} />
+        </div>
+      </div>
     )
   }
 
   return (
-    <Link className="pokemon-list-row with-image" to={pokemonPath(pokemon)}>
+    <div className="pokemon-list-row with-image" role="button" tabIndex={0} onClick={() => onSelect(pokemon)} onKeyDown={onActivateKey(() => onSelect(pokemon))}>
       <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="list-row-image" />
       <div className="list-row-identity">
         <span className="card-kicker">{identityLabel}</span>
@@ -90,14 +115,17 @@ function PokemonListRow({ pokemon, roleCatalog, withImage }) {
           {!pveRoles.length && !pvpRoles.length && <span className="no-role">Sem função registrada</span>}
         </div>
       </div>
-      <ChevronRight className="card-arrow" size={20} />
-    </Link>
+      <div className="list-row-actions">
+        <GotoFullPageLink pokemon={pokemon} />
+        <ChevronRight className="card-arrow" size={20} />
+      </div>
+    </div>
   )
 }
 
-export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid' }) {
-  if (viewMode === 'image-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage />
-  if (viewMode === 'simple-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage={false} />
+export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid', onSelect }) {
+  if (viewMode === 'image-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage onSelect={onSelect} />
+  if (viewMode === 'simple-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage={false} onSelect={onSelect} />
 
   const name = displayName(pokemon)
   const clans = pokemonClans(pokemon)
@@ -110,7 +138,7 @@ export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid' })
   const animatedImage = pokemonAnimatedImage(pokemon)
 
   return (
-    <Link className="pokemon-card" to={pokemonPath(pokemon)}>
+    <div className="pokemon-card" role="button" tabIndex={0} onClick={() => onSelect(pokemon)} onKeyDown={onActivateKey(() => onSelect(pokemon))}>
       <div className="card-visual">
         <div className="dex-orbit" />
         <PokemonImage src={animatedImage || staticImage} fallbackSrc={staticImage} name={name} className="card-pokemon-image" />
@@ -125,7 +153,10 @@ export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid' })
             <span className="card-kicker">{clans.join(' · ') || 'Sem clan publicado'}</span>
             <h2>{name}</h2>
           </div>
-          <ChevronRight className="card-arrow" size={20} />
+          <div className="card-heading-actions">
+            <GotoFullPageLink pokemon={pokemon} />
+            <ChevronRight className="card-arrow" size={20} />
+          </div>
         </div>
         <div className="badge-row">
           {elements.slice(0, 3).map((element) => <ElementBadge key={element} element={element} compact />)}
@@ -138,6 +169,6 @@ export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid' })
           </div>
         )}
       </div>
-    </Link>
+    </div>
   )
 }

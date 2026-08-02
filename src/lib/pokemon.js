@@ -382,3 +382,92 @@ export function activeFilterCount(filters) {
     return Array.isArray(value) ? value.length > 0 : value !== ''
   }).length
 }
+
+export function asList(value) {
+  if (Array.isArray(value)) return value.filter(Boolean)
+  return value === null || value === undefined || value === '' ? [] : [value]
+}
+
+export function humanizeKey(value) {
+  return String(value || '')
+    .replaceAll('_', ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase())
+}
+
+export const EFFECTIVENESS_LABELS = {
+  super_effective: { label: 'Super efetivo', tone: 'danger-strong' },
+  very_effective: { label: 'Muito efetivo', tone: 'danger' },
+  effective: { label: 'Efetivo', tone: 'warning' },
+  normal: { label: 'Dano normal', tone: 'neutral' },
+  ineffective: { label: 'Pouco efetivo', tone: 'resistant' },
+  very_ineffective: { label: 'Muito pouco efetivo', tone: 'resistant-strong' },
+  super_ineffective: { label: 'Quase sem efeito', tone: 'resistant-strong' },
+  null: { label: 'Imune', tone: 'immune' },
+  imune: { label: 'Imune', tone: 'immune' },
+}
+
+export function effectivenessRows(effectiveness) {
+  return Object.entries(effectiveness || {}).flatMap(([key, values]) => {
+    if (values && !Array.isArray(values) && typeof values === 'object') {
+      return Object.entries(values).map(([nestedKey, nestedValues]) => ({ key: `${key}_${nestedKey}`, values: asList(nestedValues) }))
+    }
+    return [{ key, values: asList(values) }]
+  }).filter((row) => row.values.length)
+}
+
+export function displayMoveTag(tag) {
+  const cleaned = String(tag || '').replace(/\.png$/i, '').replaceAll('_', ' ').trim()
+  const key = cleaned.toLowerCase().replaceAll(' ', '')
+  const aliases = {
+    damage: 'Damage',
+    neverboost: 'Never Boost',
+    stuck: 'Stuck',
+    self: 'Self',
+  }
+  return aliases[key] || cleaned
+}
+
+// Icons published by the PXG wiki for each move tag/status effect. Resolved via
+// MediaWiki's Especial:FilePath redirect (same mechanism used for element art),
+// so the frontend only ever references remote URLs, never stores the images.
+const MOVE_TAG_ICON_FILES = {
+  target: 'Target.png',
+  damage: 'Damage.png',
+  aoe: 'AOE.png',
+  buff: 'Buff.png',
+  self: 'Self.png',
+  focusblocked: 'Focus_Blocked.png',
+  silence: 'Silence.png',
+  slow: 'Slow.png',
+  nevermiss: 'Nevermiss.png',
+  passive: 'Passive.png',
+  blind: 'Blind.png',
+  burn: 'Burn.png',
+  confusion: 'Confusion.png',
+  debuff: 'Debuff.png',
+  healing: 'Healing.png',
+  healingstatus: 'HealingStatus.png',
+  knockback: 'Knockback.png',
+  lifesteal: 'Lifesteal.png',
+  locked: 'Locked.png',
+  neverboost: 'NeverBoost.png',
+  paralyze: 'Paralyze.png',
+  poison: 'Poison.png',
+  poisonstatus: 'PoisonStatus.png',
+  stuck: 'STUCK.png',
+  stun: 'Stun.png',
+  sketchbloqueado: 'Sketch_Bloqueado.png',
+  // Scrape typos seen in the source data, aliased to their real icon.
+  nevesmiss: 'Nevermiss.png',
+  targert: 'Target.png',
+  assive: 'Passive.png',
+}
+
+function normalizedTagFileKey(tag) {
+  return String(tag || '').replace(/\.png$/i, '').toLowerCase().replace(/[^a-z]/g, '')
+}
+
+export function moveTagIconUrl(tag) {
+  const file = MOVE_TAG_ICON_FILES[normalizedTagFileKey(tag)]
+  return file ? `https://wiki.pokexgames.com/index.php?title=Especial:FilePath/${file}` : null
+}

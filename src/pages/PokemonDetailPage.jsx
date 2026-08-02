@@ -32,9 +32,14 @@ import { usePokemonData } from '../data/PokemonDataContext'
 import { useAtlasStorage } from '../data/AtlasStorageContext'
 import { useCatalogData } from '../data/DomainData'
 import {
+  EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
+  asList,
   captureBallEntries,
+  displayMoveTag,
   displayName,
+  effectivenessRows,
+  humanizeKey,
   pokemonClans,
   pokemonCapture,
   pokemonElements,
@@ -56,23 +61,6 @@ import { groupNearbyRespawns } from '../lib/mapLocations'
 
 const MODE_LABELS = { pve: 'PvE', pvp: 'PvP' }
 
-const EFFECTIVENESS_LABELS = {
-  super_effective: { label: 'Super efetivo', tone: 'danger-strong' },
-  very_effective: { label: 'Muito efetivo', tone: 'danger' },
-  effective: { label: 'Efetivo', tone: 'warning' },
-  normal: { label: 'Dano normal', tone: 'neutral' },
-  ineffective: { label: 'Pouco efetivo', tone: 'resistant' },
-  very_ineffective: { label: 'Muito pouco efetivo', tone: 'resistant-strong' },
-  super_ineffective: { label: 'Quase sem efeito', tone: 'resistant-strong' },
-  null: { label: 'Imune', tone: 'immune' },
-  imune: { label: 'Imune', tone: 'immune' },
-}
-
-function asList(value) {
-  if (Array.isArray(value)) return value.filter(Boolean)
-  return value === null || value === undefined || value === '' ? [] : [value]
-}
-
 function uniqueBy(items, key) {
   return [...new Map(items.filter(Boolean).map((item) => [key(item), item])).values()]
 }
@@ -80,12 +68,6 @@ function uniqueBy(items, key) {
 function formatNumber(value) {
   if (value === null || value === undefined || value === '') return '—'
   return typeof value === 'number' ? value.toLocaleString('pt-BR') : value
-}
-
-function humanizeKey(value) {
-  return String(value || '')
-    .replaceAll('_', ' ')
-    .replace(/\b\w/g, (letter) => letter.toUpperCase())
 }
 
 function InfoItem({ label, children }) {
@@ -520,18 +502,6 @@ function TaskOccurrencesSection({ occurrences, tasksById }) {
   )
 }
 
-function displayMoveTag(tag) {
-  const cleaned = String(tag || '').replace(/\.png$/i, '').replaceAll('_', ' ').trim()
-  const key = cleaned.toLowerCase().replaceAll(' ', '')
-  const aliases = {
-    damage: 'Damage',
-    neverboost: 'Never Boost',
-    stuck: 'Stuck',
-    self: 'Self',
-  }
-  return aliases[key] || cleaned
-}
-
 function moveTagSummary(moves) {
   const counts = new Map()
   moves.flatMap((move) => move.tags ?? []).forEach((tag) => {
@@ -621,15 +591,6 @@ function MovesSection({ moves }) {
       </div>
     </Section>
   )
-}
-
-function effectivenessRows(effectiveness) {
-  return Object.entries(effectiveness || {}).flatMap(([key, values]) => {
-    if (values && !Array.isArray(values) && typeof values === 'object') {
-      return Object.entries(values).map(([nestedKey, nestedValues]) => ({ key: `${key}_${nestedKey}`, values: asList(nestedValues) }))
-    }
-    return [{ key, values: asList(values) }]
-  }).filter((row) => row.values.length)
 }
 
 function EffectivenessSection({ name, effectiveness }) {

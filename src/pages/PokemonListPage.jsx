@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import FilterPanel from '../components/FilterPanel'
 import { EmptyState } from '../components/Common'
 import PokemonCard from '../components/PokemonCard'
+import { PokemonQuickViewModal } from '../components/PokemonQuickViewModal'
 import { usePokemonData } from '../data/PokemonDataContext'
 import {
   EMPTY_FILTERS,
@@ -28,6 +29,7 @@ export default function PokemonListPage() {
   const [filters, setFilters] = useState(() => ({ ...EMPTY_FILTERS, ...(savedCatalogState().filters || {}) }))
   const [visibleCount, setVisibleCount] = useState(() => Math.max(PAGE_SIZE, Number(savedCatalogState().visibleCount) || PAGE_SIZE))
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [quickViewPokemon, setQuickViewPokemon] = useState(null)
   const firstFilterRender = useRef(true)
   const [viewMode, setViewMode] = useState(() => {
     try { return localStorage.getItem('pxg-view-mode') || 'grid' } catch { return 'grid' }
@@ -114,7 +116,9 @@ export default function PokemonListPage() {
           ) : (
             <>
               <div className={`pokemon-grid view-${viewMode}`}>
-                {filtered.slice(0, visibleCount).map((entry) => <PokemonCard key={entry.source_url} pokemon={entry} roleCatalog={roleCatalog} viewMode={viewMode} />)}
+                {filtered.slice(0, visibleCount).map((entry) => (
+                  <PokemonCard key={entry.source_url} pokemon={entry} roleCatalog={roleCatalog} viewMode={viewMode} onSelect={setQuickViewPokemon} />
+                ))}
               </div>
               {visibleCount < filtered.length && (
                 <div className="load-more">
@@ -128,6 +132,10 @@ export default function PokemonListPage() {
           )}
         </section>
       </div>
+
+      {quickViewPokemon && (
+        <PokemonQuickViewModal pokemon={quickViewPokemon} onClose={() => setQuickViewPokemon(null)} />
+      )}
     </>
   )
 }
