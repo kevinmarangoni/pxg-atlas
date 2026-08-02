@@ -1,5 +1,8 @@
 // Polish translations. Keys are the original Portuguese (pt-BR) source strings.
 export const pl = {
+  // PokemonQuickViewModal.jsx (region + capture facts)
+  '{ball}: {average} em média': '{ball}: średnio {average}',
+
   // PokemonQuickSearch.jsx
   'Buscar outro Pokémon…': 'Szukaj innego Pokémona…',
   'Buscar outro Pokémon': 'Szukaj innego Pokémona',

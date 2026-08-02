@@ -1,19 +1,23 @@
-import { Clock3, Crown, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
+import { CircleDot, Clock3, Crown, Gauge, MapPin, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ElementBadge, PokemonImage } from './Common'
 import { useLanguage } from '../data/LanguageContext'
+import { normalizedMapName, useMapData } from '../data/MapDataContext'
+import { usePokemonData } from '../data/PokemonDataContext'
 import { getAbilityInfo } from '../lib/abilities'
 import {
   EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
   asList,
+  captureBallEntries,
   displayMoveTag,
   displayName,
   effectivenessRows,
   moveTagIconUrl,
   normalizedElement,
   pokemonAnimatedImage,
+  pokemonCapture,
   pokemonClans,
   pokemonElements,
   pokemonImage,
@@ -111,7 +115,9 @@ function QuickViewEffectiveness({ groups }) {
 }
 
 export function PokemonQuickViewModal({ pokemon, onClose }) {
-  const { t } = useLanguage()
+  const { t, locale } = useLanguage()
+  const { byPokemonName: mapLocationsByPokemon } = useMapData()
+  const { captureBallCatalog } = usePokemonData()
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose()
@@ -134,6 +140,12 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
   const staticImage = pokemonImage(pokemon)
   const animatedImage = pokemonAnimatedImage(pokemon)
   const accent = ELEMENT_COLORS[elements[0]] || '#62e6a7'
+  const mapLocations = mapLocationsByPokemon.get(normalizedMapName(name)) ?? []
+  const regions = [...new Set(mapLocations.map((location) => location.region).filter(Boolean))]
+  const capture = pokemonCapture(pokemon)
+  const captureBalls = captureBallEntries(pokemon, captureBallCatalog)
+  const referenceBall = captureBalls.find((ball) => ball.id === 'ultra_ball')
+    || captureBalls.find((ball) => ['poke_ball', 'great_ball', 'super_ball'].includes(ball.id))
 
   const hasMoves = ['default', 'pve', 'pvp'].some((mode) => pokemon.moves?.[mode]?.length)
   const groups = effectivenessGroups(pokemon.effectiveness)
@@ -182,6 +194,18 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
           )}
           {clans.length > 0 && <p className="quickview-fact"><Swords size={13} />{clans.join(' · ')}</p>}
           {tiers.length > 0 && <p className="quickview-fact"><Crown size={13} />{tiers.map(tierLabel).join(' · ')}</p>}
+          {(regions.length > 0 || capture) && (
+            <div className="quickview-extra-facts">
+              {regions.length > 0 && <p className="quickview-fact"><MapPin size={13} />{regions.join(' · ')}</p>}
+              {capture?.difficulty?.label && <p className="quickview-fact"><Gauge size={13} />{t('Captura {label}', { label: capture.difficulty.label })}</p>}
+              {referenceBall && (
+                <p className="quickview-fact">
+                  <CircleDot size={13} />
+                  {t('{ball}: {average} em média', { ball: referenceBall.name, average: Number(referenceBall.average).toLocaleString(locale) })}
+                </p>
+              )}
+            </div>
+          )}
         </div>
 
         {hasMoves && (

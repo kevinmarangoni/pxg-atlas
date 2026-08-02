@@ -3,6 +3,9 @@
 // terms already used in English in the source (Tasks, PVE, PVP, tier codes...)
 // are intentionally omitted so they fall back to the identical source text.
 export const en = {
+  // PokemonQuickViewModal.jsx (region + capture facts)
+  '{ball}: {average} em média': '{ball}: {average} on average',
+
   // PokemonQuickSearch.jsx
   'Buscar outro Pokémon…': 'Search another Pokémon…',
   'Buscar outro Pokémon': 'Search another Pokémon',

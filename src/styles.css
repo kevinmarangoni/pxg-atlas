@@ -407,6 +407,8 @@ main { flex: 1; }
 .quickview-ability { min-height: 27px; padding: 0 9px; border: 1px solid #273249; border-radius: 7px; background: #111a29; display: inline-flex; align-items: center; gap: 6px; color: #a8b6c9; font-size: 12px; font-weight: 700; cursor: help; }
 .quickview-ability svg { flex: none; color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); }
 .quickview-fact { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: #8796ab; font-size: 12.5px; }
+.quickview-extra-facts { width: 100%; margin-top: 6px; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; align-items: center; gap: 7px; }
+.quickview-extra-facts .quickview-fact { text-align: center; }
 .quickview-column {
   min-width: 0; min-height: 0; padding: 60px 22px 22px; overflow-y: auto; display: flex; flex-direction: column;
   scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--detail-accent) 55%, #2a354a) transparent;

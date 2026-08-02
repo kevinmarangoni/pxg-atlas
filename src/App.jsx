@@ -37,7 +37,7 @@ export default function App() {
   return (
     <AppShell>
       <Routes>
-        <Route path="/" element={<PokemonRoute><PokemonListPage /></PokemonRoute>} />
+        <Route path="/" element={<PokemonRoute withMap><PokemonListPage /></PokemonRoute>} />
         <Route path="/tasks" element={<PokemonRoute><TaskListPage /></PokemonRoute>} />
         <Route path="/map" element={<PokemonRoute withMap><MapPage /></PokemonRoute>} />
         <Route path="/team-builder" element={<PokemonRoute><TeamBuilderPage /></PokemonRoute>} />
