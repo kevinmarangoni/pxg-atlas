@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { hasStorageConsent } from '../lib/cookieConsent'
 import { assertAtlasBackup, ATLAS_STORAGE_KEY, storageItemKey } from '../lib/storage'
 
 const OLD_BOOST_KEY = 'pxg-atlas:boost-prices:v1'
@@ -82,7 +83,9 @@ export function AtlasStorageProvider({ children }) {
     setStateValue((current) => {
       const next = sanitize(typeof updater === 'function' ? updater(current) : updater)
       next.updatedAt = new Date().toISOString()
-      try { localStorage.setItem(ATLAS_STORAGE_KEY, JSON.stringify(next)) } catch { /* storage is optional */ }
+      if (hasStorageConsent()) {
+        try { localStorage.setItem(ATLAS_STORAGE_KEY, JSON.stringify(next)) } catch { /* storage is optional */ }
+      }
       return next
     })
   }, [])

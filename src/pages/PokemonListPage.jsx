@@ -5,6 +5,7 @@ import { EmptyState } from '../components/Common'
 import PokemonCard from '../components/PokemonCard'
 import { PokemonQuickViewModal } from '../components/PokemonQuickViewModal'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { hasStorageConsent } from '../lib/cookieConsent'
 import {
   EMPTY_FILTERS,
   activeFilterCount,
@@ -67,6 +68,7 @@ export default function PokemonListPage() {
     }
   }, [])
   useEffect(() => {
+    if (!hasStorageConsent()) return
     try { localStorage.setItem('pxg-view-mode', viewMode) } catch { /* storage is optional */ }
   }, [viewMode])
 

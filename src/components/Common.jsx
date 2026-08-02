@@ -1,6 +1,7 @@
 import { ArrowLeft, ClipboardList, Database, ExternalLink, LoaderCircle, Map, Moon, SearchX, Shield, Sparkles, Sun, Swords, Wrench } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { CookieConsentBanner } from './CookieConsentBanner'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
 import { applyTheme, getStoredTheme } from '../lib/theme'
 
@@ -53,6 +54,7 @@ export function AppShell({ children, metadata }) {
           <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">Modelos animados: Project Pokémon</a>
         </nav>
       </footer>
+      <CookieConsentBanner />
     </div>
   )
 }

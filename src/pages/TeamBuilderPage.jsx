@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ElementBadge, ElementIcon, PokemonImage, RoleBadge } from '../components/Common'
 import { HELD_ITEMS, HELD_ITEMS_SOURCE, HELD_BY_ID, heldEffectLabel, heldTierOptions } from '../data/heldItems'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { hasStorageConsent } from '../lib/cookieConsent'
 import { displayName, pokemonElements, pokemonImage, pokemonPath, pokemonRoles, primaryLevel } from '../lib/pokemon'
 import {
   TEAM_SIZE,
@@ -198,6 +199,7 @@ export default function TeamBuilderPage() {
   const chosenUrls = useMemo(() => new Set(team.slots.map((slot) => slot.pokemonUrl)), [team.slots])
 
   useEffect(() => {
+    if (!hasStorageConsent()) return
     try { localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(team)) } catch { /* storage is optional */ }
   }, [team])
 

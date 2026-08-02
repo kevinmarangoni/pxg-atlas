@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   BadgeInfo,
+  Check,
   Copyright,
   Database,
   ExternalLink,
@@ -9,8 +10,11 @@ import {
   HardDrive,
   Scale,
   ShieldAlert,
+  X,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getCookieConsent, onCookieConsentChange, setCookieConsent } from '../lib/cookieConsent'
 
 const DATA_SOURCES = [
   {
@@ -60,6 +64,26 @@ function LegalSection({ id, icon, title, children }) {
       </div>
       <div className="legal-section-copy">{children}</div>
     </section>
+  )
+}
+
+function CookiePreferenceControl() {
+  const [consent, setConsent] = useState(() => getCookieConsent())
+
+  useEffect(() => onCookieConsentChange((event) => setConsent(event.detail)), [])
+
+  return (
+    <div className="legal-cookie-control">
+      <p className={`legal-cookie-status ${consent || 'pending'}`}>
+        {consent === 'accepted' && <><Check size={15} />Você permite o armazenamento local de preferências.</>}
+        {consent === 'declined' && <><X size={15} />Você recusou o armazenamento local de preferências.</>}
+        {consent == null && <>Nenhuma escolha registrada ainda — o aviso aparecerá novamente ao recarregar a página.</>}
+      </p>
+      <div className="legal-cookie-actions">
+        <button type="button" className="button secondary" disabled={consent === 'declined'} onClick={() => setCookieConsent('declined')}>Recusar</button>
+        <button type="button" className="button primary" disabled={consent === 'accepted'} onClick={() => setCookieConsent('accepted')}>Aceitar</button>
+      </div>
+    </div>
   )
 }
 
@@ -146,6 +170,8 @@ export default function LegalPage() {
           <LegalSection id="privacy" icon={<HardDrive size={20} />} title="Privacidade e armazenamento no navegador">
             <p>A versão atual não possui cadastro, área de login, formulário de contato ou API própria para receber dados pessoais. Perfis de preços por servidor, inventário e projetos de crafting, preferências de visualização, filtros temporários, o time montado e o progresso de Pokélog, Unowns, quests, bosses e timers de berries ficam armazenados localmente no navegador por meio de <code>localStorage</code>. O backup e a restauração são feitos manualmente pela rota Ferramentas, em JSON, sem sincronização entre dispositivos.</p>
             <p>A hospedagem, as fontes tipográficas e os provedores das imagens remotas podem receber informações técnicas normais de uma requisição web, como endereço IP, navegador e horário de acesso, de acordo com as políticas desses terceiros.</p>
+            <p>Você decide se permite esse armazenamento local ao visitar o site pela primeira vez, e pode mudar de ideia a qualquer momento por aqui. Ao recusar, os dados já guardados no navegador são apagados e nada mais é salvo até você aceitar novamente.</p>
+            <CookiePreferenceControl />
           </LegalSection>
 
           <LegalSection id="removal" icon={<ShieldAlert size={20} />} title="Correções e solicitações de remoção">

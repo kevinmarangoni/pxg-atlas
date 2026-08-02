@@ -22,6 +22,7 @@ import { ElementBadge } from '../components/Common'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { useGuidesData, useWorldContentData } from '../data/DomainData'
+import { hasStorageConsent } from '../lib/cookieConsent'
 import { ELEMENT_COLORS, displayName, normalizedElement, pokemonElements, pokemonPath, primaryLevel } from '../lib/pokemon'
 
 const TILE_SIZE = 256
@@ -479,6 +480,7 @@ export default function MapPage() {
   }, [availableFloors, floor, regionConfig.defaultFloor])
 
   useEffect(() => {
+    if (!hasStorageConsent()) return
     try { localStorage.setItem(ORB_STORAGE_KEY, JSON.stringify([...collectedOrbs])) } catch { /* storage is optional */ }
   }, [collectedOrbs])
 

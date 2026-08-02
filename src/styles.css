@@ -67,6 +67,20 @@ main { flex: 1; }
 .footer a { transition: color .18s ease; }
 .footer a:hover { color: var(--accent); }
 
+.cookie-consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 300; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 18px clamp(20px, 4vw, 64px); border-top: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 94%, transparent); backdrop-filter: blur(14px); transform: translateY(100%); transition: transform .32s ease; box-shadow: 0 -14px 40px rgba(0,0,0,.25); }
+.cookie-consent.is-visible { transform: translateY(0); }
+.cookie-consent-copy { min-width: 0; max-width: 640px; display: flex; align-items: flex-start; gap: 10px; color: var(--muted); }
+.cookie-consent-copy svg { flex: none; margin-top: 2px; color: var(--accent); }
+.cookie-consent-copy p { margin: 0; font-size: 14px; line-height: 1.55; }
+.cookie-consent-copy a { color: var(--accent); font-weight: 700; }
+.cookie-consent-copy code { padding: 1px 5px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 18%, transparent); color: var(--text); font-size: .9em; }
+.cookie-consent-actions { flex: none; display: flex; gap: 10px; }
+.cookie-consent-actions .button { min-height: 40px; }
+@media (max-width: 700px) {
+  .cookie-consent { flex-direction: column; align-items: stretch; padding: 16px 18px; }
+  .cookie-consent-actions { justify-content: flex-end; }
+}
+
 .legal-page { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 34px 0 100px; }
 .legal-hero { max-width: 880px; padding: clamp(56px, 8vw, 92px) 0 38px; }
 .legal-hero h1 { margin: 13px 0 16px; font: 800 clamp(44px, 7vw, 76px)/1 'Manrope'; letter-spacing: -.06em; }
@@ -85,6 +99,13 @@ main { flex: 1; }
 .legal-source-card { min-width: 0; padding: 13px; border: 1px solid #222e42; border-radius: 11px; background: #0a101b; display: grid; grid-template-columns: 35px minmax(0, 1fr) auto; align-items: start; gap: 10px; transition: border-color .18s, transform .18s; }.legal-source-card:hover { border-color: rgba(98,230,167,.36); transform: translateY(-1px); }.legal-source-card > span { width: 35px; height: 35px; border-radius: 9px; background: rgba(126,141,255,.08); display: grid; place-items: center; color: #91a0ff; }.legal-source-card > svg { margin-top: 4px; color: #596981; }.legal-source-card strong { color: #dce5f2; font-size: 14px; }.legal-source-card p { margin: 5px 0 0; color: #718198; font-size: 12px; line-height: 1.5; }
 .legal-muted { color: #718198 !important; font-size: 13px !important; }.legal-reference-row { margin-top: 17px; display: grid; gap: 7px; }.legal-reference-row .legal-source-card { grid-template-columns: 35px minmax(0, 1fr) auto; }
 .legal-contact-button { min-height: 40px; margin-top: 18px; padding: 0 13px; border: 1px solid rgba(98,230,167,.28); border-radius: 9px; background: rgba(98,230,167,.08); display: inline-flex; align-items: center; gap: 8px; color: var(--accent); font-size: 14px; font-weight: 800; transition: background .18s, transform .18s; }.legal-contact-button:hover { background: rgba(98,230,167,.13); transform: translateY(-1px); }
+.legal-cookie-control { margin-top: 17px; padding: 15px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--panel-2) 70%, transparent); }
+.legal-cookie-status { display: inline-flex; align-items: center; gap: 7px; margin: 0; padding: 7px 11px; border-radius: 8px; background: color-mix(in srgb, var(--muted) 14%, transparent); color: var(--muted); font-size: 13px; font-weight: 700; }
+.legal-cookie-status.accepted { background: rgba(98,230,167,.1); color: var(--accent); }
+.legal-cookie-status.declined { background: rgba(255,112,135,.1); color: var(--danger); }
+.legal-cookie-actions { margin-top: 12px; display: flex; gap: 10px; }
+.legal-cookie-actions .button { min-height: 38px; font-size: 13px; }
+.legal-cookie-actions .button:disabled { opacity: .38; }
 
 .state-screen { min-height: calc(100vh - 150px); display: grid; place-content: center; justify-items: center; text-align: center; padding: 40px; }
 .state-screen h1 { margin: 24px 0 8px; font: 800 32px 'Manrope'; letter-spacing: -.04em; }

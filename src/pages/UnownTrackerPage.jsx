@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { PokemonImage } from '../components/Common'
 import { DataStamp, ToolHero } from '../components/ToolCommon'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { hasStorageConsent } from '../lib/cookieConsent'
 import { displayName, pokemonAnimatedImage, pokemonId, pokemonImage, pokemonPath, pokemonPokelog } from '../lib/pokemon'
 
 const STORAGE_KEY = 'pxg-atlas:unown-capture:v1'
@@ -57,6 +58,7 @@ export default function UnownTrackerPage() {
   }, [captured, query, sort, status, unowns])
 
   useEffect(() => {
+    if (!hasStorageConsent()) return
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...captured])) } catch { /* armazenamento local é opcional */ }
   }, [captured])
 
