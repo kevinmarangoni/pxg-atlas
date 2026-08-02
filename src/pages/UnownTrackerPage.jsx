@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { PokemonImage } from '../components/Common'
 import { DataStamp, ToolHero } from '../components/ToolCommon'
 import { usePokemonData } from '../data/PokemonDataContext'
-import { displayName, pokemonId, pokemonImage, pokemonPath, pokemonPokelog } from '../lib/pokemon'
+import { displayName, pokemonAnimatedImage, pokemonId, pokemonImage, pokemonPath, pokemonPokelog } from '../lib/pokemon'
 
 const STORAGE_KEY = 'pxg-atlas:unown-capture:v1'
 const UNOWN_SYMBOLS = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '!', '?']
@@ -101,9 +101,8 @@ export default function UnownTrackerPage() {
           const checked = captured.has(id)
           const symbol = unownSymbol(entry)
           return <article className={`unown-card ${checked ? 'captured' : ''}`} key={id}>
-            <div className="unown-card-symbol" aria-hidden="true">{symbol}</div>
-            <PokemonImage src={pokemonImage(entry)} name={displayName(entry)} />
-            <div className="unown-card-copy"><strong>{displayName(entry)}</strong><small>Pokélog {pokemonPokelog(entry)?.category || '—'}</small></div>
+            <PokemonImage src={pokemonAnimatedImage(entry) || pokemonImage(entry)} fallbackSrc={pokemonImage(entry)} name={displayName(entry)} className="list-row-image" />
+            <div className="unown-card-copy"><span className="unown-card-form">Forma {symbol}</span><strong>{displayName(entry)}</strong><small>Pokélog {pokemonPokelog(entry)?.category || '—'}</small></div>
             <label className="unown-capture-toggle"><input type="checkbox" checked={checked} onChange={() => toggle(entry)} /><span>{checked && <Check size={14} />}</span><b>{checked ? 'Capturado' : 'Marcar captura'}</b></label>
             <footer><Link to={pokemonPath(entry)}><Target size={13} />Abrir ficha</Link></footer>
           </article>
