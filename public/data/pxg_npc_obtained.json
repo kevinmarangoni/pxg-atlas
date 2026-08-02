@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "domain": "pokemon_npc_obtained",
+    "title": "Pokémon Obtidos via NPC",
+    "source_url": "https://wiki.pokexgames.com/index.php/Pok%C3%A9mon_Obtidos_via_NPC",
+    "revision_id": "131244",
+    "generated_at": "2026-08-02T00:00:00.000Z",
+    "complete": true,
+    "record_count": 58,
+    "pages": [
+      {
+        "source_url": "https://wiki.pokexgames.com/index.php/Pok%C3%A9mon_Obtidos_via_NPC",
+        "revision_id": "131244"
+      }
+    ]
+  },
+  "groups": [
+    {
+      "id": "clan-shiny",
+      "title": "Shiny de Clã",
+      "category": "Troca de clã",
+      "npc": "Treinador de Pokémon",
+      "notes": [
+        "O Pokémon perde o Addon e mantém o Held na troca.",
+        "Pode ser obtido quantas vezes desejar; o uso em PvP é liberado apenas para o clã correspondente."
+      ],
+      "entries": [
+        { "id": "clan-shiny-jolteon", "pokemon": "Shiny Jolteon", "source_pokemon": ["Jolteon"], "location": "Área do clã Raibolt", "requirements": ["Jolteon", "Boost +10"], "cost": ["140K"], "reward": "Shiny Jolteon" },
+        { "id": "clan-shiny-flareon", "pokemon": "Shiny Flareon", "source_pokemon": ["Flareon"], "location": "Área do clã Volcanic", "requirements": ["Flareon", "Boost +10"], "cost": ["140K"], "reward": "Shiny Flareon" },
+        { "id": "clan-shiny-vaporeon", "pokemon": "Shiny Vaporeon", "source_pokemon": ["Vaporeon"], "location": "Área do clã Seavell", "requirements": ["Vaporeon", "Boost +10"], "cost": ["140K"], "reward": "Shiny Vaporeon" },
+        { "id": "clan-shiny-golem", "pokemon": "Shiny Golem", "source_pokemon": ["Golem"], "location": "Área do clã Orebound", "requirements": ["Golem", "Boost +10"], "cost": ["140K"], "reward": "Shiny Golem" },
+        { "id": "clan-shiny-nidoking", "pokemon": "Shiny Nidoking", "source_pokemon": ["Nidoking"], "location": "Área do clã Malefic", "requirements": ["Nidoking", "Boost +10"], "cost": ["140K"], "reward": "Shiny Nidoking" },
+        { "id": "clan-shiny-forretress", "pokemon": "Shiny Forretress", "source_pokemon": ["Forretress"], "location": "Área do clã Ironhard", "requirements": ["Forretress", "Boost +10"], "cost": ["140K"], "reward": "Shiny Forretress" },
+        { "id": "clan-shiny-fearow", "pokemon": "Shiny Fearow", "source_pokemon": ["Fearow"], "location": "Área do clã Wingeon", "requirements": ["Fearow", "Boost +10"], "cost": ["160K"], "reward": "Shiny Fearow" },
+        { "id": "clan-shiny-vileplume", "pokemon": "Shiny Vileplume", "source_pokemon": ["Vileplume"], "location": "Área do clã Naturia", "requirements": ["Vileplume", "Boost +10"], "cost": ["160K"], "reward": "Shiny Vileplume" },
+        { "id": "clan-shiny-hypno", "pokemon": "Shiny Hypno", "source_pokemon": ["Hypno"], "location": "Área do clã Psycraft", "requirements": ["Hypno", "Boost +10"], "cost": ["160K"], "reward": "Shiny Hypno" },
+        { "id": "clan-elite-hitmonchan", "pokemon": "Elite Hitmonchan", "source_pokemon": ["Hitmonchan"], "location": "Área do clã Gardestrike", "requirements": ["Hitmonchan", "Boost +10"], "cost": ["160K"], "reward": "Elite Hitmonchan" },
+        { "id": "clan-elite-hitmonlee", "pokemon": "Elite Hitmonlee", "source_pokemon": ["Hitmonlee"], "location": "Área do clã Gardestrike", "requirements": ["Hitmonlee", "Boost +10"], "cost": ["160K"], "reward": "Elite Hitmonlee" },
+        { "id": "clan-elite-hitmontop", "pokemon": "Elite Hitmontop", "source_pokemon": ["Hitmontop"], "location": "Área do clã Gardestrike", "requirements": ["Hitmontop", "Boost +10"], "cost": ["160K"], "reward": "Elite Hitmontop" }
+      ]
+    },
+    {
+      "id": "nightmare-clan-shiny",
+      "title": "Shiny de Clã da Nightmare World",
+      "category": "Troca de clã · Nightmare World",
+      "npc": "NPC do Clã",
+      "location": "Nightmare World",
+      "notes": [
+        "O Pokémon perde o Addon e mantém o Held na troca.",
+        "Na Premier Ball, é obrigatório pagar a taxa da versão Premier."
+      ],
+      "entries": [
+        { "id": "nightmare-clan-shiny-elekid", "pokemon": "Shiny Elekid", "source_pokemon": ["Elekid"], "requirements": ["Elekid", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Elekid" },
+        { "id": "nightmare-clan-shiny-donphan", "pokemon": "Shiny Donphan", "source_pokemon": ["Donphan"], "requirements": ["Donphan", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Donphan" },
+        { "id": "nightmare-clan-shiny-togetic", "pokemon": "Shiny Togetic", "source_pokemon": ["Togetic"], "requirements": ["Togetic", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Togetic" },
+        { "id": "nightmare-clan-shiny-lucario", "pokemon": "Shiny Lucario", "source_pokemon": ["Lucario"], "requirements": ["Lucario", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Lucario" },
+        { "id": "nightmare-clan-wormadam-ground", "pokemon": "Wormadam Ground", "source_pokemon": ["Wormadam"], "requirements": ["Wormadam", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Wormadam Ground" },
+        { "id": "nightmare-clan-wormadam-steel", "pokemon": "Wormadam Steel", "source_pokemon": ["Wormadam"], "requirements": ["Wormadam", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Wormadam Steel" },
+        { "id": "nightmare-clan-shiny-magby", "pokemon": "Shiny Magby", "source_pokemon": ["Magby"], "requirements": ["Magby", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Magby" },
+        { "id": "nightmare-clan-shiny-grumpig", "pokemon": "Shiny Grumpig", "source_pokemon": ["Grumpig"], "requirements": ["Grumpig", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Grumpig" },
+        { "id": "nightmare-clan-shiny-cloyster", "pokemon": "Shiny Cloyster", "source_pokemon": ["Cloyster"], "requirements": ["Cloyster", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Cloyster" },
+        { "id": "nightmare-clan-shiny-nidoqueen", "pokemon": "Shiny Nidoqueen", "source_pokemon": ["Nidoqueen"], "requirements": ["Nidoqueen", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Nidoqueen" },
+        { "id": "nightmare-clan-shiny-munchlax", "pokemon": "Shiny Munchlax", "source_pokemon": ["Munchlax"], "requirements": ["Munchlax", "Boost +20"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball"], "reward": "Shiny Munchlax" }
+      ]
+    },
+    {
+      "id": "minun-plusle",
+      "title": "Minun and Plusle",
+      "category": "Troca de NPC",
+      "npc": "Katarina",
+      "location": "Sul de Vermilion, abaixo do ginásio",
+      "notes": ["A troca só pode ser feita uma vez por personagem.", "Pokémon na Premier Ball não são aceitos."],
+      "entries": [{ "id": "minun-plusle", "pokemon": "Minun and Plusle", "source_pokemon": ["Minun", "Plusle"], "requirements": ["Minun e Plusle"], "cost": ["Moedas e 60K"], "reward": "Minun and Plusle" }]
+    },
+    {
+      "id": "shiny-shuckle",
+      "title": "Shiny Shuckle",
+      "category": "Task de NPC",
+      "npc": "Ruby",
+      "location": "Segundo andar da biblioteca de Shamouti",
+      "entries": [{ "id": "shiny-shuckle", "pokemon": "Shiny Shuckle", "source_pokemon": ["Shuckle"], "requirements": ["Completar task de 1000 Shuckles"], "cost": ["200K"], "reward": "Shiny Shuckle +5" }]
+    },
+    {
+      "id": "dark-abra",
+      "title": "Dark Abra",
+      "category": "Troca de NPC",
+      "npc": "Agatha",
+      "location": "Jungle Island",
+      "entries": [{ "id": "dark-abra", "pokemon": "Dark Abra", "source_pokemon": ["Abra"], "requirements": ["Abra", "Boost +10"], "cost": ["200K"], "reward": "Dark Abra" }]
+    },
+    {
+      "id": "casino-pokemon",
+      "title": "Pokémon do Cassino",
+      "category": "Cassino",
+      "npc": "Marlon",
+      "location": "Cassino de Celadon",
+      "entries": [
+        { "id": "casino-mr-mime", "pokemon": "Mr. Mime", "requirements": ["Moedas do cassino"], "cost": ["5.000.000 moedas"], "reward": "Mr. Mime" },
+        { "id": "casino-eevee", "pokemon": "Eevee", "requirements": ["Moedas do cassino"], "cost": ["6.500.000 moedas"], "reward": "Eevee" },
+        { "id": "casino-porygon", "pokemon": "Porygon", "requirements": ["Moedas do cassino"], "cost": ["8.500.000 moedas"], "reward": "Porygon" }
+      ]
+    },
+    {
+      "id": "chansey",
+      "title": "Chansey",
+      "category": "Troca de NPC",
+      "npc": "Lilly",
+      "location": "Viridian, próxima à saída norte",
+      "entries": [{ "id": "chansey", "pokemon": "Chansey", "source_pokemon": ["Mr. Mime"], "requirements": ["Mr. Mime", "Level 60+"], "reward": "Chansey" }]
+    },
+    {
+      "id": "slugma",
+      "title": "Slugma",
+      "category": "Troca de NPC",
+      "npc": "—",
+      "location": "Local publicado na Wiki",
+      "notes": ["O NPC só oferece a tarefa depois que o diálogo com Professor Oak foi iniciado."],
+      "entries": [{ "id": "slugma", "pokemon": "Slugma", "source_pokemon": ["Nidoran Female", "Nidoran Male"], "requirements": ["Nidoran Female", "Nidoran Male"], "reward": "Slugma" }]
+    },
+    {
+      "id": "doduo",
+      "title": "Doduo",
+      "category": "Quest/NPC",
+      "npc": "Claire",
+      "location": "—",
+      "entries": [{ "id": "doduo", "pokemon": "Doduo", "requirements": ["Concluir as missões da Claire"], "reward": "Doduo" }]
+    },
+    {
+      "id": "abra-mikey",
+      "title": "Abra",
+      "category": "Troca de NPC",
+      "npc": "Mikey",
+      "location": "À direita de Saffron",
+      "entries": [{ "id": "abra-mikey", "pokemon": "Abra", "source_pokemon": ["Gastly"], "requirements": ["Gastly"], "reward": "Abra" }]
+    },
+    {
+      "id": "jigglypuff",
+      "title": "Jigglypuff",
+      "category": "Troca de NPC",
+      "npc": "Ashley",
+      "location": "Acima do CP de Pewter",
+      "entries": [{ "id": "jigglypuff", "pokemon": "Jigglypuff", "source_pokemon": ["Clefairy"], "requirements": ["Clefairy"], "reward": "Jigglypuff" }]
+    },
+    {
+      "id": "nidoran-female",
+      "title": "Nidoran Female",
+      "category": "Troca de NPC",
+      "npc": "Claire",
+      "location": "À direita de Cerulean",
+      "entries": [{ "id": "nidoran-female", "pokemon": "Nidoran Female", "source_pokemon": ["Nidoran Male"], "requirements": ["Nidoran Male"], "reward": "Nidoran Female" }]
+    },
+    {
+      "id": "aerodactyl",
+      "title": "Aerodactyl",
+      "category": "Fóssil",
+      "npc": "—",
+      "location": "Local publicado na Wiki",
+      "entries": [{ "id": "aerodactyl", "pokemon": "Aerodactyl", "source_items": ["Old Amber"], "requirements": ["Old Amber"], "cost": ["200 Rock Stone"], "reward": "Aerodactyl" }]
+    },
+    {
+      "id": "npc-ewan-fossils",
+      "title": "NPC Ewan (Fósseis)",
+      "category": "Fóssil",
+      "npc": "Ewan",
+      "location": "Local publicado na Wiki",
+      "entries": [
+        { "id": "ewan-omanyte", "pokemon": "Omanyte", "source_items": ["Helix Fossil"], "requirements": ["Helix Fossil"], "cost": ["5 Rock Stone", "$1000 Dollars"], "reward": "Omanyte" },
+        { "id": "ewan-kabuto", "pokemon": "Kabuto", "source_items": ["Dome Fossil"], "requirements": ["Dome Fossil"], "cost": ["5 Rock Stone", "$1000 Dollars"], "reward": "Kabuto" },
+        { "id": "ewan-lileep", "pokemon": "Lileep", "source_items": ["Root Fossil"], "requirements": ["Root Fossil"], "cost": ["5 Rock Stone", "$1000 Dollars"], "reward": "Lileep" },
+        { "id": "ewan-anorith", "pokemon": "Anorith", "source_items": ["Claw Fossil"], "requirements": ["Claw Fossil"], "cost": ["5 Rock Stone", "$1000 Dollars"], "reward": "Anorith" },
+        { "id": "ewan-shieldon", "pokemon": "Shieldon", "source_items": ["Armor Fossil"], "requirements": ["Armor Fossil"], "cost": ["5 Rock Stone", "$1000 Dollars"], "reward": "Shieldon" }
+      ]
+    },
+    {
+      "id": "unown-legion",
+      "title": "Unown Legion",
+      "category": "Desafio especial",
+      "npc": "Mr. Who",
+      "location": "Alavanca da Unown Challenges",
+      "notes": ["É possível fazer apenas um Unown Legion por personagem.", "Os 26 Unowns devem estar sem Boost, Held Item e fora da Premier Ball."],
+      "entries": [{ "id": "unown-legion", "pokemon": "Unown Legion", "source_pokemon": ["Unown A", "Unown B", "Unown C", "Unown D", "Unown E", "Unown F", "Unown G", "Unown H", "Unown I", "Unown J", "Unown K", "Unown L", "Unown M", "Unown N", "Unown O", "Unown P", "Unown Q", "Unown R", "Unown S", "Unown T", "Unown U", "Unown V", "Unown W", "Unown X", "Unown Y", "Unown Z"], "source_items": ["Esferas do MissigNo"], "requirements": ["Concluir Unown Challenges", "100 esferas do MissigNo", "26 Unowns"], "cost": ["10KK para colocar na Premier Ball"], "reward": "Unown Legion" }]
+    },
+    {
+      "id": "quest-pokemon-npcs",
+      "title": "Pokémon obtidos em quests e tasks de NPC",
+      "category": "Quest/NPC",
+      "notes": ["Alguns resultados exigem aguardar 24 horas após entregar os itens ou concluir a etapa publicada."],
+      "entries": [
+        { "id": "quest-vanilluxe", "pokemon": "Vanilluxe", "npc": "Coke", "location": "Porto de Vermilion", "requirements": ["Hambúrgueres solicitados", "Vanilluxe Quest"], "reward": "Vanilluxe" },
+        { "id": "quest-mimikyu", "pokemon": "Mimikyu", "npc": "Dressa", "location": "Porto de Gateon Port", "requirements": ["Livro solicitado", "Mimikyu Quest"], "reward": "Mimikyu" },
+        { "id": "quest-alcremie", "pokemon": "Alcremie", "npc": "Paola", "location": "Artificial Safari", "requirements": ["Derrotar o Boss Rotom", "Aguardar 24h"], "reward": "Alcremie" },
+        { "id": "quest-champion-poliwrath", "pokemon": "Champion Poliwrath", "npc": "Tad", "location": "Cleopatra Island", "requirements": ["Passar no treinamento do NPC"], "cost": ["2,5KK na Ultra Ball", "5KK na Premier Ball", "Boost +20"], "reward": "Champion Poliwrath" },
+        { "id": "quest-shiny-snom", "pokemon": "Shiny Snom", "npc": "Norbert", "location": "Rancho nas montanhas geladas", "requirements": ["Rampardos"], "cost": ["5KK"], "reward": "Shiny Snom" },
+        { "id": "quest-spiritomb", "pokemon": "Spiritomb", "npc": "A Strange Religious", "location": "Nightmare World", "requirements": ["Hunting Spirit Quest", "Odd Keystone"], "cost": ["10KK para colocar na Premier Ball"], "reward": "Spiritomb" },
+        { "id": "quest-sirfetchd", "pokemon": "Sirfetch'D", "npc": "Hop", "location": "Último andar do cassino de Celadon", "requirements": ["—"], "cost": ["2KK"], "reward": "Sirfetch'D" },
+        { "id": "quest-hatenna", "pokemon": "Hatenna", "npc": "Mistycia", "location": "Último andar do Mt. Moon", "requirements": ["—"], "cost": ["2KK"], "reward": "Hatenna" },
+        { "id": "quest-drifloon", "pokemon": "Drifloon", "npc": "Howard", "location": "Resistência de Cinnabar, Nightmare World", "source_pokemon": ["Duskull"], "requirements": ["Duskull"], "cost": ["20K"], "reward": "Drifloon" },
+        { "id": "quest-scraggy", "pokemon": "Scraggy", "npc": "Lucy", "location": "Resistência de Cinnabar, Nightmare World", "source_pokemon": ["Meditite"], "requirements": ["Meditite"], "cost": ["20K"], "reward": "Scraggy" },
+        { "id": "quest-golett", "pokemon": "Golett", "npc": "Nathan", "location": "Embedded Tower, deserto de Phenac", "source_pokemon": ["Bronzor"], "source_items": ["Metal Stone"], "requirements": ["Bronzor", "Metal Stone"], "reward": "Golett" },
+        { "id": "quest-vikavolt", "pokemon": "Vikavolt", "npc": "Jules", "location": "Safari de Fuchsia", "source_pokemon": ["Parasect"], "source_items": ["Cocoon Stone"], "requirements": ["Parasect", "2 Cocoon Stone"], "reward": "Vikavolt" },
+        { "id": "quest-shiny-dedenne", "pokemon": "Shiny Dedenne", "npc": "Lyn", "location": "Ilha de Tangelo", "source_pokemon": ["Alolan Raichu"], "requirements": ["Alolan Raichu sem Boost, Held ou Premier Ball"], "cost": ["5KK"], "reward": "Shiny Dedenne" },
+        { "id": "quest-hippowdon-female", "pokemon": "Hippowdon Female", "npc": "Gabbs", "location": "Sala de Dimensional Zone, Trade Center", "source_pokemon": ["Hippowdon"], "requirements": ["Hippowdon Male"], "cost": ["Ultra Ball + 100K", "Premier Ball + 100K"], "reward": "Hippowdon Female" },
+        { "id": "quest-karrablast", "pokemon": "Karrablast", "npc": "Edgard", "location": "Prédio do cemitério de Lavender", "source_pokemon": ["Shelmet"], "source_items": ["Dimensional Stone"], "requirements": ["Shelmet +0", "Dimensional Stone", "Level 80+"], "reward": "Karrablast" },
+        { "id": "quest-galarian-rapidash", "pokemon": "Galarian Rapidash", "npc": "Casey", "location": "—", "requirements": ["Concluir a Task da Casey"], "reward": "Galarian Rapidash" }
+      ]
+    }
+  ]
+}
