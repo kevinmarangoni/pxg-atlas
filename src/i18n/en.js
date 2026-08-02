@@ -3,6 +3,20 @@
 // terms already used in English in the source (Tasks, PVE, PVP, tier codes...)
 // are intentionally omitted so they fall back to the identical source text.
 export const en = {
+  // PokemonNpcObtainedSection (PokemonDetailPage.jsx)
+  'Obtido via NPC': 'Obtained via NPC',
+  'Requisitos, custos e locais publicados pela Wiki oficial para obter esta forma.': 'Requirements, costs and locations published by the official Wiki to obtain this form.',
+  'Obtenção publicada': 'Published acquisition',
+  'Local': 'Location',
+  'Não informado': 'Not provided',
+  'Entregar / cumprir': 'Deliver / complete',
+  'Requisito não informado': 'Requirement not provided',
+  'Custo': 'Cost',
+  'Sem custo informado': 'No cost provided',
+  'Restrições e observações': 'Restrictions and notes',
+  'Ver página oficial de obtenção': 'View official acquisition page',
+  'Revisão {id}': 'Revision {id}',
+
   // PokemonQuickViewModal.jsx (region + capture facts)
   '{ball}: {average} em média': '{ball}: {average} on average',
 

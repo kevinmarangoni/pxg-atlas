@@ -1,5 +1,19 @@
 // Spanish translations. Keys are the original Portuguese (pt-BR) source strings.
 export const es = {
+  // PokemonNpcObtainedSection (PokemonDetailPage.jsx)
+  'Obtido via NPC': 'Obtenido por NPC',
+  'Requisitos, custos e locais publicados pela Wiki oficial para obter esta forma.': 'Requisitos, costos y ubicaciones publicados por la Wiki oficial para obtener esta forma.',
+  'Obtenção publicada': 'Obtención publicada',
+  'Local': 'Ubicación',
+  'Não informado': 'No informado',
+  'Entregar / cumprir': 'Entregar / cumplir',
+  'Requisito não informado': 'Requisito no informado',
+  'Custo': 'Costo',
+  'Sem custo informado': 'Sin costo informado',
+  'Restrições e observações': 'Restricciones y observaciones',
+  'Ver página oficial de obtenção': 'Ver página oficial de obtención',
+  'Revisão {id}': 'Revisión {id}',
+
   // PokemonQuickViewModal.jsx (region + capture facts)
   '{ball}: {average} em média': '{ball}: {average} en promedio',
 
