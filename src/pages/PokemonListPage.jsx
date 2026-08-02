@@ -93,7 +93,7 @@ export default function PokemonListPage() {
           <div className="catalog-toolbar">
             <div>
               <span className="toolbar-kicker"><LayoutGrid size={15} />{t('Catálogo')}</span>
-              <h2>{t('{count} Pokémon encontrados', { count: filtered.length.toLocaleString(locale) })}</h2>
+              <h2>{filtered.length === 1 ? t('{count} Pokémon encontrado', { count: 1 }) : t('{count} Pokémon encontrados', { count: filtered.length.toLocaleString(locale) })}</h2>
               {count > 0 && <p>{count === 1 ? t('{count} filtro ativo', { count }) : t('{count} filtros ativos', { count })}</p>}
             </div>
             <div className="toolbar-actions">

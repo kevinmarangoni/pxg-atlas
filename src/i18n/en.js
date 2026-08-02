@@ -86,6 +86,7 @@ export const en = {
   // PokemonListPage.jsx
   'Catálogo': 'Catalog',
   '{count} Pokémon encontrados': '{count} Pokémon found',
+  '{count} Pokémon encontrado': '{count} Pokémon found',
   '{count} filtro ativo': '{count} active filter',
   '{count} filtros ativos': '{count} active filters',
   'Modo de visualização': 'View mode',
