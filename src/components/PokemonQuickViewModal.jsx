@@ -71,9 +71,13 @@ function QuickViewMoves({ moves }) {
                 {move.tags?.map((tag, tagIndex) => {
                   const iconUrl = moveTagIconUrl(tag)
                   const label = displayMoveTag(tag)
-                  return iconUrl
-                    ? <img key={`${tag}-${tagIndex}`} src={iconUrl} alt={label} title={label} loading="lazy" />
-                    : <span key={`${tag}-${tagIndex}`} className="quickview-move-tag-fallback" title={label}>{label.slice(0, 1)}</span>
+                  return (
+                    <span key={`${tag}-${tagIndex}`} className="quickview-tag-icon" data-tooltip={label}>
+                      {iconUrl
+                        ? <img src={iconUrl} alt={label} loading="lazy" />
+                        : <span className="quickview-move-tag-fallback">{label.slice(0, 1)}</span>}
+                    </span>
+                  )
                 })}
               </div>
             </div>
@@ -143,8 +147,8 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="quickview-header-actions">
-          <Link className="icon-button" to={pokemonPath(pokemon)} title="Ficha completa" aria-label="Ir para a ficha completa">
-            <Maximize2 size={16} />
+          <Link className="quickview-goto-link" to={pokemonPath(pokemon)} title="Ficha completa" aria-label="Ir para a ficha completa">
+            <Maximize2 size={16} />Ficha completa
           </Link>
           <button type="button" className="icon-button" onClick={onClose} title="Fechar" aria-label="Fechar">
             <X size={18} />
