@@ -6,6 +6,7 @@ const CONSENT_EVENT = 'pxg-cookie-consent-change'
 // the banner from reappearing). Cleared when the user declines.
 const MANAGED_KEYS = [
   'pxg-theme',
+  'pxg-locale',
   'pxg-view-mode',
   'pxg-atlas:user-data:v2',
   'pxg-atlas:boost-prices:v1',

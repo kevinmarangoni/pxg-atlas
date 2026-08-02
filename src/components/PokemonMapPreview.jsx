@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, ExternalLink, MapPin } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../data/LanguageContext'
 
 const TILE_SIZE = 256
 const PREVIEW_SCALE = 0.92
@@ -43,6 +44,7 @@ function visibleTiles(location, tilePositionSet, cdnHome, localTilePositionSet, 
 }
 
 export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cdnHome, tilePositionSet, localTilePositionSet, localTileHome, mapSources }) {
+  const { t, locale } = useLanguage()
   const selectedLocation = locations[selectedIndex] || locations[0]
   if (!selectedLocation) return null
 
@@ -63,7 +65,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
 
   return (
     <div className="pokemon-map-explorer">
-      <div className="pokemon-map-preview" role="group" aria-label={`Recorte do mapa para ${name} nas coordenadas ${selectedLocation.x}, ${selectedLocation.y}, andar ${selectedLocation.z}`}>
+      <div className="pokemon-map-preview" role="group" aria-label={t('Recorte do mapa para {name} nas coordenadas {x}, {y}, andar {z}', { name, x: selectedLocation.x, y: selectedLocation.y, z: selectedLocation.z })}>
         <div className="pokemon-map-preview-canvas" style={{ '--preview-scale': PREVIEW_SCALE }}>
           {useFullMapFallback && (
             <img
@@ -94,7 +96,7 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
             const selected = index === selectedIndex
             return (
               <button
-                aria-label={`Mostrar ponto ${index + 1}: ${location.x}, ${location.y}, andar ${location.z}`}
+                aria-label={t('Mostrar ponto {index}: {x}, {y}, andar {z}', { index: index + 1, x: location.x, y: location.y, z: location.z })}
                 aria-pressed={selected}
                 className={`pokemon-map-preview-marker ${selected ? 'selected' : ''}`}
                 key={locationKey(location, index)}
@@ -111,12 +113,12 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
           })}
         </div>
 
-        <span className="pokemon-map-region">{selectedLocation.region || 'Região não informada'} · Andar {floor}</span>
+        <span className="pokemon-map-region">{selectedLocation.region || t('Região não informada')} · {t('Andar {floor}', { floor })}</span>
         {locations.length > 1 && (
-          <div className="pokemon-map-navigation" aria-label="Navegar pelas posições mapeadas">
-            <button type="button" onClick={selectPrevious} aria-label="Posição anterior"><ChevronLeft size={16} /></button>
-            <span>{selectedIndex + 1} de {locations.length}</span>
-            <button type="button" onClick={selectNext} aria-label="Próxima posição"><ChevronRight size={16} /></button>
+          <div className="pokemon-map-navigation" aria-label={t('Navegar pelas posições mapeadas')}>
+            <button type="button" onClick={selectPrevious} aria-label={t('Posição anterior')}><ChevronLeft size={16} /></button>
+            <span>{t('{current} de {total}', { current: selectedIndex + 1, total: locations.length })}</span>
+            <button type="button" onClick={selectNext} aria-label={t('Próxima posição')}><ChevronRight size={16} /></button>
           </div>
         )}
       </div>
@@ -124,11 +126,11 @@ export function PokemonMapPreview({ name, locations, selectedIndex, onSelect, cd
       <div className="pokemon-map-selected-location">
         <span className="pokemon-map-selected-icon"><MapPin size={18} /></span>
         <div>
-          <small>Coordenadas selecionadas</small>
-          <strong>{selectedLocation.x.toLocaleString('pt-BR')}, {selectedLocation.y.toLocaleString('pt-BR')}, {selectedLocation.z}</strong>
-          <p>{selectedLocation.comment || `${selectedLocation.region || 'Localização'} · andar ${floor}`}</p>
+          <small>{t('Coordenadas selecionadas')}</small>
+          <strong>{selectedLocation.x.toLocaleString(locale)}, {selectedLocation.y.toLocaleString(locale)}, {selectedLocation.z}</strong>
+          <p>{selectedLocation.comment || `${selectedLocation.region || t('Localização')} · ${t('andar {floor}', { floor })}`}</p>
         </div>
-        <Link to={mapUrl}>Abrir no mapa <ExternalLink size={13} /></Link>
+        <Link to={mapUrl}>{t('Abrir no mapa')} <ExternalLink size={13} /></Link>
       </div>
     </div>
   )

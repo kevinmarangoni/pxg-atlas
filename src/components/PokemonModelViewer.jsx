@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, RotateCw, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useLanguage } from '../data/LanguageContext'
 import { PokemonImage } from './Common'
 
 const VARIANT_LABELS = {
@@ -26,6 +27,7 @@ function availableModelViews(model) {
 }
 
 export function PokemonModelViewer({ model, fallbackSrc, name }) {
+  const { t } = useLanguage()
   const views = useMemo(() => availableModelViews(model), [model])
   const availableVariants = Object.keys(views).filter((variant) => Object.values(views[variant]).some(Boolean))
   const preferredVariant = availableVariants.includes(model?.variant) ? model.variant : availableVariants[0] || 'normal'
@@ -96,17 +98,17 @@ export function PokemonModelViewer({ model, fallbackSrc, name }) {
         className={`model-drag-surface ${canRotate ? 'rotatable' : ''} ${dragging ? 'dragging' : ''}`}
         role="group"
         tabIndex={canRotate ? 0 : undefined}
-        aria-label={`${name}: ${SIDE_LABELS[activeSide]}, versão ${VARIANT_LABELS[variant]}`}
+        aria-label={t('{name}: {side}, versão {variant}', { name, side: t(SIDE_LABELS[activeSide]), variant: t(VARIANT_LABELS[variant]) })}
         onKeyDown={canRotate ? handleKeyDown : undefined}
         onPointerDown={handlePointerDown}
         onPointerUp={finishPointerGesture}
         onPointerCancel={cancelPointerGesture}
       >
-        <PokemonImage key={activeSrc} src={activeSrc} fallbackSrc={activeSide === 'front' ? fallbackSrc : null} name={`${name} — ${SIDE_LABELS[activeSide]}`} className="detail-pokemon-image" />
+        <PokemonImage key={activeSrc} src={activeSrc} fallbackSrc={activeSide === 'front' ? fallbackSrc : null} name={`${name} — ${t(SIDE_LABELS[activeSide])}`} className="detail-pokemon-image" />
       </div>
 
       {availableVariants.length > 1 && (
-        <div className="model-variant-switch" aria-label="Variação visual">
+        <div className="model-variant-switch" aria-label={t('Variação visual')}>
           {availableVariants.map((candidate) => (
             <button
               type="button"
@@ -116,7 +118,7 @@ export function PokemonModelViewer({ model, fallbackSrc, name }) {
               key={candidate}
             >
               {candidate === 'shiny' && <Sparkles size={13} />}
-              {VARIANT_LABELS[candidate]}
+              {t(VARIANT_LABELS[candidate])}
             </button>
           ))}
         </div>
@@ -125,11 +127,11 @@ export function PokemonModelViewer({ model, fallbackSrc, name }) {
       {canRotate && (
         <>
           <div className="model-rotation-controls">
-            <button type="button" onClick={() => rotate(-1)} aria-label="Mostrar vista anterior"><ChevronLeft size={17} /></button>
-            <span aria-live="polite"><RotateCw size={14} />{SIDE_LABELS[activeSide]}</span>
-            <button type="button" onClick={() => rotate(1)} aria-label="Mostrar próxima vista"><ChevronRight size={17} /></button>
+            <button type="button" onClick={() => rotate(-1)} aria-label={t('Mostrar vista anterior')}><ChevronLeft size={17} /></button>
+            <span aria-live="polite"><RotateCw size={14} />{t(SIDE_LABELS[activeSide])}</span>
+            <button type="button" onClick={() => rotate(1)} aria-label={t('Mostrar próxima vista')}><ChevronRight size={17} /></button>
           </div>
-          <small className="model-gesture-hint">Arraste para girar</small>
+          <small className="model-gesture-hint">{t('Arraste para girar')}</small>
         </>
       )}
     </div>

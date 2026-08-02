@@ -2,6 +2,7 @@ import { Clock3, Crown, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-re
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ElementBadge, PokemonImage } from './Common'
+import { useLanguage } from '../data/LanguageContext'
 import { getAbilityInfo } from '../lib/abilities'
 import {
   EFFECTIVENESS_LABELS,
@@ -29,6 +30,7 @@ function effectivenessGroups(effectiveness) {
 }
 
 function QuickViewMoves({ moves }) {
+  const { t } = useLanguage()
   const availableTabs = ['default', 'pve', 'pvp'].filter((mode) => moves?.[mode]?.length)
   const [active, setActive] = useState(availableTabs[0] || 'default')
 
@@ -38,14 +40,14 @@ function QuickViewMoves({ moves }) {
 
   if (!availableTabs.length) return null
   const onlyDefault = availableTabs.length === 1 && availableTabs[0] === 'default'
-  const labels = { default: onlyDefault ? 'Moveset' : 'Padrão', pve: 'PvE', pvp: 'PvP' }
+  const labels = { default: onlyDefault ? t('Moveset') : t('Padrão'), pve: 'PvE', pvp: 'PvP' }
   const activeMoves = moves[active] || []
 
   return (
     <>
-      <h3 className="quickview-section-title"><Zap size={14} />Ataques</h3>
+      <h3 className="quickview-section-title"><Zap size={14} />{t('Ataques')}</h3>
       {availableTabs.length > 1 && (
-        <div className="tabs" role="tablist" aria-label="Versão do moveset">
+        <div className="tabs" role="tablist" aria-label={t('Versão do moveset')}>
           {availableTabs.map((mode) => (
             <button
               type="button"
@@ -89,15 +91,16 @@ function QuickViewMoves({ moves }) {
 }
 
 function QuickViewEffectiveness({ groups }) {
+  const { t } = useLanguage()
   return (
     <>
-      <h3 className="quickview-section-title"><ShieldCheck size={14} />Efetividades</h3>
+      <h3 className="quickview-section-title"><ShieldCheck size={14} />{t('Efetividades')}</h3>
       <div className="effectiveness-grid quickview-effectiveness-grid">
         {groups.map(({ key, values }) => {
           const meta = EFFECTIVENESS_LABELS[key] || { label: key, tone: 'special' }
           return (
             <article className={`effectiveness-group ${meta.tone}`} key={key}>
-              <header><div><small>Interação</small><strong>{meta.label}</strong></div><b>{values.length}</b></header>
+              <header><div><small>{t('Interação')}</small><strong>{t(meta.label)}</strong></div><b>{values.length}</b></header>
               <div>{values.map((element, index) => <ElementBadge key={`${element}-${index}`} element={element} compact />)}</div>
             </article>
           )
@@ -108,6 +111,7 @@ function QuickViewEffectiveness({ groups }) {
 }
 
 export function PokemonQuickViewModal({ pokemon, onClose }) {
+  const { t } = useLanguage()
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose()
@@ -143,14 +147,14 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
         style={{ '--detail-accent': accent }}
         role="dialog"
         aria-modal="true"
-        aria-label={`Detalhes rápidos de ${name}`}
+        aria-label={t('Detalhes rápidos de {name}', { name })}
         onClick={(event) => event.stopPropagation()}
       >
         <div className="quickview-header-actions">
-          <Link className="quickview-goto-link" to={pokemonPath(pokemon)} title="Ficha completa" aria-label="Ir para a ficha completa">
-            <Maximize2 size={16} />Ficha completa
+          <Link className="quickview-goto-link" to={pokemonPath(pokemon)} title={t('Ficha completa')} aria-label={t('Ir para a ficha completa')}>
+            <Maximize2 size={16} />{t('Ficha completa')}
           </Link>
-          <button type="button" className="icon-button" onClick={onClose} title="Fechar" aria-label="Fechar">
+          <button type="button" className="icon-button" onClick={onClose} title={t('Fechar')} aria-label={t('Fechar')}>
             <X size={18} />
           </button>
         </div>
@@ -169,7 +173,7 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
                 const info = getAbilityInfo(ability)
                 const Icon = info.icon
                 return (
-                  <span key={ability} className="quickview-ability" title={`${ability} — ${info.description}`}>
+                  <span key={ability} className="quickview-ability" title={`${ability} — ${t(info.description)}`}>
                     <Icon size={13} />{ability}
                   </span>
                 )

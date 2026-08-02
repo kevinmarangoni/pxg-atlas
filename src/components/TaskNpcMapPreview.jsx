@@ -1,5 +1,6 @@
 import { ExternalLink, MapPin } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../data/LanguageContext'
 import { useMapData } from '../data/MapDataContext'
 import { taskRegionLabel } from '../lib/tasks'
 
@@ -19,6 +20,7 @@ function taskCoordinates(task) {
 }
 
 export function TaskNpcMapPreview({ task }) {
+  const { t, locale } = useLanguage()
   const { data, loading, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const location = taskCoordinates(task)
   if (loading || !data || !location) return null
@@ -39,12 +41,12 @@ export function TaskNpcMapPreview({ task }) {
     }
   }
 
-  const npcName = task.npc?.name || 'NPC da task'
+  const npcName = task.npc?.name || t('NPC da task')
   const mapUrl = `/map?npc=${encodeURIComponent(npcName)}&x=${location.x}&y=${location.y}&z=${location.z}`
 
   return (
-    <section className="task-npc-map" aria-label={`Mapa do NPC ${npcName}`}>
-      <div className="task-npc-map-heading"><span><MapPin size={14} />Localização do NPC</span><small>{taskRegionLabel(task)} · {task.location || 'Local não informado'}</small></div>
+    <section className="task-npc-map" aria-label={t('Mapa do NPC {name}', { name: npcName })}>
+      <div className="task-npc-map-heading"><span><MapPin size={14} />{t('Localização do NPC')}</span><small>{taskRegionLabel(task)} · {task.location || t('Local não informado')}</small></div>
       <div className="pokemon-map-preview task-npc-map-preview">
         <div className="pokemon-map-preview-canvas" style={{ '--preview-scale': PREVIEW_SCALE }}>
           {tiles.map((tile) => <img alt="" className="pokemon-map-preview-tile" draggable={false} height={TILE_SIZE} key={tileKey(location.z, tile.x, tile.y)} referrerPolicy="no-referrer" src={tile.src} style={{ left: (tile.x * TILE_SIZE) - location.x, top: (tile.y * TILE_SIZE) - location.y }} width={TILE_SIZE} />)}
@@ -52,12 +54,12 @@ export function TaskNpcMapPreview({ task }) {
             {task.npc?.image_url ? <img alt="" draggable={false} referrerPolicy="no-referrer" src={task.npc.image_url} /> : <MapPin size={18} />}
           </span>
         </div>
-        <span className="pokemon-map-region">{task.location || taskRegionLabel(task)} · Andar {location.z}</span>
+        <span className="pokemon-map-region">{task.location || taskRegionLabel(task)} · {t('Andar {floor}', { floor: location.z })}</span>
       </div>
       <div className="pokemon-map-selected-location">
         <span className="pokemon-map-selected-icon"><MapPin size={18} /></span>
-        <div><small>{npcName}</small><strong>{location.x.toLocaleString('pt-BR')}, {location.y.toLocaleString('pt-BR')}, {location.z}</strong><p>{task.location || taskRegionLabel(task)}</p></div>
-        <Link to={mapUrl}>Abrir no mapa <ExternalLink size={13} /></Link>
+        <div><small>{npcName}</small><strong>{location.x.toLocaleString(locale)}, {location.y.toLocaleString(locale)}, {location.z}</strong><p>{task.location || taskRegionLabel(task)}</p></div>
+        <Link to={mapUrl}>{t('Abrir no mapa')} <ExternalLink size={13} /></Link>
       </div>
     </section>
   )

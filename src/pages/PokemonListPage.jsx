@@ -5,6 +5,7 @@ import { EmptyState } from '../components/Common'
 import PokemonCard from '../components/PokemonCard'
 import { PokemonQuickViewModal } from '../components/PokemonQuickViewModal'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { useLanguage } from '../data/LanguageContext'
 import { hasStorageConsent } from '../lib/cookieConsent'
 import {
   EMPTY_FILTERS,
@@ -26,6 +27,7 @@ function savedCatalogState() {
 }
 
 export default function PokemonListPage() {
+  const { t, locale } = useLanguage()
   const { pokemon, roleCatalog } = usePokemonData()
   const [filters, setFilters] = useState(() => ({ ...EMPTY_FILTERS, ...(savedCatalogState().filters || {}) }))
   const [visibleCount, setVisibleCount] = useState(() => Math.max(PAGE_SIZE, Number(savedCatalogState().visibleCount) || PAGE_SIZE))
@@ -90,24 +92,24 @@ export default function PokemonListPage() {
         <section className="catalog-content">
           <div className="catalog-toolbar">
             <div>
-              <span className="toolbar-kicker"><LayoutGrid size={15} />Catálogo</span>
-              <h2>{filtered.length.toLocaleString('pt-BR')} Pokémon encontrados</h2>
-              {count > 0 && <p>{count} {count === 1 ? 'filtro ativo' : 'filtros ativos'}</p>}
+              <span className="toolbar-kicker"><LayoutGrid size={15} />{t('Catálogo')}</span>
+              <h2>{t('{count} Pokémon encontrados', { count: filtered.length.toLocaleString(locale) })}</h2>
+              {count > 0 && <p>{count === 1 ? t('{count} filtro ativo', { count }) : t('{count} filtros ativos', { count })}</p>}
             </div>
             <div className="toolbar-actions">
-              <div className="view-switch" role="group" aria-label="Modo de visualização">
-                <button type="button" className={viewMode === 'grid' ? 'active' : ''} aria-pressed={viewMode === 'grid'} onClick={() => setViewMode('grid')} title="Grade com cartões"><LayoutGrid size={15} /><span>Cartões</span></button>
-                <button type="button" className={viewMode === 'image-list' ? 'active' : ''} aria-pressed={viewMode === 'image-list'} onClick={() => setViewMode('image-list')} title="Lista com imagens"><ImageIcon size={15} /><span>Imagens</span></button>
-                <button type="button" className={viewMode === 'simple-list' ? 'active' : ''} aria-pressed={viewMode === 'simple-list'} onClick={() => setViewMode('simple-list')} title="Lista simples"><List size={15} /><span>Simples</span></button>
+              <div className="view-switch" role="group" aria-label={t('Modo de visualização')}>
+                <button type="button" className={viewMode === 'grid' ? 'active' : ''} aria-pressed={viewMode === 'grid'} onClick={() => setViewMode('grid')} title={t('Grade com cartões')}><LayoutGrid size={15} /><span>{t('Cartões')}</span></button>
+                <button type="button" className={viewMode === 'image-list' ? 'active' : ''} aria-pressed={viewMode === 'image-list'} onClick={() => setViewMode('image-list')} title={t('Lista com imagens')}><ImageIcon size={15} /><span>{t('Imagens')}</span></button>
+                <button type="button" className={viewMode === 'simple-list' ? 'active' : ''} aria-pressed={viewMode === 'simple-list'} onClick={() => setViewMode('simple-list')} title={t('Lista simples')}><List size={15} /><span>{t('Simples')}</span></button>
               </div>
               <label className="sort-control">
                 <ArrowDownAZ size={17} />
                 <select value={filters.sort} onChange={(event) => setFilters({ ...filters, sort: event.target.value })}>
-                  <option value="name-asc">Nome A–Z</option>
-                  <option value="name-desc">Nome Z–A</option>
-                  <option value="level-asc">Menor level</option>
-                  <option value="level-desc">Maior level</option>
-                  <option value="dex-asc">Número Dex</option>
+                  <option value="name-asc">{t('Nome A–Z')}</option>
+                  <option value="name-desc">{t('Nome Z–A')}</option>
+                  <option value="level-asc">{t('Menor level')}</option>
+                  <option value="level-desc">{t('Maior level')}</option>
+                  <option value="dex-asc">{t('Número Dex')}</option>
                 </select>
               </label>
             </div>
@@ -125,9 +127,9 @@ export default function PokemonListPage() {
               {visibleCount < filtered.length && (
                 <div className="load-more">
                   <button className="button secondary" onClick={() => setVisibleCount((value) => value + PAGE_SIZE)}>
-                    Carregar mais {Math.min(PAGE_SIZE, filtered.length - visibleCount)}
+                    {t('Carregar mais {count}', { count: Math.min(PAGE_SIZE, filtered.length - visibleCount) })}
                   </button>
-                  <span>Exibindo {visibleCount} de {filtered.length.toLocaleString('pt-BR')}</span>
+                  <span>{t('Exibindo {visible} de {total}', { visible: visibleCount, total: filtered.length.toLocaleString(locale) })}</span>
                 </div>
               )}
             </>

@@ -1,5 +1,6 @@
 import { ChevronRight, Crown, Maximize2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../data/LanguageContext'
 import {
   displayName,
   pokemonClans,
@@ -25,13 +26,14 @@ function onActivateKey(handler) {
 }
 
 function GotoFullPageLink({ pokemon }) {
+  const { t } = useLanguage()
   return (
     <Link
       className="card-goto-link"
       to={pokemonPath(pokemon)}
       onClick={(event) => event.stopPropagation()}
-      title="Ficha completa"
-      aria-label="Ir para a ficha completa"
+      title={t('Ficha completa')}
+      aria-label={t('Ir para a ficha completa')}
     >
       <Maximize2 size={14} />
     </Link>
@@ -51,12 +53,14 @@ function RoleSummary({ mode, roles, roleCatalog }) {
 }
 
 function PokelogBadge({ pokemon }) {
+  const { t } = useLanguage()
   const pokelog = pokemonPokelog(pokemon)
   if (!pokelog) return null
-  return <span className="pokelog-badge" title={`Pokélog ${pokelog.category} · Experiência ${pokelog.experience_category}`}>PK {pokelog.category} · XP {pokelog.experience_category}</span>
+  return <span className="pokelog-badge" title={t('Pokélog {category} · Experiência {exp}', { category: pokelog.category, exp: pokelog.experience_category })}>PK {pokelog.category} · XP {pokelog.experience_category}</span>
 }
 
 function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
+  const { t } = useLanguage()
   const name = displayName(pokemon)
   const clans = pokemonClans(pokemon)
   const elements = pokemonElements(pokemon)
@@ -67,7 +71,7 @@ function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
   const dex = pokemon.clan_memberships?.find((entry) => entry.dex_number)?.dex_number
   const staticImage = pokemonImage(pokemon)
   const animatedImage = pokemonAnimatedImage(pokemon)
-  const identityLabel = `${dex ? `#${dex} · ` : ''}${clans.join(' · ') || 'Sem clan publicado'}`
+  const identityLabel = `${dex ? `#${dex} · ` : ''}${clans.join(' · ') || t('Sem clan publicado')}`
 
   if (!withImage) {
     return (
@@ -80,12 +84,12 @@ function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
           {elements.slice(0, 4).map((element) => <ElementBadge key={element} element={element} compact />)}
           <PokelogBadge pokemon={pokemon} />
         </div>
-        <div className="list-row-fact simple-level"><small>Level</small><strong>{levels.length ? levels.join(' / ') : '—'}</strong></div>
-        <div className="list-row-fact simple-tier"><small>Tier</small><strong>{tiers.length ? tiers.join(' · ') : '—'}</strong></div>
+        <div className="list-row-fact simple-level"><small>{t('Level')}</small><strong>{levels.length ? levels.join(' / ') : '—'}</strong></div>
+        <div className="list-row-fact simple-tier"><small>{t('Tier')}</small><strong>{tiers.length ? tiers.join(' · ') : '—'}</strong></div>
         <div className="simple-row-combat">
           <RoleSummary mode="pve" roles={pveRoles} roleCatalog={roleCatalog} />
           <RoleSummary mode="pvp" roles={pvpRoles} roleCatalog={roleCatalog} />
-          {!pveRoles.length && !pvpRoles.length && <span className="no-role">Sem função registrada</span>}
+          {!pveRoles.length && !pvpRoles.length && <span className="no-role">{t('Sem função registrada')}</span>}
         </div>
         <div className="list-row-actions">
           <GotoFullPageLink pokemon={pokemon} />
@@ -107,12 +111,12 @@ function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
         </div>
       </div>
       <div className="list-row-facts">
-        <div className="list-row-fact"><small>Level</small><strong>{levels.length ? levels.join(' / ') : '—'}</strong></div>
-        <div className="list-row-fact"><small>Tier</small><strong>{tiers.length ? tiers.join(' · ') : '—'}</strong></div>
+        <div className="list-row-fact"><small>{t('Level')}</small><strong>{levels.length ? levels.join(' / ') : '—'}</strong></div>
+        <div className="list-row-fact"><small>{t('Tier')}</small><strong>{tiers.length ? tiers.join(' · ') : '—'}</strong></div>
         <div className="list-row-combat">
           <RoleSummary mode="pve" roles={pveRoles} roleCatalog={roleCatalog} />
           <RoleSummary mode="pvp" roles={pvpRoles} roleCatalog={roleCatalog} />
-          {!pveRoles.length && !pvpRoles.length && <span className="no-role">Sem função registrada</span>}
+          {!pveRoles.length && !pvpRoles.length && <span className="no-role">{t('Sem função registrada')}</span>}
         </div>
       </div>
       <div className="list-row-actions">
@@ -124,6 +128,7 @@ function PokemonListRow({ pokemon, roleCatalog, withImage, onSelect }) {
 }
 
 export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid', onSelect }) {
+  const { t } = useLanguage()
   if (viewMode === 'image-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage onSelect={onSelect} />
   if (viewMode === 'simple-list') return <PokemonListRow pokemon={pokemon} roleCatalog={roleCatalog} withImage={false} onSelect={onSelect} />
 
@@ -150,7 +155,7 @@ export default function PokemonCard({ pokemon, roleCatalog, viewMode = 'grid', o
       <div className="card-body">
         <div className="card-heading">
           <div>
-            <span className="card-kicker">{clans.join(' · ') || 'Sem clan publicado'}</span>
+            <span className="card-kicker">{clans.join(' · ') || t('Sem clan publicado')}</span>
             <h2>{name}</h2>
           </div>
           <div className="card-heading-actions">
