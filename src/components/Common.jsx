@@ -6,6 +6,47 @@ import { useLanguage } from '../data/LanguageContext'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
 import { applyTheme, getStoredTheme } from '../lib/theme'
 
+const FLAG_ICONS = {
+  BR: (
+    <svg viewBox="0 0 20 15" className="language-flag" aria-hidden="true">
+      <rect width="20" height="15" rx="2" fill="#0a8a3c" />
+      <polygon points="10,2.2 18.2,7.5 10,12.8 1.8,7.5" fill="#f7d117" />
+      <circle cx="10" cy="7.5" r="3.1" fill="#1a4f9c" />
+    </svg>
+  ),
+  US: (
+    <svg viewBox="0 0 20 15" className="language-flag" aria-hidden="true">
+      <rect width="20" height="15" rx="2" fill="#fff" />
+      <g fill="#b22234">
+        <rect y="0" width="20" height="1.15" />
+        <rect y="2.3" width="20" height="1.15" />
+        <rect y="4.6" width="20" height="1.15" />
+        <rect y="6.9" width="20" height="1.15" />
+        <rect y="9.2" width="20" height="1.15" />
+        <rect y="11.5" width="20" height="1.15" />
+        <rect y="13.8" width="20" height="1.2" />
+      </g>
+      <rect width="9" height="8.1" fill="#3c3b6e" />
+    </svg>
+  ),
+  ES: (
+    <svg viewBox="0 0 20 15" className="language-flag" aria-hidden="true">
+      <rect width="20" height="15" rx="2" fill="#aa151b" />
+      <rect y="3.75" width="20" height="7.5" fill="#f1bf00" />
+    </svg>
+  ),
+  PL: (
+    <svg viewBox="0 0 20 15" className="language-flag" aria-hidden="true">
+      <rect width="20" height="15" rx="2" fill="#fff" />
+      <rect y="7.5" width="20" height="7.5" fill="#dc143c" />
+    </svg>
+  ),
+}
+
+function FlagIcon({ code }) {
+  return FLAG_ICONS[code] || null
+}
+
 function ThemeToggle() {
   const { t } = useLanguage()
   const [theme, setTheme] = useState(getStoredTheme)
@@ -63,7 +104,7 @@ function LanguageSwitcher() {
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <Languages size={18} />
+        {current?.flag ? <FlagIcon code={current.flag} /> : <Languages size={18} />}
       </button>
       {open && (
         <ul className="language-switcher-menu" role="listbox" aria-label={t('Idioma')}>
@@ -76,6 +117,7 @@ function LanguageSwitcher() {
                 className={entry.id === locale ? 'active' : ''}
                 onClick={() => { setLocale(entry.id); setOpen(false) }}
               >
+                <FlagIcon code={entry.flag} />
                 {entry.label}
               </button>
             </li>

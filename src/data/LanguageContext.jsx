@@ -5,10 +5,10 @@ import { es } from '../i18n/es'
 import { pl } from '../i18n/pl'
 
 export const LOCALES = [
-  { id: 'pt-BR', label: 'Português' },
-  { id: 'en', label: 'English' },
-  { id: 'es', label: 'Español' },
-  { id: 'pl', label: 'Polski' },
+  { id: 'pt-BR', label: 'Português', flag: 'BR' },
+  { id: 'en', label: 'English', flag: 'US' },
+  { id: 'es', label: 'Español', flag: 'ES' },
+  { id: 'pl', label: 'Polski', flag: 'PL' },
 ]
 
 const STORAGE_KEY = 'pxg-locale'

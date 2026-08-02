@@ -3,6 +3,11 @@
 // terms already used in English in the source (Tasks, PVE, PVP, tier codes...)
 // are intentionally omitted so they fall back to the identical source text.
 export const en = {
+  // PokemonQuickSearch.jsx
+  'Buscar outro Pokémon…': 'Search another Pokémon…',
+  'Buscar outro Pokémon': 'Search another Pokémon',
+  'Nenhum Pokémon encontrado.': 'No Pokémon found.',
+
   // PokemonMapPreview.jsx + TaskNpcMapPreview.jsx
   'Recorte do mapa para {name} nas coordenadas {x}, {y}, andar {z}': 'Map cutout for {name} at coordinates {x}, {y}, floor {z}',
   'Mostrar ponto {index}: {x}, {y}, andar {z}': 'Show point {index}: {x}, {y}, floor {z}',

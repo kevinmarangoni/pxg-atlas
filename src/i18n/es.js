@@ -1,5 +1,10 @@
 // Spanish translations. Keys are the original Portuguese (pt-BR) source strings.
 export const es = {
+  // PokemonQuickSearch.jsx
+  'Buscar outro Pokémon…': 'Buscar otro Pokémon…',
+  'Buscar outro Pokémon': 'Buscar otro Pokémon',
+  'Nenhum Pokémon encontrado.': 'Ningún Pokémon encontrado.',
+
   // PokemonMapPreview.jsx + TaskNpcMapPreview.jsx
   'Recorte do mapa para {name} nas coordenadas {x}, {y}, andar {z}': 'Recorte del mapa de {name} en las coordenadas {x}, {y}, piso {z}',
   'Mostrar ponto {index}: {x}, {y}, andar {z}': 'Mostrar punto {index}: {x}, {y}, piso {z}',

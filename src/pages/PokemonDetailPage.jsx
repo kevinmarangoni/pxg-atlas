@@ -27,6 +27,7 @@ import { BackLink, ElementBadge, PokemonImage, RoleBadge, SourceLink } from '../
 import { useLanguage } from '../data/LanguageContext'
 import { PokemonMapPreview } from '../components/PokemonMapPreview'
 import { PokemonModelViewer } from '../components/PokemonModelViewer'
+import { PokemonQuickSearch } from '../components/PokemonQuickSearch'
 import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
@@ -921,7 +922,11 @@ export default function PokemonDetailPage() {
 
   return (
     <div className="detail-page" style={{ '--detail-accent': detailAccent }}>
-      <div className="detail-topline"><BackLink /><DetailPager previous={previous} next={next} /></div>
+      <div className="detail-topline">
+        <BackLink />
+        <PokemonQuickSearch pokemonList={pokemon} />
+        <DetailPager previous={previous} next={next} />
+      </div>
 
       <section className={`detail-hero ${isPokelogOnly ? 'pokelog-only' : ''}`}>
         <div className="detail-art">
