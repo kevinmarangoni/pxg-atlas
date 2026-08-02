@@ -25,6 +25,16 @@ import { useGuidesData, useWorldContentData } from '../data/DomainData'
 import { hasStorageConsent } from '../lib/cookieConsent'
 import { ELEMENT_COLORS, displayName, normalizedElement, pokemonElements, pokemonPath, primaryLevel } from '../lib/pokemon'
 
+// The bosses guide (~400KB) is only needed for this one empty-state message,
+// so it's isolated in its own component and fetched only when a boss search
+// actually comes up empty, instead of eagerly on every map page load.
+function BossEmptyStateNote({ regionLabel }) {
+  const guides = useGuidesData()
+  return guides.data?.bosses?.length
+    ? `${guides.data.bosses.length} bosses estão catalogados, mas a Wiki não publicou coordenadas compatíveis com o OTMM.`
+    : `Tente outro termo, andar ou posição dentro de ${regionLabel}.`
+}
+
 const TILE_SIZE = 256
 const MIN_SCALE = 0.12
 const MAX_SCALE = 4
@@ -326,14 +336,17 @@ function PlaceLabel({ place, scale, selected, onSelect }) {
 export default function MapPage() {
   const { data, loading, error, monsters, orbs, localTilePositionSet, localTileHome } = useMapData()
   const { pokemon, tasks } = usePokemonData()
-  const guides = useGuidesData()
   const world = useWorldContentData()
   const [searchParams, setSearchParams] = useSearchParams()
   const queryRegion = regionFromQuery(searchParams.get('region'))
   const [selectedRegion, setSelectedRegion] = useState(queryRegion)
   const regionKey = selectedRegion
   const regionConfig = REGION_CONFIGS[regionKey]
-  const activeBounds = regionBounds(regionConfig)
+  // regionBounds() allocates a new object every call; several effects below
+  // depend on activeBounds and call setView(), so an unmemoized value here
+  // recreates the dependency on every render and re-triggers those effects
+  // forever (an actual infinite render loop, not just a slow one).
+  const activeBounds = useMemo(() => regionBounds(regionConfig), [regionConfig])
   const [query, setQuery] = useState(searchParams.get('pokemon') || '')
   const [activeLayer, setActiveLayer] = useState(() => MAP_LAYERS.has(searchParams.get('layer')) ? searchParams.get('layer') : 'monster')
   const [levelFilter, setLevelFilter] = useState('all')
@@ -727,7 +740,11 @@ export default function MapPage() {
             <div className="map-results-empty">
               <Search size={19} />
               <strong>Nenhum marcador encontrado</strong>
-              <span>{activeLayer === 'boss' && guides.data?.bosses?.length ? `${guides.data.bosses.length} bosses estão catalogados, mas a Wiki não publicou coordenadas compatíveis com o OTMM.` : activeLayer === 'resource' && world.data?.respawn?.resources?.length ? `${world.data.respawn.resources.length} recursos têm timer publicado, mas não coordenadas confiáveis.` : `Tente outro termo, andar ou posição dentro de ${regionConfig.label}.`}</span>
+              <span>{activeLayer === 'boss'
+                ? <BossEmptyStateNote regionLabel={regionConfig.label} />
+                : activeLayer === 'resource' && world.data?.respawn?.resources?.length
+                ? `${world.data.respawn.resources.length} recursos têm timer publicado, mas não coordenadas confiáveis.`
+                : `Tente outro termo, andar ou posição dentro de ${regionConfig.label}.`}</span>
             </div>
           )}
         </div>

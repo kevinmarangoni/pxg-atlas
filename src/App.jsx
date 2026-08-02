@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AppShell, DataError, DataLoading } from './components/Common'
 import { PokemonDataProvider, usePokemonData } from './data/PokemonDataContext'
@@ -29,9 +29,26 @@ function PokemonDataGate({ children }) {
   return data ? children : null
 }
 
-function PokemonRoute({ children, withMap = false }) {
-  const content = <PokemonDataProvider><PokemonDataGate>{children}</PokemonDataGate></PokemonDataProvider>
-  return withMap ? <MapDataProvider>{content}</MapDataProvider> : content
+// Layout routes: mounted once and kept alive across sibling navigations
+// within their subtree, so the (large) pokemon dataset and map dataset are
+// fetched and parsed a single time per session instead of on every route
+// change (previously each route re-created its own provider instance).
+function PokemonDataLayout() {
+  return (
+    <PokemonDataProvider>
+      <PokemonDataGate>
+        <Outlet />
+      </PokemonDataGate>
+    </PokemonDataProvider>
+  )
+}
+
+function MapDataLayout() {
+  return (
+    <MapDataProvider>
+      <Outlet />
+    </MapDataProvider>
+  )
 }
 
 function HashRouteSync() {
@@ -59,15 +76,19 @@ export default function App() {
     <AppShell>
       <HashRouteSync />
       <Routes>
-        <Route path="/" element={<PokemonRoute withMap><PokemonListPage /></PokemonRoute>} />
-        <Route path="/tasks" element={<PokemonRoute><TaskListPage /></PokemonRoute>} />
-        <Route path="/map" element={<PokemonRoute withMap><MapPage /></PokemonRoute>} />
-        <Route path="/team-builder" element={<PokemonRoute><TeamBuilderPage /></PokemonRoute>} />
-        <Route path="/pokemon/:pokemonId" element={<PokemonRoute withMap><PokemonDetailPage /></PokemonRoute>} />
-        <Route path="/pokelog" element={<PokemonRoute withMap><PokelogPage /></PokemonRoute>} />
-        <Route path="/unowns" element={<PokemonRoute><UnownTrackerPage /></PokemonRoute>} />
-        <Route path="/unown-tracker" element={<PokemonRoute><UnownTrackerPage /></PokemonRoute>} />
-        <Route path="/npcs" element={<PokemonRoute><NpcsPage /></PokemonRoute>} />
+        <Route element={<PokemonDataLayout />}>
+          <Route path="/" element={<PokemonListPage />} />
+          <Route path="/tasks" element={<TaskListPage />} />
+          <Route path="/team-builder" element={<TeamBuilderPage />} />
+          <Route path="/unowns" element={<UnownTrackerPage />} />
+          <Route path="/unown-tracker" element={<UnownTrackerPage />} />
+          <Route path="/npcs" element={<NpcsPage />} />
+          <Route element={<MapDataLayout />}>
+            <Route path="/map" element={<MapPage />} />
+            <Route path="/pokemon/:pokemonId" element={<PokemonDetailPage />} />
+            <Route path="/pokelog" element={<PokelogPage />} />
+          </Route>
+        </Route>
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/items" element={<ItemListPage />} />
         <Route path="/items/:itemId" element={<ItemDetailPage />} />
