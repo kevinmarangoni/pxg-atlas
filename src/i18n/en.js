@@ -3,6 +3,16 @@
 // terms already used in English in the source (Tasks, PVE, PVP, tier codes...)
 // are intentionally omitted so they fall back to the identical source text.
 export const en = {
+  // PokemonLocationOverlay.jsx region filter
+  'Filtrar por região': 'Filter by region',
+
+  // PokemonMapPreview.jsx pan/zoom + copy coordinates
+  'Aumentar zoom': 'Zoom in',
+  'Diminuir zoom': 'Zoom out',
+  'Copiar coordenadas': 'Copy coordinates',
+  'Subir andar': 'Go up a floor',
+  'Descer andar': 'Go down a floor',
+
   // PokemonLocationOverlay.jsx + PokemonQuickViewModal.jsx location actions
   'Ver no mapa': 'View on map',
   'Ver tasks': 'View tasks',
@@ -87,8 +97,7 @@ export const en = {
 
   // CookieConsentBanner.jsx
   'Preferências de cookies': 'Cookie preferences',
-  'Usamos': 'We use',
-  'no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em': 'in your browser to remember preferences like theme, your built team and tracker progress — nothing is sent to external servers. You can change your mind anytime in',
+  'Usamos cookies no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em': 'We use cookies in your browser to remember preferences like theme, your built team and tracker progress — nothing is sent to external servers. You can change your mind anytime in',
   'Recusar': 'Decline',
   'Aceitar': 'Accept',
 

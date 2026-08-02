@@ -28,7 +28,7 @@ export function CookieConsentBanner() {
       <div className="cookie-consent-copy">
         <Cookie size={20} />
         <p>
-          {t('Usamos')} <code>localStorage</code> {t('no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em')}{' '}
+          {t('Usamos cookies no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em')}{' '}
           <Link to="/legal#privacy">{t('Avisos legais')}</Link>.
         </p>
       </div>

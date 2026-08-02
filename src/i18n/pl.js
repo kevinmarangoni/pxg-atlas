@@ -1,5 +1,15 @@
 // Polish translations. Keys are the original Portuguese (pt-BR) source strings.
 export const pl = {
+  // PokemonLocationOverlay.jsx region filter
+  'Filtrar por região': 'Filtruj według regionu',
+
+  // PokemonMapPreview.jsx pan/zoom + copy coordinates
+  'Aumentar zoom': 'Przybliż',
+  'Diminuir zoom': 'Oddal',
+  'Copiar coordenadas': 'Kopiuj współrzędne',
+  'Subir andar': 'Piętro wyżej',
+  'Descer andar': 'Piętro niżej',
+
   // PokemonLocationOverlay.jsx + PokemonQuickViewModal.jsx location actions
   'Ver no mapa': 'Zobacz na mapie',
   'Ver tasks': 'Zobacz zadania',
@@ -84,8 +94,7 @@ export const pl = {
 
   // CookieConsentBanner.jsx
   'Preferências de cookies': 'Preferencje plików cookie',
-  'Usamos': 'Używamy',
-  'no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em': 'w Twojej przeglądarce, aby zapamiętać preferencje takie jak motyw, zbudowaną drużynę i postępy trackerów — nic nie jest wysyłane na zewnętrzne serwery. Możesz zmienić decyzję w dowolnym momencie w',
+  'Usamos cookies no seu navegador para lembrar preferências como tema, time montado e progresso de trackers — nada é enviado para servidores externos. Você pode mudar de ideia quando quiser em': 'Używamy plików cookie w Twojej przeglądarce, aby zapamiętać preferencje takie jak motyw, zbudowaną drużynę i postępy trackerów — nic nie jest wysyłane na zewnętrzne serwery. Możesz zmienić decyzję w dowolnym momencie w',
   'Recusar': 'Odrzuć',
   'Aceitar': 'Akceptuj',
 
