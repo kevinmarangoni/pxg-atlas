@@ -19,7 +19,7 @@ function PriceInput({ label, value, onChange, hint }) {
   )
 }
 
-export function BoostCalculator({ boost, matter }) {
+export function BoostCalculator({ boost, matter, compact = false }) {
   const { t, locale } = useLanguage()
   const profile = useMemo(() => parseBoostProfile(boost), [boost])
   const materiaNames = useMemo(() => materiaNamesFromMatter(matter), [matter])
@@ -46,6 +46,7 @@ export function BoostCalculator({ boost, matter }) {
   }), [profile, startBoost, targetBoost, prices])
 
   if (!profile.valid) {
+    if (compact) return null
     return (
       <section className="detail-section boost-calculator unavailable" id="boost-cost">
         <div className="detail-section-heading">
@@ -68,11 +69,13 @@ export function BoostCalculator({ boost, matter }) {
   const selectedMateriaLabel = result.materiaMaterial && result.materiaMaterial !== 'Materia do clã/tier' && prices.materia[result.materiaMaterial] !== undefined && prices.materia[result.materiaMaterial] !== '' ? result.materiaMaterial : materiaNames.join(' ou ')
 
   return (
-    <section className="detail-section boost-calculator" id="boost-cost">
-      <div className="detail-section-heading">
-        <div className="detail-section-title"><Calculator size={18} /><h2>{t('Custo para upar')}</h2></div>
-        <p>{t('Veja quantas stones este Pokémon consome e simule o custo com os preços do market do seu servidor. Os valores ficam salvos somente neste navegador.')}</p>
-      </div>
+    <section className={`detail-section boost-calculator ${compact ? 'boost-calculator--compact' : ''}`} id={compact ? undefined : 'boost-cost'}>
+      {!compact && (
+        <div className="detail-section-heading">
+          <div className="detail-section-title"><Calculator size={18} /><h2>{t('Custo para upar')}</h2></div>
+          <p>{t('Veja quantas stones este Pokémon consome e simule o custo com os preços do market do seu servidor. Os valores ficam salvos somente neste navegador.')}</p>
+        </div>
+      )}
 
       <div className="boost-profile-banner">
         <div><span>{t('Perfil publicado')}</span><strong>{profile.materialText}</strong></div>

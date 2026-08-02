@@ -125,10 +125,23 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
           <strong>{t('Filtros')}</strong>
           <button className="icon-button" onClick={() => setMobileOpen(false)} aria-label={t('Fechar filtros')}><X size={20} /></button>
         </div>
-        <div className="search-field">
-          <Search size={17} />
-          <input value={filters.query} onChange={(event) => set('query')(event.target.value)} placeholder={t('Nome, elemento, clan…')} aria-label={t('Pesquisar Pokémon')} />
-          {filters.query && <button onClick={() => set('query')('')} aria-label={t('Limpar pesquisa')}><X size={15} /></button>}
+        <div className="filter-top-row">
+          <div className="search-field">
+            <Search size={17} />
+            <input value={filters.query} onChange={(event) => set('query')(event.target.value)} placeholder={t('Nome, elemento, clan…')} aria-label={t('Pesquisar Pokémon')} />
+            {filters.query && <button onClick={() => set('query')('')} aria-label={t('Limpar pesquisa')}><X size={15} /></button>}
+          </div>
+          <button
+            type="button"
+            className="filter-reset-mini"
+            onClick={onReset}
+            disabled={count === 0}
+            title={count > 0 ? t('Limpar {count} filtros', { count }) : t('Limpar filtros')}
+            aria-label={count > 0 ? t('Limpar {count} filtros', { count }) : t('Limpar filtros')}
+          >
+            <RotateCcw size={15} />
+            {count > 0 && <b>{count}</b>}
+          </button>
         </div>
 
         <div className="filter-section">
@@ -202,9 +215,6 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
           </div>
         )}
 
-        <button className="button reset-button" onClick={onReset} disabled={count === 0}>
-          <RotateCcw size={16} />{count > 0 ? t('Limpar {count} filtros', { count }) : t('Limpar filtros')}
-        </button>
       </aside>
       {mobileOpen && <button className="filter-backdrop" onClick={() => setMobileOpen(false)} aria-label={t('Fechar filtros')} />}
     </>

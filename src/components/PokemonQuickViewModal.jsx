@@ -1,12 +1,15 @@
-import { CircleDot, ClipboardList, Clock3, Crown, Gauge, MapPin, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Calculator, CircleDot, ClipboardList, Clock3, Crown, Gauge, Layers3, MapPin, Maximize2, ShieldCheck, Swords, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BoostCalculator } from './BoostCalculator'
 import { ElementBadge, PokemonImage } from './Common'
+import { ExpansionPanel } from './ExpansionPanel'
 import { PokemonLocationOverlay } from './PokemonLocationOverlay'
 import { useLanguage } from '../data/LanguageContext'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { getAbilityInfo } from '../lib/abilities'
+import { parseBoostProfile } from '../lib/boostCalculator'
 import {
   EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
@@ -16,6 +19,7 @@ import {
   displayName,
   effectivenessRows,
   moveTagIconUrl,
+  moveTagSummary,
   normalizedElement,
   pokemonAnimatedImage,
   pokemonCapture,
@@ -47,10 +51,19 @@ function QuickViewMoves({ moves }) {
   const onlyDefault = availableTabs.length === 1 && availableTabs[0] === 'default'
   const labels = { default: onlyDefault ? t('Moveset') : t('Padrão'), pve: 'PvE', pvp: 'PvP' }
   const activeMoves = moves[active] || []
+  const tagSummary = moveTagSummary(activeMoves)
 
   return (
-    <>
-      <h3 className="quickview-section-title"><Zap size={14} />{t('Ataques')}</h3>
+    <ExpansionPanel
+      icon={<Swords size={13} />}
+      title={t('Moveset')}
+      badge={activeMoves.length}
+      headerExtra={tagSummary.length > 0 && (
+        <div className="expansion-panel-chip-row">
+          {tagSummary.map(([tag, count]) => <span key={tag}>{tag}<b>{count}</b></span>)}
+        </div>
+      )}
+    >
       {availableTabs.length > 1 && (
         <div className="tabs" role="tablist" aria-label={t('Versão do moveset')}>
           {availableTabs.map((mode) => (
@@ -91,7 +104,45 @@ function QuickViewMoves({ moves }) {
           </div>
         ))}
       </div>
-    </>
+    </ExpansionPanel>
+  )
+}
+
+function QuickViewEvolution({ pokemon, allPokemon, onSelect }) {
+  const { t } = useLanguage()
+  const evolutionRecords = useMemo(() => (pokemon.evolutions || []).map((evolution) => {
+    const match = allPokemon.find((candidate) => candidate.source_url === evolution.url)
+      || allPokemon.find((candidate) => displayName(candidate).toLocaleLowerCase('pt-BR') === String(evolution.name || '').toLocaleLowerCase('pt-BR'))
+    return { ...evolution, match }
+  }), [pokemon, allPokemon])
+
+  if (!evolutionRecords.length) return null
+
+  return (
+    <ExpansionPanel icon={<Layers3 size={13} />} title={t('Linha evolutiva')} badge={evolutionRecords.length}>
+      <div className="quickview-evolution-line">
+        {evolutionRecords.map((evolution, index) => {
+          const evolutionLevel = evolution.level || (evolution.match && pokemonLevels(evolution.match)[0])
+          const content = (
+            <>
+              <PokemonImage src={evolution.image_url || (evolution.match && pokemonImage(evolution.match))} name={evolution.name} />
+              <div className="quickview-evolution-info">
+                <span>{t('Estágio {index}', { index: String(index + 1).padStart(2, '0') })}</span>
+                <strong>{evolution.name}</strong>
+                <small>{evolutionLevel ? t('Level {level}', { level: evolutionLevel }) : t('Level não informado')}</small>
+              </div>
+            </>
+          )
+          return evolution.match ? (
+            <button type="button" className="quickview-evolution-item" key={`${evolution.name}-${index}`} onClick={() => onSelect(evolution.match)}>
+              {content}
+            </button>
+          ) : (
+            <div className="quickview-evolution-item" key={`${evolution.name}-${index}`}>{content}</div>
+          )
+        })}
+      </div>
+    </ExpansionPanel>
   )
 }
 
@@ -115,10 +166,10 @@ function QuickViewEffectiveness({ groups }) {
   )
 }
 
-export function PokemonQuickViewModal({ pokemon, onClose }) {
+export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} }) {
   const { t, locale } = useLanguage()
   const { byPokemonName: mapLocationsByPokemon } = useMapData()
-  const { captureBallCatalog } = usePokemonData()
+  const { pokemon: allPokemon, captureBallCatalog } = usePokemonData()
   const [locationTab, setLocationTab] = useState(null)
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -133,6 +184,8 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
       document.body.style.overflow = ''
     }
   }, [onClose, locationTab])
+
+  useEffect(() => setLocationTab(null), [pokemon])
 
   const name = displayName(pokemon)
   const clans = pokemonClans(pokemon)
@@ -153,9 +206,12 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
     || captureBalls.find((ball) => ['poke_ball', 'great_ball', 'super_ball'].includes(ball.id))
 
   const hasMoves = ['default', 'pve', 'pvp'].some((mode) => pokemon.moves?.[mode]?.length)
+  const hasBoost = parseBoostProfile(pokemon.general_info?.boost).valid
+  const hasEvolution = (pokemon.evolutions || []).length > 0
+  const hasMiddleColumn = hasMoves || hasBoost || hasEvolution
   const groups = effectivenessGroups(pokemon.effectiveness)
   const hasEffectiveness = groups.length > 0
-  const columnCount = 1 + (hasMoves ? 1 : 0) + (hasEffectiveness ? 1 : 0)
+  const columnCount = 1 + (hasMiddleColumn ? 1 : 0) + (hasEffectiveness ? 1 : 0)
 
   return (
     <div className="quickview-overlay" onClick={onClose}>
@@ -227,9 +283,15 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
           )}
         </div>
 
-        {hasMoves && (
+        {hasMiddleColumn && (
           <div className="quickview-column quickview-attacks">
-            <QuickViewMoves moves={pokemon.moves} />
+            {hasMoves && <QuickViewMoves moves={pokemon.moves} />}
+            {hasBoost && (
+              <ExpansionPanel icon={<Calculator size={13} />} title={t('Custo para upar')}>
+                <BoostCalculator boost={pokemon.general_info?.boost} matter={pokemon.general_info?.matter} compact />
+              </ExpansionPanel>
+            )}
+            {hasEvolution && <QuickViewEvolution pokemon={pokemon} allPokemon={allPokemon} onSelect={onSelect} />}
           </div>
         )}
 

@@ -50,6 +50,7 @@ import {
   pokemonId,
   pokemonLevels,
   migratePokelogStageProgress,
+  moveTagSummary,
   pokemonPath,
   pokemonPokelog,
   pokemonTiers,
@@ -557,15 +558,6 @@ function TaskOccurrencesSection({ occurrences, tasksById }) {
       </div>
     </Section>
   )
-}
-
-function moveTagSummary(moves) {
-  const counts = new Map()
-  moves.flatMap((move) => move.tags ?? []).forEach((tag) => {
-    const label = displayMoveTag(tag)
-    if (label) counts.set(label, (counts.get(label) || 0) + 1)
-  })
-  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'pt-BR')).slice(0, 6)
 }
 
 function MoveElement({ element }) {

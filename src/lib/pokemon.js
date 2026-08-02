@@ -427,6 +427,15 @@ export function displayMoveTag(tag) {
   return aliases[key] || cleaned
 }
 
+export function moveTagSummary(moves) {
+  const counts = new Map()
+  moves.flatMap((move) => move.tags ?? []).forEach((tag) => {
+    const label = displayMoveTag(tag)
+    if (label) counts.set(label, (counts.get(label) || 0) + 1)
+  })
+  return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'pt-BR')).slice(0, 6)
+}
+
 // Icons published by the PXG wiki for each move tag/status effect. Resolved via
 // MediaWiki's Especial:FilePath redirect (same mechanism used for element art),
 // so the frontend only ever references remote URLs, never stores the images.

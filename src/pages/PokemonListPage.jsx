@@ -138,7 +138,7 @@ export default function PokemonListPage() {
       </div>
 
       {quickViewPokemon && (
-        <PokemonQuickViewModal pokemon={quickViewPokemon} onClose={() => setQuickViewPokemon(null)} />
+        <PokemonQuickViewModal pokemon={quickViewPokemon} onClose={() => setQuickViewPokemon(null)} onSelect={setQuickViewPokemon} />
       )}
     </>
   )
