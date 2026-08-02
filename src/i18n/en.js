@@ -3,6 +3,15 @@
 // terms already used in English in the source (Tasks, PVE, PVP, tier codes...)
 // are intentionally omitted so they fall back to the identical source text.
 export const en = {
+  // PokemonLocationOverlay.jsx + PokemonQuickViewModal.jsx location actions
+  'Ver no mapa': 'View on map',
+  'Ver tasks': 'View tasks',
+  'Localização e tasks de {name}': '{name}\'s location and tasks',
+  'Sem localização mapeada': 'No mapped location',
+  'Este Pokémon ainda não tem coordenadas publicadas no mapa interativo.': 'This Pokémon doesn\'t have coordinates published on the interactive map yet.',
+  'Nenhuma task encontrada': 'No task found',
+  'Este Pokémon não aparece como objetivo em nenhuma task publicada.': 'This Pokémon doesn\'t appear as an objective in any published task.',
+
   // PokemonNpcObtainedSection (PokemonDetailPage.jsx)
   'Obtido via NPC': 'Obtained via NPC',
   'Requisitos, custos e locais publicados pela Wiki oficial para obter esta forma.': 'Requirements, costs and locations published by the official Wiki to obtain this form.',

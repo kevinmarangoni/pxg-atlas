@@ -1,5 +1,14 @@
 // Polish translations. Keys are the original Portuguese (pt-BR) source strings.
 export const pl = {
+  // PokemonLocationOverlay.jsx + PokemonQuickViewModal.jsx location actions
+  'Ver no mapa': 'Zobacz na mapie',
+  'Ver tasks': 'Zobacz zadania',
+  'Localização e tasks de {name}': 'Lokalizacja i zadania {name}',
+  'Sem localização mapeada': 'Brak zmapowanej lokalizacji',
+  'Este Pokémon ainda não tem coordenadas publicadas no mapa interativo.': 'Ten Pokémon nie ma jeszcze opublikowanych współrzędnych na interaktywnej mapie.',
+  'Nenhuma task encontrada': 'Nie znaleziono zadania',
+  'Este Pokémon não aparece como objetivo em nenhuma task publicada.': 'Ten Pokémon nie występuje jako cel w żadnym opublikowanym zadaniu.',
+
   // PokemonNpcObtainedSection (PokemonDetailPage.jsx)
   'Obtido via NPC': 'Zdobyty przez NPC',
   'Requisitos, custos e locais publicados pela Wiki oficial para obter esta forma.': 'Wymagania, koszty i lokalizacje opublikowane przez oficjalną Wiki, aby zdobyć tę formę.',

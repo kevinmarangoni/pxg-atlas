@@ -1,7 +1,8 @@
-import { CircleDot, Clock3, Crown, Gauge, MapPin, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
+import { CircleDot, ClipboardList, Clock3, Crown, Gauge, MapPin, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ElementBadge, PokemonImage } from './Common'
+import { PokemonLocationOverlay } from './PokemonLocationOverlay'
 import { useLanguage } from '../data/LanguageContext'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
@@ -118,9 +119,12 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
   const { t, locale } = useLanguage()
   const { byPokemonName: mapLocationsByPokemon } = useMapData()
   const { captureBallCatalog } = usePokemonData()
+  const [locationTab, setLocationTab] = useState(null)
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Escape') return
+      if (locationTab) setLocationTab(null)
+      else onClose()
     }
     window.addEventListener('keydown', onKeyDown)
     document.body.style.overflow = 'hidden'
@@ -128,7 +132,7 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
       window.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = ''
     }
-  }, [onClose])
+  }, [onClose, locationTab])
 
   const name = displayName(pokemon)
   const clans = pokemonClans(pokemon)
@@ -142,6 +146,7 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
   const accent = ELEMENT_COLORS[elements[0]] || '#62e6a7'
   const mapLocations = mapLocationsByPokemon.get(normalizedMapName(name)) ?? []
   const regions = [...new Set(mapLocations.map((location) => location.region).filter(Boolean))]
+  const taskCount = new Set((pokemon.task_occurrences ?? []).map((occurrence) => occurrence.task_id)).size
   const capture = pokemonCapture(pokemon)
   const captureBalls = captureBallEntries(pokemon, captureBallCatalog)
   const referenceBall = captureBalls.find((ball) => ball.id === 'ultra_ball')
@@ -206,6 +211,20 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
               )}
             </div>
           )}
+          {(mapLocations.length > 0 || taskCount > 0) && (
+            <div className="quickview-location-actions">
+              {mapLocations.length > 0 && (
+                <button type="button" onClick={() => setLocationTab('map')}>
+                  <MapPin size={14} />{t('Ver no mapa')}
+                </button>
+              )}
+              {taskCount > 0 && (
+                <button type="button" onClick={() => setLocationTab('tasks')}>
+                  <ClipboardList size={14} />{t('Ver tasks')}<b>{taskCount}</b>
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         {hasMoves && (
@@ -220,6 +239,10 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
           </div>
         )}
       </div>
+
+      {locationTab && (
+        <PokemonLocationOverlay pokemon={pokemon} initialTab={locationTab} onClose={() => setLocationTab(null)} />
+      )}
     </div>
   )
 }

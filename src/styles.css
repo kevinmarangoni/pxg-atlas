@@ -409,6 +409,38 @@ main { flex: 1; }
 .quickview-fact { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: #8796ab; font-size: 12.5px; }
 .quickview-extra-facts { width: 100%; margin-top: 6px; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; align-items: center; gap: 7px; }
 .quickview-extra-facts .quickview-fact { text-align: center; }
+.quickview-location-actions { width: 100%; margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.quickview-location-actions button { min-height: 34px; padding: 0 12px; border: 1px solid #273249; border-radius: 9px; background: #111a29; display: inline-flex; align-items: center; gap: 6px; color: #dbe5f5; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: border-color .18s ease, color .18s ease, background .18s ease; }
+.quickview-location-actions button:hover { border-color: color-mix(in srgb, var(--detail-accent) 45%, transparent); color: color-mix(in srgb, var(--detail-accent) 80%, var(--mix-light)); }
+.quickview-location-actions button b { min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: color-mix(in srgb, var(--detail-accent) 22%, transparent); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+
+.pokemon-location-overlay { position: fixed; inset: 0; z-index: 260; padding: 24px; display: flex; align-items: center; justify-content: center; overflow-y: auto; background: rgba(4,6,11,.82); backdrop-filter: blur(6px); }
+.pokemon-location-panel { position: relative; width: min(640px, 100%); max-height: min(680px, 88vh); display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(150deg, #141d2e, #0b111c 62%); box-shadow: 0 30px 80px rgba(0,0,0,.45); animation: quickview-in .18s ease-out; }
+.pokemon-location-header { flex: none; padding: 14px 14px 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.pokemon-location-tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: rgba(10,16,27,.72); }
+.pokemon-location-tabs button { min-height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; display: inline-flex; align-items: center; gap: 6px; color: #8796ab; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .18s ease, color .18s ease; }
+.pokemon-location-tabs button:hover { color: var(--text); }
+.pokemon-location-tabs button.active { background: #1a263a; color: var(--accent); }
+.pokemon-location-tabs button b { min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: rgba(255,255,255,.08); display: inline-flex; align-items: center; justify-content: center; font-size: 10.5px; }
+.pokemon-location-body { flex: 1; min-height: 0; padding: 14px; overflow-y: auto; }
+.pokemon-location-body > .pokemon-map-explorer { height: 100%; }
+.pokemon-location-empty { height: 100%; min-height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; color: #8796ab; }
+.pokemon-location-empty strong { color: var(--text); font-size: 15px; }
+.pokemon-location-empty span { max-width: 320px; font-size: 13px; }
+.pokemon-location-task-list { display: grid; gap: 10px; }
+.pokemon-location-task-card { padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.02); display: grid; gap: 8px; }
+.pokemon-location-task-card > header { display: flex; align-items: center; gap: 10px; }
+.pokemon-location-task-card .pokemon-task-npc-art { width: 34px; height: 34px; flex: none; border-radius: 9px; overflow: hidden; background: rgba(255,255,255,.05); display: grid; place-items: center; color: #67768d; }
+.pokemon-location-task-card .pokemon-task-npc-art img { width: 100%; height: 100%; object-fit: cover; }
+.pokemon-location-task-card > header small { display: block; color: #67768d; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+.pokemon-location-task-card > header strong { font-size: 14px; }
+.pokemon-location-task-steps { display: flex; flex-wrap: wrap; gap: 8px; color: #8796ab; font-size: 12.5px; }
+.pokemon-location-task-steps span { display: inline-flex; align-items: center; gap: 5px; }
+.pokemon-location-task-steps strong { color: var(--text); }
+.pokemon-location-task-rewards { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: #67768d; font-size: 12px; }
+.pokemon-location-task-rewards b { display: inline-flex; align-items: center; gap: 4px; color: #aebacd; font-weight: 700; }
+.pokemon-location-task-rewards b img { width: 16px; height: 16px; object-fit: contain; }
+.pokemon-location-task-card > a { justify-self: start; color: var(--accent); font-size: 12.5px; font-weight: 700; }
 .quickview-column {
   min-width: 0; min-height: 0; padding: 60px 22px 22px; overflow-y: auto; display: flex; flex-direction: column;
   scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--detail-accent) 55%, #2a354a) transparent;
@@ -450,6 +482,7 @@ main { flex: 1; }
   .quickview-modal.quickview-modal--cols-2 { width: min(600px, 96vw); grid-template-columns: minmax(0, 1fr); max-height: 92vh; }
   .quickview-modal.quickview-modal--cols-2 .quickview-identity { border-right: 0; border-bottom: 1px solid var(--line); padding: 26px 20px 20px; }
   .quickview-modal.quickview-modal--cols-2 .quickview-effectiveness { border-left: 0; border-top: 1px solid var(--line); }
+  .pokemon-location-overlay { padding: 12px; }
 }
 
 @media (max-width: 1180px) {
@@ -1242,6 +1275,13 @@ main { flex: 1; }
 :root[data-theme="light"] .quickview-ability { border: 1px solid #b8becc; background: #e5e7eb; color: #384455; }
 :root[data-theme="light"] .quickview-fact { color: #525e6f; }
 :root[data-theme="light"] .quickview-column::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--detail-accent) 45%, #e3e5e8); }
+:root[data-theme="light"] .quickview-location-actions button { border: 1px solid #b8becc; background: #e5e7eb; color: #132035; }
+:root[data-theme="light"] .pokemon-location-overlay { background: rgba(248, 249, 250, 0.82); }
+:root[data-theme="light"] .pokemon-location-panel { background: linear-gradient(150deg, #e2e4e9, #edeff2 62%); }
+:root[data-theme="light"] .pokemon-location-tabs { background: #e5e7eb; }
+:root[data-theme="light"] .pokemon-location-tabs button.active { background: #d7dbe0; }
+:root[data-theme="light"] .pokemon-location-task-card { border: 1px solid #ccd1db; background: #f1f3f5; }
+:root[data-theme="light"] .pokemon-location-task-card .pokemon-task-npc-art { background: #e5e7eb; }
 :root[data-theme="light"] .quickview-column::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--detail-accent) 65%, #e3e5e8); }
 :root[data-theme="light"] .quickview-move { border: 1px solid #b8bfcc; background: #eef0f2; color: #465263; }
 :root[data-theme="light"] .quickview-move-name { color: #162132; }
