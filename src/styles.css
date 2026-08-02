@@ -475,12 +475,63 @@ main { flex: 1; }
 }
 .quickview-tag-icon:hover::after { opacity: 1; visibility: visible; }
 .quickview-effectiveness-grid { grid-template-columns: 1fr; }
-.quickview-effectiveness-grid .effectiveness-group { min-height: 0; padding: 11px; }
+.quickview-effectiveness-grid .effectiveness-group { min-height: 0; padding: 8px 9px; border-top-width: 2px; }
+.quickview-effectiveness-grid .effectiveness-group header { gap: 7px; }
+.quickview-effectiveness-grid .effectiveness-group header small { font-size: 9px; }
+.quickview-effectiveness-grid .effectiveness-group header strong { font-size: 12px; }
+.quickview-effectiveness-grid .effectiveness-group header > b { min-width: 20px; height: 20px; font-size: 10px; }
+.quickview-effectiveness-grid .effectiveness-group > div { margin-top: 6px; gap: 3px; }
+.quickview-effectiveness-grid .element-badge { min-height: 20px; padding: 0 5px; gap: 4px; font-size: 10px; }
+.quickview-effectiveness-grid .element-badge .element-icon { width: 13px; height: 13px; }
+.quickview-attacks .tabs { margin-bottom: 7px; gap: 4px; }
+.quickview-attacks .tabs button { min-height: 29px; padding: 0 8px; border-radius: 7px; font-size: 10px; }
+.quickview-attacks .tabs b { min-width: 16px; height: 16px; margin-left: 4px; padding: 0 4px; font-size: 9px; }
+.quickview-moves-list { gap: 4px; }
+.quickview-move { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 8px; }
+.quickview-move-name { font-size: 11px; }
+.quickview-move-meta { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 4px; }
+.quickview-move-meta .move-slot { min-width: 23px; height: 21px; font-size: 10px; }
+.quickview-move .element-badge { min-height: 20px; padding: 0 5px; gap: 4px; font-size: 10px; }
+.quickview-move .element-icon { width: 13px; height: 13px; }
+.quickview-move small { font-size: 10px; }
+.quickview-move-tags { gap: 2px; }
+.quickview-tag-icon img { width: 19px; height: 19px; }
+.quickview-move-tag-fallback { width: 18px; height: 18px; font-size: 9px; }
+.quickview-modal--with-extra { grid-template-rows: minmax(0, 1fr) auto; }
+.quickview-extra { min-width: 0; grid-column: 1 / -1; padding: 0 22px 18px; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(220px, .75fr); gap: 10px; }
+.quickview-extra--without-map .quickview-obtain-block { grid-column: 1 / -1; }
+.quickview-extra-block { min-width: 0; padding: 9px; overflow: hidden; border: 1px solid #202a3c; border-radius: 10px; background: #0a101b; }
+.quickview-extra-block .quickview-section-title { margin-bottom: 7px; }
+.quickview-map-block .pokemon-map-explorer { margin: 0; border: 0; border-radius: 7px; }
+.quickview-map-block .pokemon-map-preview { min-height: 150px; }
+.quickview-map-block .pokemon-map-region, .quickview-map-block .pokemon-map-navigation { top: 7px; }
+.quickview-map-block .pokemon-map-region { left: 7px; min-height: 25px; padding: 0 7px; font-size: 8px; }
+.quickview-map-block .pokemon-map-navigation { right: 7px; min-height: 25px; }
+.quickview-map-block .pokemon-map-navigation button { width: 26px; height: 24px; }
+.quickview-map-block .pokemon-map-navigation span { min-width: 38px; font-size: 9px; }
+.quickview-map-block .pokemon-map-selected-location { min-height: 45px; padding: 6px 7px; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 6px; }
+.quickview-map-block .pokemon-map-selected-icon { width: 26px; height: 26px; border-radius: 6px; }
+.quickview-map-block .pokemon-map-selected-icon svg { width: 13px; height: 13px; }
+.quickview-map-block .pokemon-map-selected-location small { font-size: 8px; }
+.quickview-map-block .pokemon-map-selected-location strong { font-size: 10px; }
+.quickview-map-block .pokemon-map-selected-location p { font-size: 8px; }
+.quickview-map-block .pokemon-map-selected-location > a { min-height: 25px; padding: 0 6px; font-size: 8px; }
+.quickview-obtain-list { display: grid; gap: 5px; }
+.quickview-obtain-item { min-width: 0; padding: 7px; border: 1px solid rgba(173,196,232,.08); border-radius: 7px; background: rgba(7,12,20,.48); display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: center; gap: 7px; }
+.quickview-obtain-item > span { width: 24px; height: 24px; border-radius: 6px; background: color-mix(in srgb, var(--detail-accent) 10%, transparent); display: grid; place-items: center; color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); }
+.quickview-obtain-item > div { min-width: 0; display: grid; gap: 2px; }
+.quickview-obtain-item strong, .quickview-obtain-item small, .quickview-obtain-item em { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.quickview-obtain-item strong { color: #cbd6e4; font-size: 11px; }
+.quickview-obtain-item small { color: #a5b3c6; font-size: 10px; }
+.quickview-obtain-item em { color: #687991; font-size: 9px; font-style: normal; }
+.quickview-empty-note { margin: 8px 2px; color: #718198; font-size: 10px; line-height: 1.45; }
 
 @media (max-width: 900px) {
   .quickview-modal.quickview-modal--cols-3 { width: min(600px, 96vw); grid-template-columns: minmax(0, 1fr); max-height: 92vh; }
   .quickview-modal.quickview-modal--cols-3 .quickview-identity { border-right: 0; border-bottom: 1px solid var(--line); padding: 26px 20px 20px; }
   .quickview-modal.quickview-modal--cols-3 .quickview-effectiveness { border-left: 0; border-top: 1px solid var(--line); }
+  .quickview-modal--with-extra { grid-template-rows: auto; }
+  .quickview-extra { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {
@@ -489,6 +540,9 @@ main { flex: 1; }
   .quickview-modal.quickview-modal--cols-2 .quickview-identity { border-right: 0; border-bottom: 1px solid var(--line); padding: 26px 20px 20px; }
   .quickview-modal.quickview-modal--cols-2 .quickview-effectiveness { border-left: 0; border-top: 1px solid var(--line); }
   .pokemon-location-overlay { padding: 12px; }
+  .quickview-move { grid-template-columns: 1fr; gap: 4px; }
+  .quickview-move-meta { justify-content: flex-start; }
+  .quickview-extra { padding: 0 16px 16px; }
 }
 
 @media (max-width: 1180px) {

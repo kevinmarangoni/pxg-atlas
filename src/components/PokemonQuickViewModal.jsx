@@ -1,11 +1,13 @@
-import { CircleDot, ClipboardList, Clock3, Crown, Gauge, MapPin, Maximize2, ShieldCheck, Swords, X, Zap } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { CircleDot, ClipboardList, Clock3, Crown, Gauge, Layers3, MapPin, Maximize2, ShieldCheck, Swords, UserRound, X, Zap } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ElementBadge, PokemonImage } from './Common'
 import { PokemonLocationOverlay } from './PokemonLocationOverlay'
+import { PokemonMapPreview } from './PokemonMapPreview'
 import { useLanguage } from '../data/LanguageContext'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { useNpcObtainedData } from '../data/DomainData'
 import { getAbilityInfo } from '../lib/abilities'
 import {
   EFFECTIVENESS_LABELS,
@@ -115,10 +117,69 @@ function QuickViewEffectiveness({ groups }) {
   )
 }
 
+function npcEntriesFor(data, pokemonName) {
+  const target = normalizedMapName(pokemonName)
+  return (data?.groups || [])
+    .flatMap((group) => (group.entries || []).map((entry) => ({
+      ...group,
+      ...entry,
+      npc: entry.npc || group.npc,
+      location: entry.location || group.location,
+    })))
+    .filter((entry) => normalizedMapName(entry.pokemon) === target)
+}
+
+function QuickViewAcquisition({ items }) {
+  if (!items.length) return <p className="quickview-empty-note">Não há um modo de obtenção publicado para esta forma.</p>
+  return (
+    <div className="quickview-obtain-list">
+      {items.map((item, index) => (
+        <div className="quickview-obtain-item" key={`${item.label}-${index}`}>
+          <span>{item.icon}</span>
+          <div><strong>{item.label}</strong><small>{item.value}</small>{item.detail && <em>{item.detail}</em>}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function QuickViewExtra({ name, mapLocations, mapData, tilePositionSet, localTilePositionSet, localTileHome, acquisitionItems }) {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+
+  useEffect(() => setSelectedIndex(0), [name, mapLocations.length])
+
+  return (
+    <div className={`quickview-extra ${mapLocations.length ? '' : 'quickview-extra--without-map'}`}>
+      {mapLocations.length > 0 && (
+        <div className="quickview-extra-block quickview-map-block">
+          <h3 className="quickview-section-title"><MapPin size={14} />Localização</h3>
+          <PokemonMapPreview
+            cdnHome={mapData?.metadata?.cdn_home}
+            locations={mapLocations}
+            name={name}
+            onSelect={setSelectedIndex}
+            previewScale={0.58}
+            selectedIndex={selectedIndex}
+            tilePositionSet={tilePositionSet}
+            localTilePositionSet={localTilePositionSet}
+            localTileHome={localTileHome}
+            mapSources={mapData?.map_sources}
+          />
+        </div>
+      )}
+      <div className="quickview-extra-block quickview-obtain-block">
+        <h3 className="quickview-section-title"><Layers3 size={14} />Como obter</h3>
+        <QuickViewAcquisition items={acquisitionItems} />
+      </div>
+    </div>
+  )
+}
+
 export function PokemonQuickViewModal({ pokemon, onClose }) {
   const { t, locale } = useLanguage()
-  const { byPokemonName: mapLocationsByPokemon } = useMapData()
-  const { captureBallCatalog } = usePokemonData()
+  const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
+  const { tasksById, captureBallCatalog } = usePokemonData()
+  const { data: npcObtainedData } = useNpcObtainedData()
   const [locationTab, setLocationTab] = useState(null)
   useEffect(() => {
     const onKeyDown = (event) => {
@@ -155,12 +216,23 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
   const hasMoves = ['default', 'pve', 'pvp'].some((mode) => pokemon.moves?.[mode]?.length)
   const groups = effectivenessGroups(pokemon.effectiveness)
   const hasEffectiveness = groups.length > 0
+  const taskOccurrences = pokemon.task_occurrences ?? []
+  const averageBall = referenceBall || captureBalls[0]
+  const npcEntries = useMemo(() => npcEntriesFor(npcObtainedData, name), [name, npcObtainedData])
+  const acquisitionItems = [
+    mapLocations.length > 0 && { label: 'Captura no mapa', value: `${mapLocations.length} ${mapLocations.length === 1 ? 'posição publicada' : 'posições publicadas'}`, detail: mapLocations[0]?.region || 'Localização disponível', icon: <MapPin size={14} /> },
+    capture && { label: 'Captura', value: capture.difficulty?.label || 'Dificuldade não classificada', detail: averageBall ? `${averageBall.name}: ${Number(averageBall.average).toLocaleString('pt-BR')} em média` : 'Médias de balls não publicadas', icon: <Gauge size={14} /> },
+    taskCount > 0 && { label: 'Tasks', value: `${taskCount} ${taskCount === 1 ? 'task relacionada' : 'tasks relacionadas'}`, detail: tasksById.get(taskOccurrences[0]?.task_id)?.title || tasksById.get(taskOccurrences[0]?.task_id)?.name || 'Objetivo publicado em tasks', icon: <ClipboardList size={14} /> },
+    npcEntries.length > 0 && { label: 'Obtido via NPC', value: npcEntries[0].npc || npcEntries[0].title || 'NPC publicado', detail: npcEntries[0].location || 'Local não informado', icon: <UserRound size={14} /> },
+    (pokemon.general_info?.evolution_stone || pokemon.general_info?.evolution_item) && { label: 'Evolução', value: pokemon.general_info.evolution_stone || pokemon.general_info.evolution_item, detail: 'Requisito de evolução publicado', icon: <Layers3 size={14} /> },
+  ].filter(Boolean)
+  const hasExtra = mapLocations.length > 0 || acquisitionItems.length > 0
   const columnCount = 1 + (hasMoves ? 1 : 0) + (hasEffectiveness ? 1 : 0)
 
   return (
     <div className="quickview-overlay" onClick={onClose}>
       <div
-        className={`quickview-modal quickview-modal--cols-${columnCount}`}
+        className={`quickview-modal quickview-modal--cols-${columnCount} ${hasExtra ? 'quickview-modal--with-extra' : ''}`}
         style={{ '--detail-accent': accent }}
         role="dialog"
         aria-modal="true"
@@ -238,6 +310,8 @@ export function PokemonQuickViewModal({ pokemon, onClose }) {
             <QuickViewEffectiveness groups={groups} />
           </div>
         )}
+
+        {hasExtra && <QuickViewExtra name={name} mapLocations={mapLocations} mapData={mapData} tilePositionSet={tilePositionSet} localTilePositionSet={localTilePositionSet} localTileHome={localTileHome} acquisitionItems={acquisitionItems} />}
       </div>
 
       {locationTab && (
