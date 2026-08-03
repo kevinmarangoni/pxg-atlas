@@ -119,7 +119,7 @@ function QuickViewEvolution({ pokemon, allPokemon, onSelect }) {
   if (!evolutionRecords.length) return null
 
   return (
-    <ExpansionPanel icon={<Layers3 size={13} />} title={t('Linha evolutiva')} badge={evolutionRecords.length}>
+    <ExpansionPanel icon={<Layers3 size={13} />} title={t('Linha evolutiva')} badge={evolutionRecords.length} defaultOpen>
       <div className="quickview-evolution-line">
         {evolutionRecords.map((evolution, index) => {
           const evolutionLevel = evolution.level || (evolution.match && pokemonLevels(evolution.match)[0])
