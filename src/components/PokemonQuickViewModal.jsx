@@ -38,7 +38,7 @@ function effectivenessGroups(effectiveness) {
     .filter((row) => row.values.length)
 }
 
-function QuickViewMoves({ moves }) {
+function QuickViewMoves({ moves, isOpen, onToggle }) {
   const { t } = useLanguage()
   const availableTabs = ['default', 'pve', 'pvp'].filter((mode) => moves?.[mode]?.length)
   const [active, setActive] = useState(availableTabs[0] || 'default')
@@ -63,6 +63,8 @@ function QuickViewMoves({ moves }) {
           {tagSummary.map(([tag, count]) => <span key={tag}>{tag}<b>{count}</b></span>)}
         </div>
       )}
+      open={isOpen}
+      onToggle={onToggle}
     >
       {availableTabs.length > 1 && (
         <div className="tabs" role="tablist" aria-label={t('Versão do moveset')}>
@@ -108,7 +110,7 @@ function QuickViewMoves({ moves }) {
   )
 }
 
-function QuickViewEvolution({ pokemon, allPokemon, onSelect }) {
+function QuickViewEvolution({ pokemon, allPokemon, onSelect, isOpen, onToggle }) {
   const { t } = useLanguage()
   const evolutionRecords = useMemo(() => (pokemon.evolutions || []).map((evolution) => {
     const match = allPokemon.find((candidate) => candidate.source_url === evolution.url)
@@ -119,7 +121,7 @@ function QuickViewEvolution({ pokemon, allPokemon, onSelect }) {
   if (!evolutionRecords.length) return null
 
   return (
-    <ExpansionPanel icon={<Layers3 size={13} />} title={t('Linha evolutiva')} badge={evolutionRecords.length} defaultOpen>
+    <ExpansionPanel icon={<Layers3 size={13} />} title={t('Linha evolutiva')} badge={evolutionRecords.length} open={isOpen} onToggle={onToggle}>
       <div className="quickview-evolution-line">
         {evolutionRecords.map((evolution, index) => {
           const evolutionLevel = evolution.level || (evolution.match && pokemonLevels(evolution.match)[0])
@@ -171,6 +173,8 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
   const { byPokemonName: mapLocationsByPokemon } = useMapData()
   const { pokemon: allPokemon, captureBallCatalog } = usePokemonData()
   const [locationTab, setLocationTab] = useState(null)
+  const [openPanel, setOpenPanel] = useState('evolution')
+  const togglePanel = (panel) => (next) => setOpenPanel(next ? panel : null)
   useEffect(() => {
     const onKeyDown = (event) => {
       if (event.key !== 'Escape') return
@@ -285,13 +289,13 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
 
         {hasMiddleColumn && (
           <div className="quickview-column quickview-attacks">
-            {hasMoves && <QuickViewMoves moves={pokemon.moves} />}
+            {hasMoves && <QuickViewMoves moves={pokemon.moves} isOpen={openPanel === 'moves'} onToggle={togglePanel('moves')} />}
             {hasBoost && (
-              <ExpansionPanel icon={<Calculator size={13} />} title={t('Custo para upar')}>
+              <ExpansionPanel icon={<Calculator size={13} />} title={t('Custo para upar')} open={openPanel === 'boost'} onToggle={togglePanel('boost')}>
                 <BoostCalculator boost={pokemon.general_info?.boost} matter={pokemon.general_info?.matter} compact />
               </ExpansionPanel>
             )}
-            {hasEvolution && <QuickViewEvolution pokemon={pokemon} allPokemon={allPokemon} onSelect={onSelect} />}
+            {hasEvolution && <QuickViewEvolution pokemon={pokemon} allPokemon={allPokemon} onSelect={onSelect} isOpen={openPanel === 'evolution'} onToggle={togglePanel('evolution')} />}
           </div>
         )}
 

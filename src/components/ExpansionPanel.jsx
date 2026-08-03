@@ -1,12 +1,19 @@
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
-export function ExpansionPanel({ icon, title, badge, headerExtra, defaultOpen = false, className = '', children }) {
-  const [open, setOpen] = useState(defaultOpen)
+export function ExpansionPanel({ icon, title, badge, headerExtra, defaultOpen = false, open: controlledOpen, onToggle, className = '', children }) {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+
+  const toggle = () => {
+    if (isControlled) onToggle?.(!open)
+    else setUncontrolledOpen((value) => !value)
+  }
 
   return (
     <div className={`expansion-panel ${open ? 'open' : ''} ${className}`}>
-      <button type="button" className="expansion-panel-toggle" onClick={() => setOpen((value) => !value)} aria-expanded={open}>
+      <button type="button" className="expansion-panel-toggle" onClick={toggle} aria-expanded={open}>
         {icon && <span className="expansion-panel-icon">{icon}</span>}
         <span className="expansion-panel-title">{title}</span>
         {badge != null && <b className="expansion-panel-badge">{badge}</b>}
