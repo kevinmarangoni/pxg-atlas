@@ -86,7 +86,7 @@ export function BoostCalculator({ boost, matter, compact = false }) {
       <div className="boost-controls">
         <label><span>{t('Boost atual')}</span><select value={startBoost} onChange={(event) => { const next = Number(event.target.value); setStartBoost(next); setTargetBoost((current) => Math.max(current, next)) }}>{Array.from({ length: 81 }, (_, value) => <option key={value} value={value}>+{value}</option>)}</select></label>
         <label><span>{t('Upar até')}</span><select value={targetBoost} onChange={(event) => setTargetBoost(Math.max(startBoost, Number(event.target.value)))}>{Array.from({ length: 81 }, (_, value) => <option key={value} value={value}>+{value}</option>)}</select></label>
-        <button type="button" className="boost-reset" onClick={resetPrices}><RotateCcw size={14} /> {t('Limpar preços')}</button>
+        <button type="button" className="boost-reset" onClick={resetPrices}><RotateCcw size={14} /> {compact ? t('Limpar') : t('Limpar preços')}</button>
       </div>
 
       <div className="boost-price-groups">
