@@ -440,8 +440,8 @@ main { flex: 1; }
 .quickview-ability svg { flex: none; color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); }
 .quickview-ability::after {
   content: attr(data-tooltip); position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
-  width: max-content; max-width: 150px; padding: 5px 8px; border: 1px solid #263249; border-radius: 6px; background: #10151f; color: #dce5f2;
-  font-size: 10px; font-weight: 700; white-space: normal; text-align: center; line-height: 1.35; pointer-events: none; opacity: 0; visibility: hidden;
+  width: max-content; max-width: 118px; padding: 4px 7px; border: 1px solid #263249; border-radius: 6px; background: #10151f; color: #dce5f2;
+  font-size: 9px; font-weight: 700; white-space: normal; text-align: center; line-height: 1.3; pointer-events: none; opacity: 0; visibility: hidden;
   transition: opacity .08s ease; z-index: 30; box-shadow: 0 8px 18px rgba(0,0,0,.35);
 }
 .quickview-ability:hover::after { opacity: 1; visibility: visible; }
@@ -1229,7 +1229,7 @@ button.quickview-evolution-item { font: inherit; color: inherit; }
 :root[data-theme="light"] .topbar-nav { background: rgba(238, 240, 242, 0.72); }
 :root[data-theme="light"] .theme-toggle { background: rgba(238, 240, 242, 0.72); }
 :root[data-theme="light"] .topbar-nav a:hover { color: #152133; }
-:root[data-theme="light"] .topbar-nav a.active { background: #e2e5e9; }
+:root[data-theme="light"] .topbar-nav a.active { background: #d3ecdf; color: #145a3c; }
 :root[data-theme="light"] .legal-hero > p { color: #3f4b5c; }
 :root[data-theme="light"] .legal-important-note { color: #795e23; }
 :root[data-theme="light"] .legal-important-note strong { color: #624e1c; }
