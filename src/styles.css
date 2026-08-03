@@ -436,8 +436,15 @@ main { flex: 1; }
 .quickview-identity-meta span { display: inline-flex; align-items: center; gap: 4px; }
 .quickview-identity .badge-row { justify-content: center; margin-top: 4px; }
 .quickview-abilities { margin-top: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-.quickview-ability { min-height: 27px; padding: 0 9px; border: 1px solid #273249; border-radius: 7px; background: #111a29; display: inline-flex; align-items: center; gap: 6px; color: #a8b6c9; font-size: 12px; font-weight: 700; cursor: help; }
+.quickview-ability { position: relative; min-height: 27px; padding: 0 9px; border: 1px solid #273249; border-radius: 7px; background: #111a29; display: inline-flex; align-items: center; gap: 6px; color: #a8b6c9; font-size: 12px; font-weight: 700; cursor: help; }
 .quickview-ability svg { flex: none; color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); }
+.quickview-ability::after {
+  content: attr(data-tooltip); position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%);
+  width: max-content; max-width: 220px; padding: 6px 9px; border: 1px solid #263249; border-radius: 6px; background: #10151f; color: #dce5f2;
+  font-size: 11px; font-weight: 700; white-space: normal; text-align: center; line-height: 1.4; pointer-events: none; opacity: 0; visibility: hidden;
+  transition: opacity .08s ease; z-index: 30; box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+.quickview-ability:hover::after { opacity: 1; visibility: visible; }
 .quickview-fact { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: #8796ab; font-size: 12.5px; }
 .quickview-extra-facts { width: 100%; margin-top: 6px; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; align-items: center; gap: 7px; }
 .quickview-extra-facts .quickview-fact { text-align: center; }
@@ -1402,6 +1409,7 @@ button.quickview-evolution-item { font: inherit; color: inherit; }
 :root[data-theme="light"] .quickview-goto-link:hover { background: color-mix(in srgb, var(--detail-accent) 16%, #e2e5e9); }
 :root[data-theme="light"] .quickview-identity-meta { color: #525e6f; }
 :root[data-theme="light"] .quickview-ability { border: 1px solid #b8becc; background: #e5e7eb; color: #384455; }
+:root[data-theme="light"] .quickview-ability::after { border: 1px solid #b7becc; background: #eaecee; color: #162132; }
 :root[data-theme="light"] .quickview-fact { color: #525e6f; }
 :root[data-theme="light"] .quickview-column::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--detail-accent) 45%, #e3e5e8); }
 :root[data-theme="light"] .expansion-panel-body { scrollbar-color: color-mix(in srgb, var(--detail-accent) 45%, #e3e5e8) transparent; }

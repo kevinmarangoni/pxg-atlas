@@ -250,7 +250,7 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
                 const info = getAbilityInfo(ability)
                 const Icon = info.icon
                 return (
-                  <span key={ability} className="quickview-ability" title={`${ability} — ${t(info.description)}`}>
+                  <span key={ability} className="quickview-ability" data-tooltip={`${ability} — ${t(info.description)}`} aria-label={`${ability} — ${t(info.description)}`}>
                     <Icon size={13} />{ability}
                   </span>
                 )
