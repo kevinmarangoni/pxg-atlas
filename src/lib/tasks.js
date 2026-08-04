@@ -127,7 +127,7 @@ function taskSearchText(task) {
     task.location,
     task.npc?.name,
     taskCoordinates(task),
-    ...(task.requirements?.additional ?? []),
+    ...(task.requirements?.additional ?? []).map((requirement) => (typeof requirement === 'string' ? requirement : requirement?.text || requirement?.raw)),
     ...(task.steps ?? []).flatMap((step) => [
       step.action,
       step.action_label,

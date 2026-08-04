@@ -99,7 +99,14 @@ export default function TaskCard({ task, expanded = false }) {
         <span><Gift size={15} /><b>{task.rewards?.length || 0}</b>{task.rewards?.length === 1 ? 'recompensa' : 'recompensas'}</span>
       </div>
 
-      {task.requirements?.additional?.length > 0 && <div className="task-extra-requirements">{task.requirements.additional.map((requirement, index) => <span key={`${requirement}-${index}`}>{requirement}</span>)}</div>}
+      {task.requirements?.additional?.length > 0 && (
+        <div className="task-extra-requirements">
+          {task.requirements.additional.map((requirement, index) => {
+            const text = typeof requirement === 'string' ? requirement : requirement?.text || requirement?.raw || ''
+            return text ? <span key={`${text}-${index}`}>{text}</span> : null
+          })}
+        </div>
+      )}
 
       <details className="task-card-details" open={detailsOpen || undefined} onToggle={(event) => setDetailsOpen(event.currentTarget.open)}>
         <summary><span><PackageOpen size={15} />Ver objetivos e recompensas</span><ChevronDown size={16} /></summary>
