@@ -77,7 +77,6 @@ export default function App() {
       <HashRouteSync />
       <Routes>
         <Route element={<PokemonDataLayout />}>
-          <Route path="/tasks" element={<TaskListPage />} />
           <Route path="/team-builder" element={<TeamBuilderPage />} />
           <Route path="/unowns" element={<UnownTrackerPage />} />
           <Route path="/unown-tracker" element={<UnownTrackerPage />} />
@@ -87,6 +86,7 @@ export default function App() {
             <Route path="/map" element={<MapPage />} />
             <Route path="/pokemon/:pokemonId" element={<PokemonDetailPage />} />
             <Route path="/pokelog" element={<PokelogPage />} />
+            <Route path="/tasks" element={<TaskListPage />} />
           </Route>
         </Route>
         <Route path="/tools" element={<ToolsPage />} />
