@@ -163,7 +163,12 @@ export function AppShell({ children, metadata }) {
         <LanguageSwitcher />
         <ThemeToggle />
       </header>
-      <main>{children}</main>
+      <main>
+        {children}
+        <div className="online-visitors-anchor">
+          <OnlineVisitorsBadge count={onlineCount} />
+        </div>
+      </main>
       <footer className="footer">
         <span><Database size={14} /> {t('Dados públicos da Wiki PokeXGames')}</span>
         <nav aria-label={t('Informações e atribuições')}>
@@ -171,7 +176,6 @@ export function AppShell({ children, metadata }) {
           <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">{t('Modelos animados: Project Pokémon')}</a>
         </nav>
       </footer>
-      <OnlineVisitorsBadge count={onlineCount} />
       <CookieConsentBanner />
     </div>
   )

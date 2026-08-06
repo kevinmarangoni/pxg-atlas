@@ -77,8 +77,12 @@ main { flex: 1; }
 .footer a:hover { color: var(--accent); }
 .online-visitors-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); animation: online-visitors-pulse 2s ease-in-out infinite; }
 @keyframes online-visitors-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+.online-visitors-anchor {
+  position: sticky; bottom: 18px; z-index: 120;
+  padding: 14px clamp(20px, 4vw, 64px) 0;
+  display: flex; justify-content: flex-end; pointer-events: none;
+}
 .online-visitors-float {
-  position: fixed; right: 18px; bottom: 18px; z-index: 120;
   display: inline-flex; align-items: center; gap: 8px;
   padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px;
   background: color-mix(in srgb, var(--panel) 88%, transparent); backdrop-filter: blur(14px);
@@ -843,7 +847,8 @@ button.quickview-evolution-item { font: inherit; color: inherit; }
 @media (max-width: 680px) {
   .topbar { padding: 0 14px; }
   .brand small { display: none; }
-  .online-visitors-float { right: 12px; bottom: 12px; padding: 8px 12px; font-size: 11px; }
+  .online-visitors-anchor { bottom: 12px; padding: 0 14px; }
+  .online-visitors-float { padding: 8px 12px; font-size: 11px; }
   .topbar-nav { margin: 0 0 0 auto; }
   .topbar-nav a { min-height: 31px; padding: 0 8px; font-size: 12px; }
   .team-builder-page, .builder-toolbar, .builder-global-controls, .builder-source-note, .builder-layout, .builder-main { width: 100%; min-width: 0; max-width: 100%; }
