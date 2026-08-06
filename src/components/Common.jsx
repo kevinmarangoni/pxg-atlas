@@ -132,10 +132,11 @@ function LanguageSwitcher() {
 function OnlineVisitorsBadge({ count }) {
   const { t } = useLanguage()
   if (count === null) return null
+  const label = t('{count} treinadores ativos agora', { count })
   return (
-    <div className="online-visitors-float" role="status">
+    <div className="online-visitors-float" role="status" title={label} aria-label={label}>
       <i className="online-visitors-dot" aria-hidden="true" />
-      {t('{count} treinadores ativos agora', { count })}
+      <span aria-hidden="true">{count}</span>
     </div>
   )
 }
