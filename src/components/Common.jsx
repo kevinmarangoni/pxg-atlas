@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { CookieConsentBanner } from './CookieConsentBanner'
 import { useLanguage } from '../data/LanguageContext'
+import { useOnlineVisitors } from '../hooks/useOnlineVisitors'
 import { ELEMENT_COLORS, elementIconUrl, normalizedElement, roleDefinition } from '../lib/pokemon'
 import { applyTheme, getStoredTheme } from '../lib/theme'
 
@@ -128,8 +129,20 @@ function LanguageSwitcher() {
   )
 }
 
+function OnlineVisitorsBadge({ count }) {
+  const { t } = useLanguage()
+  if (count === null) return null
+  return (
+    <div className="online-visitors-float" role="status">
+      <i className="online-visitors-dot" aria-hidden="true" />
+      {t('{count} treinadores ativos agora', { count })}
+    </div>
+  )
+}
+
 export function AppShell({ children, metadata }) {
   const { t } = useLanguage()
+  const onlineCount = useOnlineVisitors()
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -158,6 +171,7 @@ export function AppShell({ children, metadata }) {
           <a href="https://projectpokemon.org/home/docs/spriteindex_148/" target="_blank" rel="noreferrer">{t('Modelos animados: Project Pokémon')}</a>
         </nav>
       </footer>
+      <OnlineVisitorsBadge count={onlineCount} />
       <CookieConsentBanner />
     </div>
   )

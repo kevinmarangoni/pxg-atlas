@@ -78,6 +78,7 @@ export const pl = {
   'Montar time': 'Zbuduj drużynę',
   'Ferramentas': 'Narzędzia',
   'Dados públicos da Wiki PokeXGames': 'Publiczne dane z Wiki PokeXGames',
+  '{count} treinadores ativos agora': '{count} trenerów aktywnych teraz',
   'Informações e atribuições': 'Informacje i podziękowania',
   'Avisos legais': 'Informacje prawne',
   'Modelos animados: Project Pokémon': 'Animowane modele: Project Pokémon',
