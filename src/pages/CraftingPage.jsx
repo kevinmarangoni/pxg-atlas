@@ -3,8 +3,9 @@ import { useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { DataStamp, DomainState, PriceField, PriceProfileBar, ToolHero } from '../components/ToolCommon'
 import { useAtlasStorage } from '../data/AtlasStorageContext'
-import { useCatalogData, useCraftingData } from '../data/DomainData'
+import { useCatalogData, useCraftingData, useLootData } from '../data/DomainData'
 import { calculateCraftingPlan, recipeCostOptions, recipesByOutput } from '../lib/crafting'
+import { buildLootItemIndex, lootRelationsForItem } from '../lib/loot'
 
 const formatNumber = (value) => Number(value || 0).toLocaleString('pt-BR', { maximumFractionDigits: 2 })
 const formatDuration = (seconds) => seconds >= 3600 ? `${formatNumber(seconds / 3600)} h` : seconds >= 60 ? `${formatNumber(seconds / 60)} min` : `${seconds || 0} s`
@@ -12,6 +13,7 @@ const formatDuration = (seconds) => seconds >= 3600 ? `${formatNumber(seconds / 
 export default function CraftingPage() {
   const catalog = useCatalogData()
   const crafting = useCraftingData()
+  const loot = useLootData()
   const { state, activePriceProfile, getPrice, setPrice, saveCraftingProject, deleteCraftingProject } = useAtlasStorage()
   const [params, setParams] = useSearchParams()
   const [query, setQuery] = useState('')
@@ -30,6 +32,11 @@ export default function CraftingPage() {
   }, [craftable, query])
   const priceMap = useMemo(() => Object.fromEntries((catalog.data?.items || []).map((item) => [item.id, getPrice(item.id)])), [catalog.data, getPrice, activePriceProfile])
   const plan = useMemo(() => selectedId ? calculateCraftingPlan({ targetItemId: selectedId, targetQuantity: quantity, recipes: crafting.data?.recipes || [], inventory, selections, prices: priceMap }) : null, [selectedId, quantity, crafting.data, inventory, selections, priceMap])
+  const lootItemIndex = useMemo(() => buildLootItemIndex(loot.data), [loot.data])
+  const lootSources = useMemo(() => (plan?.purchases || []).map((purchase) => {
+    const item = itemById.get(purchase.item_id)
+    return { purchase, item, relations: lootRelationsForItem(loot.data, item, lootItemIndex) }
+  }).filter((entry) => entry.item && entry.relations.length), [itemById, loot.data, lootItemIndex, plan])
 
   const chooseItem = (itemId) => { setParams({ item: itemId }); setQuery(''); setInventory({}); setSelections({}); setMessage('') }
   const save = () => {
@@ -42,7 +49,7 @@ export default function CraftingPage() {
   }
 
   return (
-    <DomainState loading={catalog.loading || crafting.loading} error={catalog.error || crafting.error}>
+    <DomainState loading={catalog.loading || crafting.loading || loot.loading} error={catalog.error || crafting.error || loot.error}>
       <div className="crafting-page page-frame">
         <ToolHero eyebrow="PLANEJADOR DE PRODUÇÃO" title="Crafting sem desperdício" description="Escolha o item final, desconte seu inventário e veja receitas, lotes, compras e custo no perfil ativo."><Wrench size={50} /></ToolHero>
         <DataStamp metadata={crafting.data?.metadata} />
@@ -71,6 +78,7 @@ export default function CraftingPage() {
                 })}
               </section>
               <section className="crafting-purchases"><header><h3>Lista de compras</h3><b>{plan.purchases.length}</b></header><div>{plan.purchases.map((purchase) => { const item = itemById.get(purchase.item_id); return <article key={purchase.item_id}>{item?.image_url && <img src={item.image_url} alt="" />}<span><strong>{formatNumber(purchase.quantity)}x {item?.name || purchase.item_id}</strong><small>{purchase.cost === null ? 'Informe o preço' : `${formatNumber(purchase.cost)}K`}</small></span><PriceField item={item?.name || purchase.item_id} value={getPrice(purchase.item_id)} onChange={(value) => setPrice(purchase.item_id, value)} /></article>})}</div>{!plan.purchases.length && <p>Seu inventário e as receitas cobrem todos os materiais.</p>}</section>
+              {lootSources.length > 0 && <section className="crafting-loot-sources"><header><h3>Fontes de loot dos materiais</h3><span>Pokémon relacionados ao que falta comprar</span></header>{lootSources.map(({ item, purchase, relations }) => <article key={item.id}><div><strong>{item.name}</strong><small>{formatNumber(purchase.quantity)}x necessário</small></div><div className="drop-links">{relations.slice(0, 20).map((relation) => { const name = relation.pokemon.name; return <span key={relation.pokemon.id}>{name}<small>{relation.contexts.length ? `${relation.contexts.length} contexto(s)` : 'Loot relacionado'}</small></span> })}</div></article>)}</section>}
             </>}
           </main>
           <aside className="saved-projects"><header><h3>Projetos salvos</h3><b>{state.craftingProjects.length}</b></header>{state.craftingProjects.map((project) => <article key={project.id}><button type="button" onClick={() => loadProject(project)}><strong>{project.name}</strong><small>{itemById.get(project.targetItemId)?.name || project.targetItemId}</small></button><button type="button" onClick={() => deleteCraftingProject(project.id)} aria-label={`Excluir ${project.name}`}><Trash2 size={14} /></button></article>)}{!state.craftingProjects.length && <p>Salve um projeto para continuar depois.</p>}<Link to="/items">Abrir ItemDex</Link></aside>

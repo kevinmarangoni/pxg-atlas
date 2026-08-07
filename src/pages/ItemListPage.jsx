@@ -2,13 +2,15 @@ import { PackageSearch, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DataStamp, DomainState, ToolHero } from '../components/ToolCommon'
-import { useCatalogData, useCraftingData } from '../data/DomainData'
+import { useCatalogData, useCraftingData, useLootData } from '../data/DomainData'
+import { buildLootItemIndex, normalizeLootName } from '../lib/loot'
 
 function itemPath(item) { return `/items/${encodeURIComponent(item.id)}` }
 
 export default function ItemListPage() {
   const { data, loading, error } = useCatalogData()
   const crafting = useCraftingData()
+  const loot = useLootData()
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const [relationship, setRelationship] = useState('all')
@@ -22,6 +24,7 @@ export default function ItemListPage() {
     for (const recipe of crafting.data?.recipes || []) result.set(recipe.output.item_id, new Set([...(result.get(recipe.output.item_id) || []), recipe.profession].filter(Boolean)))
     return result
   }, [crafting.data])
+  const lootItemIndex = useMemo(() => buildLootItemIndex(loot.data), [loot.data])
   const filtered = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('pt-BR')
     return (data?.items || []).filter((item) => {
@@ -29,21 +32,22 @@ export default function ItemListPage() {
       if (category !== 'all' && !(item.categories || []).includes(category)) return false
       if (relationship === 'crafted' && !(item.produced_by_recipe_ids || []).length) return false
       if (relationship === 'ingredient' && !(item.used_in_recipe_ids || []).length) return false
-      if (relationship === 'drop' && !(item.dropped_by || []).length) return false
+      const lootRelation = lootItemIndex.get(normalizeLootName(item.id)) || lootItemIndex.get(normalizeLootName(item.name))
+      if (relationship === 'drop' && !(item.dropped_by || []).length && !lootRelation?.count) return false
       if (relationship === 'vendor' && !(item.vendors || []).length) return false
       if (profession !== 'all' && !professionsByItem.get(item.id)?.has(profession)) return false
       const originText = [...(item.origins || []), ...(item.sources || []).map((source) => `${source.type} ${source.label}`)].join(' ').toLocaleLowerCase('pt-BR')
       if (origin === 'npc' && !(item.vendors || []).length) return false
-      if (origin === 'drop' && !(item.dropped_by || []).length) return false
+      if (origin === 'drop' && !(item.dropped_by || []).length && !lootRelation?.count) return false
       if (origin === 'quest' && !/quest/.test(originText)) return false
       if (origin === 'dimensional' && !/dimensional|\bdz\b/.test(originText)) return false
       if (origin === 'crafting' && !(item.produced_by_recipe_ids || []).length) return false
       return true
     })
-  }, [data, query, category, relationship, profession, professionsByItem, origin])
+  }, [data, query, category, relationship, profession, professionsByItem, origin, lootItemIndex])
 
   return (
-    <DomainState loading={loading || crafting.loading} error={error || crafting.error}>
+    <DomainState loading={loading || crafting.loading || loot.loading} error={error || crafting.error || loot.error}>
       <div className="catalog-page page-frame">
         <ToolHero eyebrow="CATÁLOGO OFICIAL" title="ItemDex" description="Encontre itens, veja como fabricar, onde são utilizados e quais Pokémon estão relacionados ao drop."><PackageSearch size={50} /></ToolHero>
         <DataStamp metadata={data?.metadata} />
@@ -60,7 +64,7 @@ export default function ItemListPage() {
             <Link to={itemPath(item)} className="item-card" key={item.id}>
               <span className="item-art">{item.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : item.name.slice(0, 1)}</span>
               <div><strong>{item.name}</strong><small>{item.categories?.slice(0, 2).join(' · ') || 'Item'}</small><p>{item.description || 'Abra a ficha para consultar origens e receitas.'}</p></div>
-              <footer>{item.produced_by_recipe_ids?.length > 0 && <b>Fabricável</b>}{item.used_in_recipe_ids?.length > 0 && <b>{item.used_in_recipe_ids.length} usos</b>}{item.dropped_by?.length > 0 && <b>{item.dropped_by.length} drops</b>}</footer>
+              <footer>{item.produced_by_recipe_ids?.length > 0 && <b>Fabricável</b>}{item.used_in_recipe_ids?.length > 0 && <b>{item.used_in_recipe_ids.length} usos</b>}{item.dropped_by?.length > 0 && <b>{item.dropped_by.length} drops oficiais</b>}{(lootItemIndex.get(normalizeLootName(item.id)) || lootItemIndex.get(normalizeLootName(item.name)))?.count > 0 && <b>{(lootItemIndex.get(normalizeLootName(item.id)) || lootItemIndex.get(normalizeLootName(item.name))).count} drops de loot</b>}</footer>
             </Link>
           ))}
         </div>

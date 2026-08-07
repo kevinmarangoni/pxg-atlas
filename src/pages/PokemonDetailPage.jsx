@@ -33,7 +33,7 @@ import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { useAtlasStorage } from '../data/AtlasStorageContext'
-import { useCatalogData, useNpcObtainedData } from '../data/DomainData'
+import { useCatalogData, useLootData, useNpcObtainedData } from '../data/DomainData'
 import {
   EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
@@ -62,6 +62,7 @@ import {
 import { REGION_LABELS, formatTaskNumber, taskActionLabel, taskCoordinates, taskLevel, taskNightmareLevel, taskRegionLabel } from '../lib/tasks'
 import { buildCounterRecommendations, counterWeaknesses } from '../lib/counterRecommendations'
 import { groupNearbyRespawns } from '../lib/mapLocations'
+import { findLootPokemon, hasLootRecord, lootChanceLabel, lootChanceWithLucky, lootConfidenceLabel, lootContextLabel, lootLuckyTiers, lootQuantityLabel, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
 
 const MODE_LABELS = { pve: 'PvE', pvp: 'PvP' }
 
@@ -451,6 +452,122 @@ function PokemonDropsSection({ pokemon, items = [] }) {
   return (
     <Section id="drops" title={t('Drops publicados')} icon={<Package size={18} />} description={t('Itens relacionados a este Pokémon nas tabelas oficiais de drop.')}>
       <div className="pokemon-drop-grid">{drops.map((item) => <Link to={`/items/${encodeURIComponent(item.id)}`} key={item.id}>{item.image_url && <img src={item.image_url} alt="" />}<span><strong>{item.name}</strong><small>{item.categories?.[0] || t('Item')}</small></span></Link>)}</div>
+    </Section>
+  )
+}
+
+function LootItemCard({ item, catalogItem, meta, quantity, note }) {
+  const content = (
+    <>
+      <span className="loot-item-art">{catalogItem?.image_url ? <img src={catalogItem.image_url} alt="" loading="lazy" /> : <Package size={17} />}</span>
+      <span className="loot-item-copy">
+        <strong>{item}</strong>
+        <small>{[quantity, meta].filter(Boolean).join(' · ') || 'Item de loot'}</small>
+        {note && <em>{note}</em>}
+      </span>
+    </>
+  )
+  if (catalogItem) return <Link className="loot-item-card" to={`/items/${encodeURIComponent(catalogItem.id)}`}>{content}</Link>
+  return <article className="loot-item-card">{content}</article>
+}
+
+function PokemonLootSection({ pokemon, lootData, catalogItems = [] }) {
+  const { t } = useLanguage()
+  const [luckyTier, setLuckyTier] = useState('')
+  const loot = findLootPokemon(lootData, [displayName(pokemon), pokemon.page_title])
+  const contexts = lootRatesForPokemon(lootData, loot)
+  const luckyTiers = lootLuckyTiers(lootData)
+  const selectedLucky = luckyTiers.find((tier) => tier.tier === Number(luckyTier))
+  if (!hasLootRecord(loot, contexts)) return null
+
+  const catalogById = new Map(catalogItems.map((item) => [item.id, item]))
+  const catalogByName = new Map(catalogItems.map((item) => [normalizeLootName(item.name), item]))
+  const resolveCatalogItem = (itemId, itemName) => catalogById.get(itemId) || catalogByName.get(normalizeLootName(itemName))
+  const directDrops = loot.drops || []
+  const inactiveDrops = loot.inactive_documented_drops || []
+  const poolDrops = (loot.pool_drops || []).flatMap((pool) => (pool.items || []).map((item) => ({
+    item,
+    item_id: normalizeLootName(item).replaceAll(' ', '-'),
+    confidence: pool.confidence,
+    note: pool.note,
+    meta: `Pool ${pool.pool_id || 'compartilhado'}`,
+  })))
+  const huntContexts = loot.documented_hunt_contexts || []
+
+  return (
+    <Section id="loot" title={t('Loot e chances')} icon={<Package size={18} />} description={t('Relações de loot, pools e taxas por contexto. A fonte e o nível de confiança ficam visíveis em cada registro.')}>
+      {contexts.length > 0 && luckyTiers.length > 0 && (
+        <div className="loot-lucky-control">
+          <div><small>{t('Simular chance com Held')}</small><strong>{t('X-Lucky')}</strong><p>{t('Aplique o bônus oficial sobre as taxas exatas; relações sem percentual continuam sem estimativa inventada.')}</p></div>
+          <label><span>{t('Held selecionado')}</span><select value={luckyTier} onChange={(event) => setLuckyTier(event.target.value)} aria-label={t('Selecionar tier de X-Lucky')}><option value="">{t('Sem X-Lucky · chance base')}</option>{luckyTiers.map((tier) => <option value={tier.tier} key={tier.tier}>{t('X-Lucky T{tier} · +{bonus}%', { tier: tier.tier, bonus: tier.bonus_percent })}</option>)}</select></label>
+        </div>
+      )}
+      {selectedLucky && <p className="loot-lucky-note">{t('Cálculo ativo: chance efetiva = chance base × (1 + {bonus}%); sem limite artificial acima de 100%, conforme a fonte publicada.', { bonus: selectedLucky.bonus_percent })}</p>}
+      <div className="loot-summary">
+        <div><small>{t('Drops relacionados')}</small><strong>{directDrops.length + poolDrops.length}</strong></div>
+        <div><small>{t('Contextos com taxa')}</small><strong>{contexts.length}</strong></div>
+        <div><small>{t('Locais documentados')}</small><strong>{huntContexts.length}</strong></div>
+      </div>
+
+      {directDrops.length > 0 && (
+        <div className="loot-group">
+          <header><h3>{t('Drops diretos')}</h3><span>{t('Relação Pokémon → item')}</span></header>
+          <div className="loot-item-grid">
+            {directDrops.map((drop, index) => <LootItemCard key={`${drop.item_id || drop.item}-${index}`} item={drop.item} catalogItem={resolveCatalogItem(drop.item_id, drop.item)} meta={lootConfidenceLabel(drop.confidence)} note={drop.note} />)}
+          </div>
+        </div>
+      )}
+
+      {poolDrops.length > 0 && (
+        <div className="loot-group">
+          <header><h3>{t('Drops de pool')}</h3><span>{t('A fonte confirma o conjunto, não o item individual')}</span></header>
+          <div className="loot-item-grid">
+            {poolDrops.map((drop, index) => <LootItemCard key={`${drop.item}-${index}`} item={drop.item} catalogItem={resolveCatalogItem(drop.item_id, drop.item)} meta={[drop.meta, lootConfidenceLabel(drop.confidence)].filter(Boolean).join(' · ')} note={drop.note} />)}
+          </div>
+        </div>
+      )}
+
+      {inactiveDrops.length > 0 && (
+        <div className="loot-group">
+          <header><h3>{t('Relações inativas documentadas')}</h3><span>{t('A fonte registra o item, mas informa que não está obtível agora')}</span></header>
+          <div className="loot-item-grid">
+            {inactiveDrops.map((drop, index) => <LootItemCard key={`${drop.item}-${index}`} item={drop.item} catalogItem={resolveCatalogItem(drop.item_id, drop.item)} meta={t('Inativo')} note={drop.note} />)}
+          </div>
+        </div>
+      )}
+
+      {contexts.length > 0 && (
+        <div className="loot-group">
+          <header><h3>{t('Taxas por contexto')}</h3><span>{t('Percentuais publicados por fontes individuais')}</span></header>
+          <div className="loot-context-grid">
+            {contexts.map((context, contextIndex) => (
+              <article className="loot-context-card" key={`${context.context_id || 'context'}-${contextIndex}`}>
+                <header><div><small>{t('Contexto')}</small><strong>{lootContextLabel(context.context_id)}</strong></div><b>{lootConfidenceLabel(context.confidence)}</b></header>
+                <div className="loot-rate-list">
+                  {(context.drops || []).map((drop, index) => {
+                    const catalogItem = resolveCatalogItem(drop.item_id, drop.item)
+                    const calculatedChance = selectedLucky ? lootChanceWithLucky(drop.chance, lootData, selectedLucky.tier) : null
+                    const effectiveChanceLabel = calculatedChance ? lootChanceLabel({ type: 'exact_percent', percent: calculatedChance.percent }) : lootChanceLabel(drop.chance)
+                    const chanceMeta = [lootQuantityLabel(drop.quantity), calculatedChance && `${lootChanceLabel(drop.chance)} base`].filter(Boolean).join(' · ')
+                    const itemContent = <><span>{drop.item}</span><b>{effectiveChanceLabel}</b><small>{chanceMeta}</small></>
+                    return catalogItem ? <Link to={`/items/${encodeURIComponent(catalogItem.id)}`} key={`${drop.item_id || drop.item}-${index}`}>{itemContent}</Link> : <div key={`${drop.item_id || drop.item}-${index}`}>{itemContent}</div>
+                  })}
+                </div>
+                {(context.source_url || context.notes?.length) && <footer>{context.notes?.[0] && <p>{context.notes[0]}</p>}{context.source_url && <SourceLink href={context.source_url}>{t('Ver fonte')}</SourceLink>}</footer>}
+              </article>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {huntContexts.length > 0 && (
+        <div className="loot-hunt-contexts">
+          <small>{t('Hunts documentadas sem taxa individual')}</small>
+          <div>{huntContexts.map((context, index) => <span key={`${context.context_id || context.location}-${index}`}>{context.location || lootContextLabel(context.context_id)}</span>)}</div>
+        </div>
+      )}
+
+      <p className="loot-source-note">{t('As relações verificadas, os registros legados e as taxas comunitárias são mantidos separados. Uma taxa ausente não significa drop impossível.')}</p>
     </Section>
   )
 }
@@ -892,11 +1009,14 @@ export default function PokemonDetailPage() {
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
   const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const { data: catalogData } = useCatalogData()
+  const { data: lootData } = useLootData()
   const { data: npcObtainedData } = useNpcObtainedData()
   const decodedId = useMemo(() => {
     try { return decodeURIComponent(routeId) } catch { return routeId }
   }, [routeId])
   const entry = byId.get(decodedId)
+  const lootEntry = useMemo(() => entry ? findLootPokemon(lootData, [displayName(entry), entry.page_title]) : null, [entry, lootData])
+  const lootContexts = useMemo(() => lootRatesForPokemon(lootData, lootEntry), [lootData, lootEntry])
   const npcObtained = useMemo(() => npcObtainedEntries(npcObtainedData, entry && displayName(entry)), [entry, npcObtainedData])
   const orderedPokemon = useMemo(() => [...pokemon].sort((a, b) => displayName(a).localeCompare(displayName(b), 'pt-BR')), [pokemon])
   const currentIndex = entry ? orderedPokemon.findIndex((candidate) => candidate.source_url === entry.source_url) : -1
@@ -936,12 +1056,14 @@ export default function PokemonDetailPage() {
   const taskOccurrences = entry.task_occurrences ?? []
   const hasTasks = taskOccurrences.length > 0
   const hasDrops = catalogData?.items?.some((item) => (item.dropped_by || []).some((dropper) => normalizedMapName(dropper) === normalizedMapName(name)))
+  const hasLoot = hasLootRecord(lootEntry, lootContexts)
   const sectionLinks = [
     { id: 'overview', label: t('Resumo') },
     info.boost && { id: 'boost-cost', label: t('Custo de boost') },
     mapLocations.length > 0 && { id: 'locations', label: t('Mapa ({count})', { count: mapRespawnCount }) },
     npcObtained.length > 0 && { id: 'npc-obtained', label: t('Obtido via NPC') },
     hasDrops && { id: 'drops', label: t('Drops') },
+    hasLoot && { id: 'loot', label: t('Loot') },
     capture && { id: 'capture', label: t('Captura') },
     { id: 'combat', label: t('Clans e funções') },
     hasEffectiveness && { id: 'effectiveness', label: t('Efetividades') },
@@ -1013,6 +1135,8 @@ export default function PokemonDetailPage() {
           <PokemonNpcObtainedSection entries={npcObtained} metadata={npcObtainedData?.metadata} />
 
           <PokemonDropsSection pokemon={entry} items={catalogData?.items} />
+
+          <PokemonLootSection pokemon={entry} lootData={lootData} catalogItems={catalogData?.items} />
 
           <CaptureSection pokemon={entry} catalog={captureBallCatalog} metadata={data?.metadata?.capture_enrichment} />
 

@@ -1,4 +1,4 @@
-import { Calculator, CircleDot, ClipboardList, Clock3, Crown, Gauge, Layers3, MapPin, Maximize2, ShieldCheck, Swords, X } from 'lucide-react'
+import { Calculator, CircleDot, ClipboardList, Clock3, Crown, Gauge, Layers3, MapPin, Maximize2, Package, ShieldCheck, Swords, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BoostCalculator } from './BoostCalculator'
@@ -8,7 +8,9 @@ import { PokemonLocationOverlay } from './PokemonLocationOverlay'
 import { useLanguage } from '../data/LanguageContext'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
+import { useCatalogData, useLootData } from '../data/DomainData'
 import { getAbilityInfo } from '../lib/abilities'
+import { findLootPokemon, hasLootRecord, lootChanceLabel, lootConfidenceLabel, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
 import { parseBoostProfile } from '../lib/boostCalculator'
 import {
   EFFECTIVENESS_LABELS,
@@ -168,10 +170,34 @@ function QuickViewEffectiveness({ groups }) {
   )
 }
 
+function QuickViewLoot({ entry, contexts, catalogItems = [] }) {
+  if (!entry) return <p className="quickview-empty-note">Não há relações de loot publicadas para esta forma.</p>
+  const catalogById = new Map(catalogItems.map((item) => [item.id, item]))
+  const catalogByName = new Map(catalogItems.map((item) => [normalizeLootName(item.name), item]))
+  const resolve = (drop) => catalogById.get(drop.item_id) || catalogByName.get(normalizeLootName(drop.item))
+  const drops = [
+    ...(entry.drops || []).map((drop) => ({ ...drop, meta: lootConfidenceLabel(drop.confidence) })),
+    ...contexts.flatMap((context) => (context.drops || []).map((drop) => ({ ...drop, meta: `${context.context_id} · ${lootChanceLabel(drop.chance)}` }))),
+  ]
+  const unique = [...new Map(drops.map((drop) => [drop.item_id || normalizeLootName(drop.item), drop])).values()].slice(0, 10)
+  return (
+    <div className="quickview-loot-list">
+      {unique.map((drop) => {
+        const item = resolve(drop)
+        const content = <><span className="quickview-loot-art">{item?.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <Package size={13} />}</span><span><strong>{drop.item}</strong><small>{drop.meta}</small></span></>
+        return item ? <Link to={`/items/${encodeURIComponent(item.id)}`} key={drop.item_id || drop.item}>{content}</Link> : <div key={drop.item_id || drop.item}>{content}</div>
+      })}
+      {!unique.length && <p className="quickview-empty-note">Não há itens de loot detalhados para esta forma.</p>}
+    </div>
+  )
+}
+
 export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} }) {
   const { t, locale } = useLanguage()
   const { byPokemonName: mapLocationsByPokemon } = useMapData()
   const { pokemon: allPokemon, captureBallCatalog } = usePokemonData()
+  const { data: catalogData } = useCatalogData()
+  const { data: lootData } = useLootData()
   const [locationTab, setLocationTab] = useState(null)
   const [openPanel, setOpenPanel] = useState('evolution')
   const togglePanel = (panel) => (next) => setOpenPanel(next ? panel : null)
@@ -215,6 +241,9 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
   const hasMiddleColumn = hasMoves || hasBoost || hasEvolution
   const groups = effectivenessGroups(pokemon.effectiveness)
   const hasEffectiveness = groups.length > 0
+  const lootEntry = useMemo(() => findLootPokemon(lootData, [name, pokemon.page_title]), [lootData, name, pokemon.page_title])
+  const lootContexts = useMemo(() => lootRatesForPokemon(lootData, lootEntry), [lootData, lootEntry])
+  const hasLoot = hasLootRecord(lootEntry, lootContexts)
   const columnCount = 1 + (hasMiddleColumn ? 1 : 0) + (hasEffectiveness ? 1 : 0)
 
   return (
@@ -302,6 +331,13 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
         {hasEffectiveness && (
           <div className="quickview-column quickview-effectiveness">
             <QuickViewEffectiveness groups={groups} />
+          </div>
+        )}
+
+        {hasLoot && (
+          <div className="quickview-loot-footer">
+            <h3 className="quickview-section-title"><Package size={14} />{t('Loot relacionado')}</h3>
+            <QuickViewLoot entry={lootEntry} contexts={lootContexts} catalogItems={catalogData?.items} />
           </div>
         )}
       </div>

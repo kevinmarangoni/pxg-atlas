@@ -20,9 +20,9 @@ function uniqueIds(entries, label) {
   assert(new Set(ids).size === ids.length, `${label}: há ids duplicados.`)
 }
 
-const [catalog, crafting, guides, progression, world, pokemon, npcObtained] = await Promise.all([
+const [catalog, crafting, guides, progression, world, pokemon, npcObtained, loot] = await Promise.all([
   load('pxg_catalog.json'), load('pxg_crafting.json'), load('pxg_guides.json'),
-  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'), load('pxg_npc_obtained.json'),
+  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'), load('pxg_npc_obtained.json'), load('pokemon_loot.json'),
 ])
 
 for (const [name, payload] of Object.entries({ catalog, crafting, guides, progression, world, npcObtained })) {
@@ -105,6 +105,17 @@ if (npcObtained) {
   assert(entries.every((entry) => entry.pokemon && entry.reward), 'npcObtained: há registros sem Pokémon ou recompensa.')
   assert(groups.every((group) => group.title && group.category), 'npcObtained: há grupos sem título ou categoria.')
   checks.push(`${entries.length} obtenções via NPC`)
+}
+
+if (loot) {
+  assert(loot._meta?.schema === 'pxg-pokemon-loot-v3.1', 'loot: schema inesperado.')
+  assert(loot._meta?.generated_at, 'loot: generated_at ausente.')
+  assert(Array.isArray(loot.pokemon) && loot.pokemon.length >= 1400, `loot: esperados ao menos 1.400 Pokémon, encontrados ${loot.pokemon?.length || 0}.`)
+  uniqueIds(loot.pokemon || [], 'loot.pokemon')
+  assert((loot.pokemon || []).every((entry) => entry.name && entry.join_key), 'loot: Pokémon sem nome ou join_key.')
+  assert(Object.keys(loot.item_catalog || {}).length >= 500, 'loot: catálogo de itens insuficiente.')
+  assert(Object.keys(loot.drop_rates_by_pokemon || {}).length >= 50, 'loot: taxas por Pokémon insuficientes.')
+  checks.push(`${loot.pokemon.length} registros de loot`, `${Object.keys(loot.item_catalog || {}).length} itens de loot`)
 }
 
 if (failures.length) {
