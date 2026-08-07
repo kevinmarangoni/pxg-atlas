@@ -115,6 +115,16 @@ if (loot) {
   assert((loot.pokemon || []).every((entry) => entry.name && entry.join_key), 'loot: Pokémon sem nome ou join_key.')
   assert(Object.keys(loot.item_catalog || {}).length >= 500, 'loot: catálogo de itens insuficiente.')
   assert(Object.keys(loot.drop_rates_by_pokemon || {}).length >= 50, 'loot: taxas por Pokémon insuficientes.')
+  const rateRecords = Object.values(loot.drop_rates_by_pokemon || {})
+  const rateContexts = rateRecords.flatMap((record) => record.contexts || [])
+  const rateDrops = rateContexts.flatMap((context) => context.drops || [])
+  const exactRates = rateDrops.filter((drop) => drop.chance?.type === 'exact_percent').length
+  const rareRates = rateDrops.filter((drop) => drop.chance?.type === 'rare_unspecified').length
+  assert(loot._meta.stats?.pokemon_with_any_drop_chance_context === rateRecords.length, 'loot: contador de Pokémon com taxa divergente.')
+  assert(loot._meta.stats?.drop_chance_contexts === rateContexts.length, 'loot: contador de contextos de taxa divergente.')
+  assert(loot._meta.stats?.drop_chance_rows_total === rateDrops.length, 'loot: contador de linhas de taxa divergente.')
+  assert(loot._meta.stats?.exact_percent_rows === exactRates, 'loot: contador de percentuais exatos divergente.')
+  assert(loot._meta.stats?.rare_unspecified_rows === rareRates, 'loot: contador de taxas raras divergente.')
   checks.push(`${loot.pokemon.length} registros de loot`, `${Object.keys(loot.item_catalog || {}).length} itens de loot`)
 }
 

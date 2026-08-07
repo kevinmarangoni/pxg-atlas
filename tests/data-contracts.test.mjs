@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
-import { buildLootItemIndex, findLootPokemon, lootChanceWithLucky, lootLuckyTiers, lootRelationsForItem } from '../src/lib/loot.js'
+import { buildLootItemIndex, findLootPokemon, lootChanceWithLucky, lootLuckyTiers, lootRateRowsForItem, lootRelationsForItem } from '../src/lib/loot.js'
 
 const load = async (name) => JSON.parse(await readFile(new URL(`../public/data/${name}`, import.meta.url), 'utf8'))
 
@@ -33,6 +33,11 @@ test('base de loot preserva chaves de relacionamento e taxas', async () => {
   assert.ok(loot.pokemon.some((entry) => entry.id === 'nidoran-female' && entry.name === 'Nidoran♀'))
   assert.ok(loot.pokemon.some((entry) => entry.id === 'nidoran-male' && entry.name === 'Nidoran♂'))
   assert.ok(loot.drop_rates_by_pokemon.charizard.contexts.length > 0)
+  const contexts = Object.values(loot.drop_rates_by_pokemon).flatMap((entry) => entry.contexts || [])
+  const rows = contexts.flatMap((context) => context.drops || [])
+  assert.equal(loot._meta.stats.pokemon_with_any_drop_chance_context, Object.keys(loot.drop_rates_by_pokemon).length)
+  assert.equal(loot._meta.stats.drop_chance_contexts, contexts.length)
+  assert.equal(loot._meta.stats.drop_chance_rows_total, rows.length)
 })
 
 test('indice de loot liga itens ao Pokemon e preserva variantes de Nidoran', async () => {
@@ -40,6 +45,9 @@ test('indice de loot liga itens ao Pokemon e preserva variantes de Nidoran', asy
   const index = buildLootItemIndex(loot)
   const relations = lootRelationsForItem(loot, { id: 'Fire_Tail', name: 'Fire Tail' }, index)
   assert.ok(relations.some((relation) => relation.pokemon.id === 'charizard'))
+  const flowerRelations = lootRelationsForItem(loot, { id: 'Strange_Flower', name: 'Strange Flower' }, index)
+  const gloom = flowerRelations.find((relation) => relation.pokemon.id === 'gloom')
+  assert.equal(lootRateRowsForItem(gloom.contexts, { id: 'Strange_Flower', name: 'Strange Flower' })[0].drop.chance.percent, 2.1)
   assert.equal(findLootPokemon(loot, 'Nidoran♀')?.id, 'nidoran-female')
   assert.equal(findLootPokemon(loot, 'Nidoran♂')?.id, 'nidoran-male')
 })

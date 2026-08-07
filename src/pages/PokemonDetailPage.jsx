@@ -62,7 +62,7 @@ import {
 import { REGION_LABELS, formatTaskNumber, taskActionLabel, taskCoordinates, taskLevel, taskNightmareLevel, taskRegionLabel } from '../lib/tasks'
 import { buildCounterRecommendations, counterWeaknesses } from '../lib/counterRecommendations'
 import { groupNearbyRespawns } from '../lib/mapLocations'
-import { findLootPokemon, hasLootRecord, lootChanceLabel, lootChanceWithLucky, lootConfidenceLabel, lootContextLabel, lootLuckyTiers, lootQuantityLabel, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
+import { findLootPokemon, hasLootRecord, lootChanceLabel, lootChanceWithLucky, lootConfidenceLabel, lootContextLabel, lootLuckyTiers, lootQuantityLabel, lootRateRowsForItem, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
 
 const MODE_LABELS = { pve: 'PvE', pvp: 'PvP' }
 
@@ -513,7 +513,16 @@ function PokemonLootSection({ pokemon, lootData, catalogItems = [] }) {
         <div className="loot-group">
           <header><h3>{t('Drops diretos')}</h3><span>{t('Relação Pokémon → item')}</span></header>
           <div className="loot-item-grid">
-            {directDrops.map((drop, index) => <LootItemCard key={`${drop.item_id || drop.item}-${index}`} item={drop.item} catalogItem={resolveCatalogItem(drop.item_id, drop.item)} meta={lootConfidenceLabel(drop.confidence)} note={drop.note} />)}
+            {directDrops.map((drop, index) => {
+              const rateRows = lootRateRowsForItem(contexts, drop)
+              const rates = rateRows.map(({ context, drop: rateDrop }) => {
+                const calculated = selectedLucky ? lootChanceWithLucky(rateDrop.chance, lootData, selectedLucky.tier) : null
+                const chance = calculated ? lootChanceLabel({ type: 'exact_percent', percent: calculated.percent }) : lootChanceLabel(rateDrop.chance)
+                return `${chance} · ${lootContextLabel(context.context_id)}`
+              })
+              const meta = [lootConfidenceLabel(drop.confidence), ...rates].filter(Boolean).join(' · ')
+              return <LootItemCard key={`${drop.item_id || drop.item}-${index}`} item={drop.item} catalogItem={resolveCatalogItem(drop.item_id, drop.item)} meta={meta} note={drop.note} />
+            })}
           </div>
         </div>
       )}

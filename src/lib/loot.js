@@ -125,6 +125,13 @@ export function lootQuantityLabel(quantity) {
   return `${minimum}–${maximum}x`
 }
 
+export function lootRateRowsForItem(contexts, item) {
+  const keys = new Set(lootItemKeys(item?.id, item?.name))
+  return (contexts || []).flatMap((context) => (context.drops || [])
+    .filter((drop) => keys.has(normalizeLootName(drop.item_id)) || keys.has(normalizeLootName(drop.item)))
+    .map((drop) => ({ context, drop })))
+}
+
 export function hasLootRecord(entry, contexts = []) {
   return Boolean(entry && (
     entry.drops?.length
