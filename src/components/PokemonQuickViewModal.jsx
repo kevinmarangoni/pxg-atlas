@@ -10,7 +10,7 @@ import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { useCatalogData, useLootData } from '../data/DomainData'
 import { getAbilityInfo } from '../lib/abilities'
-import { findLootPokemon, hasLootRecord, lootChanceLabel, lootConfidenceLabel, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
+import { findLootPokemon, hasLootRecord, lootChanceLabel, lootChanceWithLucky, lootConfidenceLabel, lootContextLabel, lootLuckyTiers, lootQuantityLabel, lootRatesForPokemon, normalizeLootName } from '../lib/loot'
 import { parseBoostProfile } from '../lib/boostCalculator'
 import {
   EFFECTIVENESS_LABELS,
@@ -170,24 +170,62 @@ function QuickViewEffectiveness({ groups }) {
   )
 }
 
-function QuickViewLoot({ entry, contexts, catalogItems = [] }) {
-  if (!entry) return <p className="quickview-empty-note">Não há relações de loot publicadas para esta forma.</p>
+function QuickViewLoot({ entry, contexts, catalogItems = [], lootData }) {
+  const { t } = useLanguage()
+  const [selectedDropId, setSelectedDropId] = useState('')
+  const [luckyTier, setLuckyTier] = useState('')
   const catalogById = new Map(catalogItems.map((item) => [item.id, item]))
   const catalogByName = new Map(catalogItems.map((item) => [normalizeLootName(item.name), item]))
   const resolve = (drop) => catalogById.get(drop.item_id) || catalogByName.get(normalizeLootName(drop.item))
-  const drops = [
-    ...(entry.drops || []).map((drop) => ({ ...drop, meta: lootConfidenceLabel(drop.confidence) })),
-    ...contexts.flatMap((context) => (context.drops || []).map((drop) => ({ ...drop, meta: `${context.context_id} · ${lootChanceLabel(drop.chance)}` }))),
-  ]
-  const unique = [...new Map(drops.map((drop) => [drop.item_id || normalizeLootName(drop.item), drop])).values()].slice(0, 10)
+  const drops = new Map()
+  for (const drop of entry?.drops || []) {
+    const key = drop.item_id || normalizeLootName(drop.item)
+    drops.set(key, { ...drop, key, rates: [] })
+  }
+  for (const context of contexts) {
+    for (const drop of context.drops || []) {
+      const key = drop.item_id || normalizeLootName(drop.item)
+      const current = drops.get(key) || { ...drop, key, rates: [] }
+      current.rates.push({ context, drop })
+      drops.set(key, current)
+    }
+  }
+  const unique = [...drops.values()].slice(0, 10)
+  useEffect(() => {
+    if (!unique.some((drop) => drop.key === selectedDropId)) setSelectedDropId(unique[0]?.key || '')
+  }, [entry, contexts, selectedDropId])
+  const selectedDrop = unique.find((drop) => drop.key === selectedDropId) || unique[0]
+  const luckyTiers = lootLuckyTiers(lootData)
+  const selectedLucky = luckyTiers.find((tier) => tier.tier === Number(luckyTier))
+  const selectedItem = selectedDrop && resolve(selectedDrop)
+  if (!entry) return <p className="quickview-empty-note">Não há relações de loot publicadas para esta forma.</p>
   return (
-    <div className="quickview-loot-list">
+    <div className="quickview-loot-browser">
+      <div className="quickview-loot-controls">
+        <label><span>{t('Drop selecionado')}</span><select value={selectedDrop?.key || ''} onChange={(event) => setSelectedDropId(event.target.value)}>{unique.map((drop) => <option value={drop.key} key={drop.key}>{drop.item}</option>)}</select></label>
+        <label><span>{t('Held de sorte')}</span><select value={luckyTier} onChange={(event) => setLuckyTier(event.target.value)}><option value="">{t('Sem X-Lucky · taxa base')}</option>{luckyTiers.map((tier) => <option value={tier.tier} key={tier.tier}>{t('X-Lucky T{tier} · +{bonus}%', { tier: tier.tier, bonus: tier.bonus_percent })}</option>)}</select></label>
+      </div>
+      {selectedDrop && (
+        <div className="quickview-loot-chance">
+          <header><div><small>{t('Taxa do drop')}</small><strong>{selectedDrop.item}</strong></div>{selectedItem && <Link to={`/items/${encodeURIComponent(selectedItem.id)}`}>{t('Abrir item')}</Link>}</header>
+          {selectedDrop.rates.length > 0 ? selectedDrop.rates.map(({ context, drop }, index) => {
+            const calculated = selectedLucky ? lootChanceWithLucky(drop.chance, lootData, selectedLucky.tier) : null
+            const effective = calculated ? lootChanceLabel({ type: 'exact_percent', percent: calculated.percent }) : lootChanceLabel(drop.chance)
+            return <div className="quickview-loot-rate" key={`${context.context_id}-${index}`}><span>{lootContextLabel(context.context_id)}</span><strong>{effective}</strong><small>{[calculated && `${lootChanceLabel(drop.chance)} base`, lootQuantityLabel(drop.quantity)].filter(Boolean).join(' · ') || lootConfidenceLabel(context.confidence)}</small></div>
+          }) : <p>{t('Taxa não publicada para este drop.')}</p>}
+          {selectedLucky && <em>{t('X-Lucky altera apenas percentuais exatos; taxas Raro permanecem sem número.')}</em>}
+        </div>
+      )}
+      <div className="quickview-loot-list">
       {unique.map((drop) => {
         const item = resolve(drop)
-        const content = <><span className="quickview-loot-art">{item?.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <Package size={13} />}</span><span><strong>{drop.item}</strong><small>{drop.meta}</small></span></>
-        return item ? <Link to={`/items/${encodeURIComponent(item.id)}`} key={drop.item_id || drop.item}>{content}</Link> : <div key={drop.item_id || drop.item}>{content}</div>
+        const rate = drop.rates[0]
+        const meta = rate ? lootChanceLabel(rate.drop.chance) : lootConfidenceLabel(drop.confidence)
+        const content = <><span className="quickview-loot-art">{item?.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <Package size={13} />}</span><span><strong>{drop.item}</strong><small>{meta}</small></span></>
+        return <button type="button" className={drop.key === selectedDrop?.key ? 'selected' : ''} onClick={() => setSelectedDropId(drop.key)} key={drop.key}>{content}</button>
       })}
       {!unique.length && <p className="quickview-empty-note">Não há itens de loot detalhados para esta forma.</p>}
+      </div>
     </div>
   )
 }
@@ -337,7 +375,7 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
         {hasLoot && (
           <div className="quickview-loot-footer">
             <h3 className="quickview-section-title"><Package size={14} />{t('Loot relacionado')}</h3>
-            <QuickViewLoot entry={lootEntry} contexts={lootContexts} catalogItems={catalogData?.items} />
+            <QuickViewLoot entry={lootEntry} contexts={lootContexts} catalogItems={catalogData?.items} lootData={lootData} />
           </div>
         )}
       </div>
