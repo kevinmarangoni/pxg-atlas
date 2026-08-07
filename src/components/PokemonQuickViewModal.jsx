@@ -172,7 +172,7 @@ function QuickViewEffectiveness({ groups }) {
 
 function QuickViewLoot({ entry, contexts, catalogItems = [], lootData }) {
   const { t } = useLanguage()
-  const [selectedContextId, setSelectedContextId] = useState('')
+  const [selectedContextId, setSelectedContextId] = useState(() => contexts.find((context) => context.context_id === 'normal_world')?.context_id || contexts[0]?.context_id || '')
   const [luckyTier, setLuckyTier] = useState('')
   const catalogById = new Map(catalogItems.map((item) => [item.id, item]))
   const catalogByName = new Map(catalogItems.map((item) => [normalizeLootName(item.name), item]))
@@ -192,8 +192,8 @@ function QuickViewLoot({ entry, contexts, catalogItems = [], lootData }) {
   }
   const unique = [...drops.values()].slice(0, 10)
   useEffect(() => {
-    if (selectedContextId && !contexts.some((context) => context.context_id === selectedContextId)) setSelectedContextId('')
-  }, [contexts, selectedContextId])
+    setSelectedContextId(contexts.find((context) => context.context_id === 'normal_world')?.context_id || contexts[0]?.context_id || '')
+  }, [entry, contexts])
   const activeContexts = selectedContextId ? contexts.filter((context) => context.context_id === selectedContextId) : contexts
   const luckyTiers = lootLuckyTiers(lootData)
   const selectedLucky = luckyTiers.find((tier) => tier.tier === Number(luckyTier))

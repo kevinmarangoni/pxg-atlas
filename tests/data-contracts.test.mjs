@@ -48,6 +48,7 @@ test('indice de loot liga itens ao Pokemon e preserva variantes de Nidoran', asy
   const flowerRelations = lootRelationsForItem(loot, { id: 'Strange_Flower', name: 'Strange Flower' }, index)
   const gloom = flowerRelations.find((relation) => relation.pokemon.id === 'gloom')
   assert.equal(lootRateRowsForItem(gloom.contexts, { id: 'Strange_Flower', name: 'Strange Flower' })[0].drop.chance.percent, 2.1)
+  assert.equal(lootRateRowsForItem(gloom.contexts, { item_id: 'strange-flower', item: 'Strange Flower' })[0].drop.chance.percent, 2.1)
   assert.equal(findLootPokemon(loot, 'Nidoran♀')?.id, 'nidoran-female')
   assert.equal(findLootPokemon(loot, 'Nidoran♂')?.id, 'nidoran-male')
 })

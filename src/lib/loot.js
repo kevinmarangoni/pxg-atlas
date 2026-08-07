@@ -126,7 +126,7 @@ export function lootQuantityLabel(quantity) {
 }
 
 export function lootRateRowsForItem(contexts, item) {
-  const keys = new Set(lootItemKeys(item?.id, item?.name))
+  const keys = new Set(lootItemKeys(item?.id || item?.item_id, item?.name || item?.item))
   return (contexts || []).flatMap((context) => (context.drops || [])
     .filter((drop) => keys.has(normalizeLootName(drop.item_id)) || keys.has(normalizeLootName(drop.item)))
     .map((drop) => ({ context, drop })))
