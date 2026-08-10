@@ -388,6 +388,28 @@ main { flex: 1; }
 .capture-groups { margin-top: 17px; display: grid; gap: 17px; }.capture-ball-group > h3 { margin: 0 0 8px; }.capture-ball-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 8px; }.capture-ball-card { min-width: 0; min-height: 82px; padding: 10px 11px; border: 1px solid #222d41; border-radius: 10px; background: linear-gradient(145deg, #0b111d, #0a0f19); display: flex; align-items: center; gap: 10px; }.capture-ball-art { width: 45px; height: 45px; flex: none; border-radius: 10px; background: rgba(91,164,255,.07); display: grid; place-items: center; color: #72b2ff; }.capture-ball-art img { width: 36px; height: 36px; max-width: 100%; max-height: 100%; object-fit: contain; }.capture-ball-card > div { min-width: 0; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 1px 6px; }.capture-ball-card small { grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #8392a8; font-size: 12px; }.capture-ball-card strong { color: #e5edf7; font: 800 18px 'Manrope'; }.capture-ball-card div > span { color: #687991; font-size: 11px; }
 .capture-source-note { margin-top: 17px; padding: 12px 13px; border: 1px solid rgba(243,201,111,.19); border-radius: 10px; background: rgba(243,201,111,.05); display: flex; align-items: center; gap: 10px; color: #ddb968; }.capture-source-note > svg { flex: none; }.capture-source-note p { min-width: 0; flex: 1; margin: 0; color: #8f8265; font-size: 13px; line-height: 1.5; }.capture-source-note p strong { color: #d7bb79; }.capture-source-note .source-link { flex: none; border-color: rgba(243,201,111,.2); background: rgba(243,201,111,.06); color: #d7bb79; }
 
+.pokemon-price-calculator { --pokemon-price-color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); display: grid; gap: 9px; font-size: 12px; }
+.pokemon-price-intro { display: grid; gap: 3px; }
+.pokemon-price-intro strong { color: #dce5f2; font-size: 12px; }
+.pokemon-price-intro span { color: #697991; font-size: 10px; line-height: 1.4; }
+.pokemon-price-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 7px; }
+.pokemon-price-field { min-width: 0; display: grid; align-content: start; gap: 4px; }
+.pokemon-price-field > span { color: #687991; font-size: 9px; font-weight: 800; letter-spacing: .06em; line-height: 1.3; text-transform: uppercase; }
+.pokemon-price-field > div { position: relative; }
+.pokemon-price-field input { width: 100%; height: 32px; padding: 0 31px 0 8px; border: 1px solid #28354a; border-radius: 8px; outline: 0; background: #0e1624; color: #d5deea; font-size: 12px; }
+.pokemon-price-field input:focus { border-color: color-mix(in srgb, var(--detail-accent) 55%, #28354a); box-shadow: 0 0 0 3px color-mix(in srgb, var(--detail-accent) 7%, transparent); }
+.pokemon-price-field > div > b { position: absolute; top: 0; right: 8px; height: 32px; display: inline-flex; align-items: center; color: #687991; font-size: 10px; pointer-events: none; }
+.pokemon-price-field small { color: #617089; font-size: 9px; line-height: 1.3; }
+.pokemon-price-result { padding: 9px; border: 1px solid color-mix(in srgb, var(--detail-accent) 24%, #243149); border-radius: 10px; background: linear-gradient(145deg, color-mix(in srgb, var(--detail-accent) 6%, #0b111d), #0a101b); }
+.pokemon-price-result > div { display: grid; gap: 2px; }
+.pokemon-price-result span { color: #74849b; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.pokemon-price-result strong { overflow-wrap: anywhere; color: var(--pokemon-price-color); font: 800 18px 'Manrope'; }
+.pokemon-price-result small { display: block; margin-top: 5px; color: #687991; font-size: 9px; line-height: 1.35; }
+.pokemon-price-footer { display: flex; align-items: flex-start; justify-content: space-between; gap: 7px; }
+.pokemon-price-footer p { min-width: 0; margin: 0; display: flex; align-items: flex-start; gap: 4px; color: #718198; font-size: 9px; line-height: 1.4; }
+.pokemon-price-footer p svg { flex: none; margin-top: 1px; color: #d3af67; }
+.pokemon-price-footer button { flex: none; min-height: 26px; padding: 0 7px; border: 1px solid #28354a; border-radius: 7px; background: #0e1624; display: inline-flex; align-items: center; gap: 4px; color: #8391a6; font-size: 9px; font-weight: 800; cursor: pointer; }
+.pokemon-price-footer button:hover { border-color: rgba(255,112,135,.3); color: #e18e9b; }
 .boost-calculator { --boost-color: color-mix(in srgb, var(--detail-accent) 76%, var(--mix-light)); }
 .boost-calculator--compact { padding: 0; font-size: 12px; }
 .boost-calculator--compact .boost-profile-banner { margin-bottom: 8px; padding: 7px 9px; gap: 4px 8px; }
@@ -1489,6 +1511,13 @@ button.quickview-evolution-item { font: inherit; color: inherit; }
 :root[data-theme="light"] .expansion-panel-body { border-top: 1px solid #c7ccd6; }
 :root[data-theme="light"] .quickview-evolution-item { border: 1px solid #b8bfcc; background: #e6e8ec; }
 :root[data-theme="light"] .quickview-evolution-info > strong { color: #162132; }
+:root[data-theme="light"] .pokemon-price-intro strong { color: #162132; }
+:root[data-theme="light"] .pokemon-price-intro span, :root[data-theme="light"] .pokemon-price-field > span { color: #5c6879; }
+:root[data-theme="light"] .pokemon-price-field input { border-color: #b8bfcc; background: #eef0f2; color: #182130; }
+:root[data-theme="light"] .pokemon-price-field > div > b { color: #5c6879; }
+:root[data-theme="light"] .pokemon-price-result { border-color: #b7bfcd; background: linear-gradient(145deg, #e2f0e7, #eef0f2); }
+:root[data-theme="light"] .pokemon-price-result small, :root[data-theme="light"] .pokemon-price-footer p { color: #5c6879; }
+:root[data-theme="light"] .pokemon-price-footer button { border-color: #b8bfcc; background: #eef0f2; color: #566072; }
 @media (max-width: 860px) { :root[data-theme="light"] .filter-backdrop { background: rgba(250, 250, 250, 0.66); } }
 @media (max-width: 860px) { :root[data-theme="light"] .move-card { border: 1px solid #b7bfcc; background: #eef0f2; } }
 @media (max-width: 860px) { :root[data-theme="light"] .move-card > header > strong { color: #162132; } }

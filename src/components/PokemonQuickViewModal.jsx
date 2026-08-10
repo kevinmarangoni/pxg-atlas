@@ -1,10 +1,11 @@
-import { Calculator, CircleDot, ClipboardList, Clock3, Crown, Gauge, Layers3, MapPin, Maximize2, Package, ShieldCheck, Swords, X } from 'lucide-react'
+import { Calculator, CircleDot, ClipboardList, Clock3, Crown, DollarSign, Gauge, Layers3, MapPin, Maximize2, Package, ShieldCheck, Swords, X } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BoostCalculator } from './BoostCalculator'
 import { ElementBadge, PokemonImage } from './Common'
 import { ExpansionPanel } from './ExpansionPanel'
 import { PokemonLocationOverlay } from './PokemonLocationOverlay'
+import { PokemonPriceCalculator } from './PokemonPriceCalculator'
 import { useLanguage } from '../data/LanguageContext'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
@@ -270,7 +271,8 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
   const hasMoves = ['default', 'pve', 'pvp'].some((mode) => pokemon.moves?.[mode]?.length)
   const hasBoost = parseBoostProfile(pokemon.general_info?.boost).valid
   const hasEvolution = (pokemon.evolutions || []).length > 0
-  const hasMiddleColumn = hasMoves || hasBoost || hasEvolution
+  const hasPriceCalculator = true
+  const hasMiddleColumn = hasMoves || hasBoost || hasEvolution || hasPriceCalculator
   const groups = effectivenessGroups(pokemon.effectiveness)
   const hasEffectiveness = groups.length > 0
   const lootEntry = useMemo(() => findLootPokemon(lootData, [name, pokemon.page_title]), [lootData, name, pokemon.page_title])
@@ -354,6 +356,11 @@ export function PokemonQuickViewModal({ pokemon, onClose, onSelect = () => {} })
             {hasBoost && (
               <ExpansionPanel icon={<Calculator size={13} />} title={t('Custo para upar')} open={openPanel === 'boost'} onToggle={togglePanel('boost')}>
                 <BoostCalculator boost={pokemon.general_info?.boost} matter={pokemon.general_info?.matter} compact />
+              </ExpansionPanel>
+            )}
+            {hasPriceCalculator && (
+              <ExpansionPanel icon={<DollarSign size={13} />} title={t('Preço do Pokémon')} open={openPanel === 'pokemon-price'} onToggle={togglePanel('pokemon-price')}>
+                <PokemonPriceCalculator pokemonName={name} />
               </ExpansionPanel>
             )}
             {hasEvolution && <QuickViewEvolution pokemon={pokemon} allPokemon={allPokemon} onSelect={onSelect} isOpen={openPanel === 'evolution'} onToggle={togglePanel('evolution')} />}
