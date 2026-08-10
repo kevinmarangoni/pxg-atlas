@@ -120,6 +120,8 @@ export const EMPTY_FILTERS = {
   elements: [],
   weaknesses: [],
   strongAgainst: [],
+  matchupPokemon: '',
+  matchupRelations: [],
   tier: '',
   pveRole: [],
   pvpRole: [],
@@ -241,6 +243,20 @@ export function pokemonStrongAgainst(pokemon, typeChart) {
   return ELEMENT_ORDER.filter((target) => attacks.some((attack) => (typeChart.get(attack)?.get(target) ?? 1) > 1))
 }
 
+export function pokemonIsStrongAgainst(attacker, target, typeChart) {
+  if (!attacker || !target) return false
+  const attacks = pokemonAttackElements(attacker)
+  if (!attacks.length) return false
+  const targetWeaknesses = pokemonWeaknesses(target)
+  if (targetWeaknesses.length) return attacks.some((attack) => targetWeaknesses.includes(attack))
+  const targetElements = pokemonElements(target)
+  return attacks.some((attack) => targetElements.some((element) => (typeChart?.get(attack)?.get(element) ?? 1) > 1))
+}
+
+export function pokemonIsWeakAgainst(attacker, target, typeChart) {
+  return pokemonIsStrongAgainst(target, attacker, typeChart)
+}
+
 export function pokemonPokelog(pokemon) {
   return pokemon.pokelog || null
 }
@@ -336,7 +352,7 @@ function normalizedSearch(value) {
     .trim()
 }
 
-export function matchesPokemon(pokemon, filters, typeChart) {
+export function matchesPokemon(pokemon, filters, typeChart, matchupTarget) {
   const query = normalizedSearch(filters.query)
   if (query) {
     const haystack = normalizedSearch([
@@ -358,6 +374,13 @@ export function matchesPokemon(pokemon, filters, typeChart) {
   if (selectedWeaknesses.length && !selectedWeaknesses.every((element) => pokemonWeaknesses(pokemon).includes(normalizedElement(element)))) return false
   const selectedStrongAgainst = filters.strongAgainst ?? (filters.strong ? [filters.strong] : [])
   if (selectedStrongAgainst.length && !selectedStrongAgainst.every((element) => pokemonStrongAgainst(pokemon, typeChart).includes(normalizedElement(element)))) return false
+  const selectedMatchupRelations = Array.isArray(filters.matchupRelations) ? filters.matchupRelations : []
+  if (matchupTarget && selectedMatchupRelations.length) {
+    const relationMatches = []
+    if (selectedMatchupRelations.includes('strong')) relationMatches.push(pokemonIsStrongAgainst(pokemon, matchupTarget, typeChart))
+    if (selectedMatchupRelations.includes('weak')) relationMatches.push(pokemonIsWeakAgainst(pokemon, matchupTarget, typeChart))
+    if (!relationMatches.some(Boolean)) return false
+  }
   if (filters.tier && !pokemonTiers(pokemon).includes(filters.tier)) return false
   const selectedPveRoles = Array.isArray(filters.pveRole) ? filters.pveRole : filters.pveRole ? [filters.pveRole] : []
   if (selectedPveRoles.length && !selectedPveRoles.some((role) => pokemonRoles(pokemon, 'pve').includes(role))) return false
@@ -425,6 +448,7 @@ export function buildFilterOptions(pokemon, typeChart) {
 export function activeFilterCount(filters) {
   return Object.entries(filters).filter(([key, value]) => {
     if (key === 'sort') return false
+    if (typeof value === 'boolean') return value
     return Array.isArray(value) ? value.length > 0 : value !== ''
   }).length
 }

@@ -40,9 +40,10 @@ export default function PokemonListPage() {
   })
   const typeChart = useMemo(() => buildTypeChart(clans), [clans])
   const options = useMemo(() => buildFilterOptions(pokemon, typeChart), [pokemon, typeChart])
+  const matchupTarget = useMemo(() => pokemon.find((entry) => entry.source_url === filters.matchupPokemon) || null, [pokemon, filters.matchupPokemon])
   const filtered = useMemo(
-    () => sortPokemon(pokemon.filter((entry) => matchesPokemon(entry, filters, typeChart)), filters.sort),
-    [pokemon, filters, typeChart],
+    () => sortPokemon(pokemon.filter((entry) => matchesPokemon(entry, filters, typeChart, matchupTarget)), filters.sort),
+    [pokemon, filters, typeChart, matchupTarget],
   )
 
   useEffect(() => {
@@ -85,6 +86,7 @@ export default function PokemonListPage() {
           filters={filters}
           options={options}
           roleCatalog={roleCatalog}
+          pokemon={pokemon}
           onChange={setFilters}
           onReset={() => setFilters(EMPTY_FILTERS)}
           mobileOpen={mobileOpen}

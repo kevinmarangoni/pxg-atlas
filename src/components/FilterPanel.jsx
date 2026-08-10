@@ -1,6 +1,7 @@
 import { RotateCcw, Search, SlidersHorizontal, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLanguage } from '../data/LanguageContext'
-import { activeFilterCount, roleDefinition } from '../lib/pokemon'
+import { activeFilterCount, displayName, roleDefinition } from '../lib/pokemon'
 import { ElementIcon, RoleIcon } from './Common'
 
 function SelectField({ label, value, onChange, children }) {
@@ -9,6 +10,101 @@ function SelectField({ label, value, onChange, children }) {
       <span>{label}</span>
       <select value={value} onChange={(event) => onChange(event.target.value)}>{children}</select>
     </label>
+  )
+}
+
+function MatchupPicker({ pokemon, target, relations, onTargetChange, onRelationsChange }) {
+  const { t } = useLanguage()
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const selectedTarget = useMemo(() => pokemon.find((entry) => entry.source_url === target) || null, [pokemon, target])
+
+  useEffect(() => {
+    setQuery(selectedTarget ? displayName(selectedTarget) : '')
+  }, [selectedTarget])
+
+  const suggestions = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase()
+    return pokemon
+      .filter((entry) => {
+        if (!normalizedQuery) return true
+        return `${displayName(entry)} ${entry.page_title || ''}`.toLocaleLowerCase().includes(normalizedQuery)
+      })
+      .slice(0, 18)
+  }, [pokemon, query])
+
+  const chooseTarget = (entry) => {
+    onTargetChange(entry.source_url)
+    setQuery(displayName(entry))
+    setOpen(false)
+  }
+
+  const clearTarget = () => {
+    onTargetChange('')
+    onRelationsChange([])
+    setQuery('')
+    setOpen(false)
+  }
+
+  const toggleRelation = (relation) => {
+    onRelationsChange(relations.includes(relation)
+      ? relations.filter((item) => item !== relation)
+      : [...relations, relation])
+  }
+
+  return (
+    <fieldset className="matchup-picker">
+      <legend>
+        <span>{t('Comparar contra Pokémon')}</span>
+        {selectedTarget && <button type="button" onClick={clearTarget}>{t('Limpar')}</button>}
+      </legend>
+      <div className="matchup-combobox">
+        <div className="search-field matchup-search">
+          <Search size={15} />
+          <input
+            value={query}
+            onChange={(event) => { setQuery(event.target.value); setOpen(true) }}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setOpen(false)}
+            placeholder={t('Buscar um Pokémon…')}
+            role="combobox"
+            aria-expanded={open}
+            aria-autocomplete="list"
+            aria-controls="pokemon-matchup-options"
+          />
+          {query && <button type="button" onMouseDown={(event) => event.preventDefault()} onClick={clearTarget} aria-label={t('Limpar Pokémon selecionado')}><X size={14} /></button>}
+        </div>
+        {open && (
+          <div className="matchup-results" id="pokemon-matchup-options" role="listbox">
+            {suggestions.length > 0 ? suggestions.map((entry) => (
+              <button
+                type="button"
+                role="option"
+                aria-selected={selectedTarget?.source_url === entry.source_url}
+                key={entry.source_url}
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => chooseTarget(entry)}
+              >
+                <strong>{displayName(entry)}</strong>
+                {entry.page_title && entry.page_title !== displayName(entry) && <small>{entry.page_title}</small>}
+              </button>
+            )) : <span className="matchup-empty">{t('Nenhum Pokémon encontrado')}</span>}
+          </div>
+        )}
+      </div>
+      <div className="matchup-relations" role="group" aria-label={t('Relação com o alvo')}>
+        {[
+          ['strong', t('Forte contra')],
+          ['weak', t('Fraco contra')],
+        ].map(([relation, label]) => (
+          <label key={relation} className={`${!selectedTarget ? 'disabled' : ''} ${relations.includes(relation) ? 'selected' : ''}`}>
+            <input type="checkbox" checked={relations.includes(relation)} onChange={() => toggleRelation(relation)} disabled={!selectedTarget} />
+            <span>{label}</span>
+          </label>
+        ))}
+      </div>
+      {selectedTarget && relations.length === 0 && <small className="filter-hint">{t('Selecione pelo menos uma relação')}</small>}
+    </fieldset>
   )
 }
 
@@ -115,7 +211,7 @@ function ControlEffectPicker({ options, value, onChange }) {
   )
 }
 
-export default function FilterPanel({ filters, options, roleCatalog, onChange, onReset, mobileOpen, setMobileOpen }) {
+export default function FilterPanel({ filters, options, roleCatalog, pokemon = [], onChange, onReset, mobileOpen, setMobileOpen }) {
   const { t } = useLanguage()
   const count = activeFilterCount(filters)
   const set = (key) => (value) => onChange({ ...filters, [key]: value })
@@ -151,6 +247,13 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
 
         <div className="filter-section">
           <div className="section-label">{t('Progressão')}</div>
+          <MatchupPicker
+            pokemon={pokemon}
+            target={filters.matchupPokemon}
+            relations={Array.isArray(filters.matchupRelations) ? filters.matchupRelations : []}
+            onTargetChange={set('matchupPokemon')}
+            onRelationsChange={set('matchupRelations')}
+          />
           <SelectField label={t('Clan')} value={filters.clan} onChange={set('clan')}>
             <option value="">{t('Todos os clans')}</option>
             {options.clans.map((value) => <option key={value}>{value}</option>)}
@@ -170,8 +273,8 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
             {options.tiers.map((value) => <option key={value}>{value}</option>)}
           </SelectField>
           <ElementPicker options={options.elements} value={filters.elements} onChange={set('elements')} />
-          <ElementPicker label={t('Fraco contra')} options={options.weaknesses} value={filters.weaknesses} onChange={set('weaknesses')} />
-          <ElementPicker label={t('Forte contra')} options={options.strongAgainst} value={filters.strongAgainst} onChange={set('strongAgainst')} />
+          <ElementPicker label={t('Tipo fraco contra')} options={options.weaknesses} value={filters.weaknesses} onChange={set('weaknesses')} />
+          <ElementPicker label={t('Tipo forte contra')} options={options.strongAgainst} value={filters.strongAgainst} onChange={set('strongAgainst')} />
         </div>
 
         <div className="filter-section">

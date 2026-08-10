@@ -26,6 +26,14 @@ const bulbasaur = {
   effectiveness: { super_effective: ['Fire', 'Ice', 'Flying', 'Psychic'] },
 }
 
+const matchupTarget = {
+  source_url: 'https://wiki.pokexgames.com/index.php/Targetmon',
+  page_title: 'Targetmon',
+  general_info: { name: 'Targetmon', elements: ['Grass'] },
+  moves: { default: [{ slot: 'M1', element: 'Water', tags: ['Damage'] }] },
+  effectiveness: { super_effective: ['Fire'] },
+}
+
 test('pokemonWeaknesses collects effective attack elements only', () => {
   assert.deepEqual(pokemonWeaknesses(charizard), ['Water', 'Rock', 'Electric'])
 })
@@ -50,6 +58,18 @@ test('matchesPokemon accepts multiple PvE roles as an OR filter', () => {
   assert.equal(matchesPokemon(charizard, { ...EMPTY_FILTERS, pveRole: ['burst_damage_dealer', 'tank'] }), true)
   assert.equal(matchesPokemon(charizard, { ...EMPTY_FILTERS, pveRole: ['tank', 'support'] }), true)
   assert.equal(matchesPokemon(charizard, { ...EMPTY_FILTERS, pveRole: ['tank', 'speedster'] }), false)
+})
+
+test('matchesPokemon filters strong or weak matchups against a selected Pokémon', () => {
+  const typeChart = new Map([
+    ['Fire', new Map([['Grass', 2]])],
+    ['Water', new Map([['Fire', 2]])],
+  ])
+  const strongFilters = { ...EMPTY_FILTERS, matchupPokemon: matchupTarget.source_url, matchupRelations: ['strong'] }
+  const weakFilters = { ...EMPTY_FILTERS, matchupPokemon: matchupTarget.source_url, matchupRelations: ['weak'] }
+  assert.equal(matchesPokemon(charizard, strongFilters, typeChart, matchupTarget), true)
+  assert.equal(matchesPokemon(charizard, weakFilters, typeChart, matchupTarget), true)
+  assert.equal(matchesPokemon(bulbasaur, weakFilters, typeChart, matchupTarget), false)
 })
 
 test('buildFilterOptions exposes both own elements and weaknesses', () => {
