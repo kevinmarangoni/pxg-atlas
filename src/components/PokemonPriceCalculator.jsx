@@ -67,10 +67,12 @@ export function PokemonPriceCalculator({ pokemonName }) {
         <PriceField label={t('Preço de 1 Diamond')} value={diamondPriceBRL} onChange={updateValue('diamondPriceBRL')} suffix="R$" type="number" placeholder="0,00" />
         <PriceField label={t('Preço do Pokémon')} value={pokemonPriceDollars} onChange={updateValue('pokemonPriceDollars')} inputMode="text" placeholder="150KK" hint={t('Aceita K, KK ou KKK. Ex.: 187K, 2KK ou 1KKK.')} />
       </div>
-      <div className="pokemon-price-result" aria-live="polite">
-        <div><span>{t('Valor estimado em reais')}</span><strong>{formattedResult || t('Informe os três valores')}</strong></div>
-        <small>{t('Fórmula: preço do Pokémon ÷ valor do Diamond × preço do Diamond.')}</small>
-      </div>
+      {result != null && (
+        <div className="pokemon-price-result" aria-live="polite">
+          <div><span>{t('Valor estimado em reais')}</span><strong>{formattedResult}</strong></div>
+          <small>{t('Fórmula: preço do Pokémon ÷ valor do Diamond × preço do Diamond.')}</small>
+        </div>
+      )}
       <div className="pokemon-price-footer">
         <p><Info size={13} />{t('A estimativa depende da cotação informada e não considera taxas ou variações do mercado.')}</p>
         <button type="button" onClick={reset}><RotateCcw size={13} />{t('Limpar valores')}</button>
