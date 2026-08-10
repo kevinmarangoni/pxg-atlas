@@ -28,12 +28,13 @@ export function PokemonDataProvider({ children }) {
 
   const value = useMemo(() => {
     const pokemon = state.data?.pokemon ?? []
+    const clans = state.data?.clans ?? []
     const tasks = state.data?.tasks ?? []
     const byId = new Map(pokemon.map((entry) => [pokemonId(entry), entry]))
     const tasksById = new Map(tasks.map((task) => [task.id, task]))
     const roleCatalog = buildRoleCatalog(state.data?.combat_roles)
     const captureBallCatalog = state.data?.capture_ball_catalog ?? []
-    return { ...state, pokemon, byId, tasks, tasksById, roleCatalog, captureBallCatalog }
+    return { ...state, pokemon, clans, byId, tasks, tasksById, roleCatalog, captureBallCatalog }
   }, [state])
 
   return <PokemonDataContext.Provider value={value}>{children}</PokemonDataContext.Provider>

@@ -14,23 +14,27 @@ function SelectField({ label, value, onChange, children }) {
 
 function RolePicker({ label, mode, roles, value, onChange, roleCatalog }) {
   const { t } = useLanguage()
+  const selected = Array.isArray(value) ? value : value ? [value] : []
   return (
     <fieldset className={`role-picker ${mode}`}>
       <legend>
         <span>{label}</span>
-        {value && <button type="button" onClick={() => onChange('')} aria-label={t('Limpar {label}', { label })}>{t('Limpar')}</button>}
+        <span className="picker-legend-actions">
+          {selected.length > 0 && <small>{selected.length}</small>}
+          {selected.length > 0 && <button type="button" onClick={() => onChange([])} aria-label={t('Limpar {label}', { label })}>{t('Limpar')}</button>}
+        </span>
       </legend>
       <div className="role-picker-grid">
         {roles.map((role) => {
           const definition = roleDefinition(role, mode, roleCatalog)
-          const selected = value === role
+          const active = selected.includes(role)
           return (
             <button
               type="button"
-              className={selected ? 'selected' : ''}
+              className={active ? 'selected' : ''}
               key={role}
-              onClick={() => onChange(selected ? '' : role)}
-              aria-pressed={selected}
+              onClick={() => onChange(active ? selected.filter((item) => item !== role) : [...selected, role])}
+              aria-pressed={active}
               title={`${definition.label} — ${mode.toUpperCase()}`}
             >
               <RoleIcon role={role} mode={mode} roleCatalog={roleCatalog} decorative />
@@ -39,11 +43,12 @@ function RolePicker({ label, mode, roles, value, onChange, roleCatalog }) {
           )
         })}
       </div>
+      {selected.length > 1 && <small className="filter-hint">{t('Ao marcar mais de uma função, o Pokémon precisa ter pelo menos uma.')}</small>}
     </fieldset>
   )
 }
 
-function ElementPicker({ options, value, onChange }) {
+function ElementPicker({ options, value, onChange, label }) {
   const { t } = useLanguage()
   const selected = Array.isArray(value) ? value : value ? [value] : []
   const toggle = (element) => {
@@ -57,7 +62,7 @@ function ElementPicker({ options, value, onChange }) {
   return (
     <fieldset className="element-picker">
       <legend>
-        <span>{t('Elementos')}</span>
+        <span>{label || t('Elementos')}</span>
         <small>{selected.length}/2</small>
         {selected.length > 0 && <button type="button" onClick={() => onChange([])}>{t('Limpar')}</button>}
       </legend>
@@ -165,6 +170,8 @@ export default function FilterPanel({ filters, options, roleCatalog, onChange, o
             {options.tiers.map((value) => <option key={value}>{value}</option>)}
           </SelectField>
           <ElementPicker options={options.elements} value={filters.elements} onChange={set('elements')} />
+          <ElementPicker label={t('Fraco contra')} options={options.weaknesses} value={filters.weaknesses} onChange={set('weaknesses')} />
+          <ElementPicker label={t('Forte contra')} options={options.strongAgainst} value={filters.strongAgainst} onChange={set('strongAgainst')} />
         </div>
 
         <div className="filter-section">

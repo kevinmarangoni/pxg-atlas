@@ -14,6 +14,7 @@ import {
   matchesPokemon,
   sortPokemon,
 } from '../lib/pokemon'
+import { buildTypeChart } from '../lib/teamBuilder'
 
 const PAGE_SIZE = 36
 const CATALOG_STATE_KEY = 'pxg-catalog-state'
@@ -28,7 +29,7 @@ function savedCatalogState() {
 
 export default function PokemonListPage() {
   const { t, locale } = useLanguage()
-  const { pokemon, roleCatalog } = usePokemonData()
+  const { pokemon, roleCatalog, clans } = usePokemonData()
   const [filters, setFilters] = useState(() => ({ ...EMPTY_FILTERS, ...(savedCatalogState().filters || {}) }))
   const [visibleCount, setVisibleCount] = useState(() => Math.max(PAGE_SIZE, Number(savedCatalogState().visibleCount) || PAGE_SIZE))
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -37,10 +38,11 @@ export default function PokemonListPage() {
   const [viewMode, setViewMode] = useState(() => {
     try { return localStorage.getItem('pxg-view-mode') || 'grid' } catch { return 'grid' }
   })
-  const options = useMemo(() => buildFilterOptions(pokemon), [pokemon])
+  const typeChart = useMemo(() => buildTypeChart(clans), [clans])
+  const options = useMemo(() => buildFilterOptions(pokemon, typeChart), [pokemon, typeChart])
   const filtered = useMemo(
-    () => sortPokemon(pokemon.filter((entry) => matchesPokemon(entry, filters)), filters.sort),
-    [pokemon, filters],
+    () => sortPokemon(pokemon.filter((entry) => matchesPokemon(entry, filters, typeChart)), filters.sort),
+    [pokemon, filters, typeChart],
   )
 
   useEffect(() => {

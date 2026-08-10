@@ -169,6 +169,8 @@ main { flex: 1; }
 .field-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .role-picker { min-width: 0; margin: 0; padding: 0; border: 0; }
 .role-picker legend { width: 100%; margin: 0 0 7px; padding: 0; display: flex; align-items: center; justify-content: space-between; color: #9caabd; font-size: 14px; font-weight: 600; }
+.picker-legend-actions { display: inline-flex; align-items: center; gap: 8px; }
+.picker-legend-actions small { color: #71819a; font-size: 11px; font-weight: 500; }
 .role-picker legend button { padding: 2px 0; border: 0; background: transparent; color: #71819a; font-size: 12px; cursor: pointer; }
 .role-picker legend button:hover { color: var(--text); }
 .role-picker-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }

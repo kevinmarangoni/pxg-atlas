@@ -118,9 +118,11 @@ export const EMPTY_FILTERS = {
   minLevel: '',
   maxLevel: '',
   elements: [],
+  weaknesses: [],
+  strongAgainst: [],
   tier: '',
-  pveRole: '',
-  pvpRole: '',
+  pveRole: [],
+  pvpRole: [],
   pvpAvailability: '',
   accessibility: '',
   form: '',
@@ -201,6 +203,42 @@ export function pokemonElements(pokemon) {
     ...(pokemon.clan_memberships ?? []).flatMap((entry) => entry.elements ?? []),
   ]
   return [...new Set(values.filter(Boolean).map(normalizedElement))]
+}
+
+export function pokemonAttackElements(pokemon) {
+  const moves = pokemon?.moves || {}
+  const selected = moves.pve?.length ? moves.pve : moves.default?.length ? moves.default : moves.pvp || []
+  return [...new Set(selected
+    .filter((move) => {
+      const tags = move.tags || []
+      if (!move.element || String(move.slot).toUpperCase() === 'P' || tags.includes('Passive')) return false
+      return !(tags.includes('Self') && !tags.some((tag) => ['Damage', 'Poison', 'Hellfire', 'Lifesteal'].includes(tag)))
+    })
+    .map((move) => normalizedElement(move.element))
+    .filter((element) => ELEMENT_ORDER.includes(element)))]
+}
+
+const WEAKNESS_EFFECTIVENESS_KEYS = ['super_effective', 'very_effective', 'effective']
+
+// A Pokémon can list its defensive weaknesses in several effectiveness
+// buckets. Keep the filter aligned with counter recommendations by treating
+// all three effective buckets as weaknesses, while normal/resistant/immune
+// entries remain excluded.
+export function pokemonWeaknesses(pokemon) {
+  const values = WEAKNESS_EFFECTIVENESS_KEYS.flatMap((key) => {
+    const entry = pokemon?.effectiveness?.[key]
+    if (!entry) return []
+    if (Array.isArray(entry)) return entry
+    if (typeof entry === 'object') return Object.values(entry).flatMap((value) => Array.isArray(value) ? value : [value])
+    return [entry]
+  })
+  return [...new Set(values.map(normalizedElement).filter((element) => ELEMENT_ORDER.includes(element)))]
+}
+
+export function pokemonStrongAgainst(pokemon, typeChart) {
+  if (!typeChart?.size) return []
+  const attacks = pokemonAttackElements(pokemon)
+  return ELEMENT_ORDER.filter((target) => attacks.some((attack) => (typeChart.get(attack)?.get(target) ?? 1) > 1))
 }
 
 export function pokemonPokelog(pokemon) {
@@ -298,7 +336,7 @@ function normalizedSearch(value) {
     .trim()
 }
 
-export function matchesPokemon(pokemon, filters) {
+export function matchesPokemon(pokemon, filters, typeChart) {
   const query = normalizedSearch(filters.query)
   if (query) {
     const haystack = normalizedSearch([
@@ -316,9 +354,15 @@ export function matchesPokemon(pokemon, filters) {
   if (filters.clan && !pokemonClans(pokemon).includes(filters.clan)) return false
   const selectedElements = filters.elements ?? (filters.element ? [filters.element] : [])
   if (selectedElements.length && !selectedElements.every((element) => pokemonElements(pokemon).includes(normalizedElement(element)))) return false
+  const selectedWeaknesses = filters.weaknesses ?? (filters.weakness ? [filters.weakness] : [])
+  if (selectedWeaknesses.length && !selectedWeaknesses.every((element) => pokemonWeaknesses(pokemon).includes(normalizedElement(element)))) return false
+  const selectedStrongAgainst = filters.strongAgainst ?? (filters.strong ? [filters.strong] : [])
+  if (selectedStrongAgainst.length && !selectedStrongAgainst.every((element) => pokemonStrongAgainst(pokemon, typeChart).includes(normalizedElement(element)))) return false
   if (filters.tier && !pokemonTiers(pokemon).includes(filters.tier)) return false
-  if (filters.pveRole && !pokemonRoles(pokemon, 'pve').includes(filters.pveRole)) return false
-  if (filters.pvpRole && !pokemonRoles(pokemon, 'pvp').includes(filters.pvpRole)) return false
+  const selectedPveRoles = Array.isArray(filters.pveRole) ? filters.pveRole : filters.pveRole ? [filters.pveRole] : []
+  if (selectedPveRoles.length && !selectedPveRoles.some((role) => pokemonRoles(pokemon, 'pve').includes(role))) return false
+  const selectedPvpRoles = Array.isArray(filters.pvpRole) ? filters.pvpRole : filters.pvpRole ? [filters.pvpRole] : []
+  if (selectedPvpRoles.length && !selectedPvpRoles.some((role) => pokemonRoles(pokemon, 'pvp').includes(role))) return false
   if (filters.form && formType(pokemon) !== filters.form) return false
   if (filters.pokelogCategory && !pokelogCategories(pokemon).includes(filters.pokelogCategory)) return false
   if (filters.experienceCategory && !experienceCategories(pokemon).includes(filters.experienceCategory)) return false
@@ -361,11 +405,13 @@ export function sortPokemon(pokemon, sort) {
   return items.sort(byName)
 }
 
-export function buildFilterOptions(pokemon) {
+export function buildFilterOptions(pokemon, typeChart) {
   const unique = (values) => [...new Set(values.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b), 'pt-BR', { numeric: true }))
   return {
     clans: unique(pokemon.flatMap(pokemonClans)),
     elements: ELEMENT_ORDER.filter((element) => pokemon.some((entry) => pokemonElements(entry).includes(element))),
+    weaknesses: ELEMENT_ORDER.filter((element) => pokemon.some((entry) => pokemonWeaknesses(entry).includes(element))),
+    strongAgainst: ELEMENT_ORDER.filter((element) => pokemon.some((entry) => pokemonStrongAgainst(entry, typeChart).includes(element))),
     tiers: sortTiers(unique(pokemon.flatMap(pokemonTiers))),
     levels: unique(pokemon.flatMap(pokemonLevels)),
     pveRoles: unique(pokemon.flatMap((entry) => pokemonRoles(entry, 'pve'))),
