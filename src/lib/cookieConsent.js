@@ -9,6 +9,7 @@ const MANAGED_KEYS = [
   'pxg-locale',
   'pxg-view-mode',
   'pxg-atlas:user-data:v2',
+  'pxg-atlas:pokemon-price:v1',
   'pxg-atlas:boost-prices:v1',
   'pxg-team-builder:v1',
   'pxg-atlas:collected-orbs',

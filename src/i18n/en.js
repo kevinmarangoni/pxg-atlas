@@ -134,6 +134,7 @@ export const en = {
   'Use a cotação do seu servidor para estimar o valor em reais.': 'Use your server rate to estimate the value in Brazilian reais.',
   'Dólares do jogo por 1 Diamond': 'In-game dollars per Diamond',
   'Quanto a unidade de Diamond vale na moeda do jogo.': 'How much one Diamond is worth in the game currency.',
+  'Aceita K, KK ou KKK. Ex.: 187K, 2KK ou 1KKK.': 'Accepts K, KK or KKK. Example: 187K, 2KK or 1KKK.',
   'Preço de 1 Diamond': 'Price of 1 Diamond',
   'Valor estimado em reais': 'Estimated value in reais',
   'Informe os três valores': 'Enter all three values',

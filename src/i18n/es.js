@@ -131,6 +131,7 @@ export const es = {
   'Use a cotação do seu servidor para estimar o valor em reais.': 'Usa la cotización de tu servidor para estimar el valor en reales brasileños.',
   'Dólares do jogo por 1 Diamond': 'Dólares del juego por Diamond',
   'Quanto a unidade de Diamond vale na moeda do jogo.': 'Cuánto vale un Diamond en la moneda del juego.',
+  'Aceita K, KK ou KKK. Ex.: 187K, 2KK ou 1KKK.': 'Acepta K, KK o KKK. Ejemplo: 187K, 2KK o 1KKK.',
   'Preço de 1 Diamond': 'Precio de 1 Diamond',
   'Valor estimado em reais': 'Valor estimado en reales',
   'Informe os três valores': 'Introduce los tres valores',
