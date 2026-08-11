@@ -18,6 +18,27 @@ const PXGMAP_BR_FILES = {
   floors: `${PXGMAP_BR_HOME}/assets/maps/floors/manifest.json`,
 }
 
+// A Wiki oficial lista Ursaring como Pokémon de caça em Dark Cave, mas o
+// YAML público do PXGMap ainda não contém esse respawn. Mantemos o ponto de
+// referência publicado pela task de Ursaring para que ele não desapareça na
+// sincronização até a fonte de mapa incluir o registro exato.
+const MANUAL_RESPAWNS = [
+  {
+    id: 'official-wiki:johto:ursaring:dark-cave',
+    name: 'Ursaring',
+    x: 3455,
+    y: 30319,
+    z: 0,
+    floor: 0,
+    region: 'Johto',
+    comment: 'Dark Cave — ponto de referência do local de caça de Ursaring',
+    sprite_url: `${PXGMAP_BR_HOME}/assets/icons/ursaring.png`,
+    source: 'wiki.pokexgames.com',
+    source_url: 'https://wiki.pokexgames.com/index.php/Tasks',
+    source_type: 'official-wiki-reference',
+  },
+]
+
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
 const outputPath = resolve(scriptDirectory, '../public/data/pxg_map.json')
 const localTileManifestPath = resolve(scriptDirectory, '../public/data/otmm_tiles/manifest.json')
@@ -235,12 +256,15 @@ const pxgMapBrMonsters = [
   ...mapPxgMapBrRecords(kantoSource.text, 'Kanto', legacyFloorIndex),
   ...mapPxgMapBrRecords(johtoSource.text, 'Johto', legacyFloorIndex),
 ]
+const sourceMonsterKeys = new Set(pxgMapBrMonsters.map((entry) => `${entry.region}|${entry.name}|${entry.x}|${entry.y}|${entry.floor}`))
+const manualRespawns = MANUAL_RESPAWNS.filter((entry) => !sourceMonsterKeys.has(`${entry.region}|${entry.name}|${entry.x}|${entry.y}|${entry.floor}`))
 // A fonte pxgmap.com.br é a fonte mais completa para posições de Kanto e Johto.
 // Os CSVs legados entram apenas como referência de andar quando o YAML não
 // informa `andar`; os registros legados não são concatenados para evitar duplicatas.
 const monsters = [
   ...legacyMonsters.filter((entry) => !['Kanto', 'Johto'].includes(entry.region)),
   ...pxgMapBrMonsters,
+  ...manualRespawns,
 ]
 const orbs = parseCsv(orbsSource.text).map(mapOrb)
 const tilePositions = positionsSource.text
@@ -292,6 +316,7 @@ const payload = {
     additional_sources: {
       pxgmap_br_home: PXGMAP_BR_HOME,
       pxgmap_br_files: PXGMAP_BR_FILES,
+      manual_respawns: manualRespawns.map((entry) => ({ id: entry.id, name: entry.name, region: entry.region, source_url: entry.source_url, source_type: entry.source_type })),
     },
     etags: {
       generation1: generation1.etag,

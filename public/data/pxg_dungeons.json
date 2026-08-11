@@ -1,0 +1,4495 @@
+{
+  "metadata": {
+    "source_type": "official_pokexgames_wiki",
+    "source_home": "https://wiki.pokexgames.com",
+    "source_url": "https://wiki.pokexgames.com/index.php/Spoiler_das_Masmorras",
+    "domain": "dungeons",
+    "generated_at": "2026-08-10T23:36:37.438Z",
+    "complete": true,
+    "pages": [
+      {
+        "page_title": "Spoiler das Masmorras",
+        "source_url": "https://wiki.pokexgames.com/index.php/Spoiler_das_Masmorras",
+        "revision_id": 128381
+      },
+      {
+        "page_title": "DZ Beartic",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Beartic",
+        "revision_id": 128938
+      },
+      {
+        "page_title": "DZ King Raticate",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_King_Raticate",
+        "revision_id": 128927
+      },
+      {
+        "page_title": "DZ Shiny Noctowl",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Noctowl",
+        "revision_id": 128928
+      },
+      {
+        "page_title": "DZ Giant Tentacruel",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Tentacruel",
+        "revision_id": 128929
+      },
+      {
+        "page_title": "DZ Shiny Giant Magikarp",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Giant_Magikarp",
+        "revision_id": 128930
+      },
+      {
+        "page_title": "DZ Champion Primeape",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Champion_Primeape",
+        "revision_id": 128931
+      },
+      {
+        "page_title": "DZ Giant Onix",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Onix",
+        "revision_id": 128932
+      },
+      {
+        "page_title": "DZ Giant Sunflora",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Sunflora",
+        "revision_id": 128933
+      },
+      {
+        "page_title": "DZ Shiny Ponyta",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Ponyta",
+        "revision_id": 128934
+      },
+      {
+        "page_title": "DZ Wynaut",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Wynaut",
+        "revision_id": 128968
+      },
+      {
+        "page_title": "DZ Shiny Klinklang",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Klinklang",
+        "revision_id": 128971
+      },
+      {
+        "page_title": "DZ Mightyena",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mightyena",
+        "revision_id": 128956
+      },
+      {
+        "page_title": "DZ Pelipper",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Pelipper",
+        "revision_id": 128950
+      },
+      {
+        "page_title": "DZ Accelgor",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Accelgor",
+        "revision_id": 128974
+      },
+      {
+        "page_title": "DZ Cursola",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Cursola",
+        "revision_id": 128990
+      },
+      {
+        "page_title": "DZ Haxorus",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Haxorus",
+        "revision_id": 128955
+      },
+      {
+        "page_title": "DZ Hippowdon",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Hippowdon",
+        "revision_id": 128947
+      },
+      {
+        "page_title": "DZ Hatterene",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Hatterene",
+        "revision_id": 128991
+      },
+      {
+        "page_title": "DZ Mega Slowbro",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Slowbro",
+        "revision_id": 130368
+      },
+      {
+        "page_title": "DZ Galvantula",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Galvantula",
+        "revision_id": 128954
+      },
+      {
+        "page_title": "DZ Cradily",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Cradily",
+        "revision_id": 128949
+      },
+      {
+        "page_title": "DZ Emolga",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Emolga",
+        "revision_id": 128936
+      },
+      {
+        "page_title": "DZ Probopass",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Probopass",
+        "revision_id": 128946
+      },
+      {
+        "page_title": "DZ Darmanitan",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Darmanitan",
+        "revision_id": 128951
+      },
+      {
+        "page_title": "DZ Drapion",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Drapion",
+        "revision_id": 128937
+      },
+      {
+        "page_title": "DZ Breloom",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Breloom",
+        "revision_id": 128945
+      },
+      {
+        "page_title": "DZ Lickilicky",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Lickilicky",
+        "revision_id": 128939
+      },
+      {
+        "page_title": "DZ Heatmor",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Heatmor",
+        "revision_id": 128940
+      },
+      {
+        "page_title": "DZ Crustle",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Crustle",
+        "revision_id": 128952
+      },
+      {
+        "page_title": "DZ Ambipom",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Ambipom",
+        "revision_id": 128942
+      },
+      {
+        "page_title": "DZ Shiny Ferrothorn",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Ferrothorn",
+        "revision_id": 128943
+      },
+      {
+        "page_title": "DZ Excadrill",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Excadrill",
+        "revision_id": 128953
+      },
+      {
+        "page_title": "DZ Bisharp",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Bisharp",
+        "revision_id": 128948
+      },
+      {
+        "page_title": "DZ Conkeldurr",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Conkeldurr",
+        "revision_id": 128957
+      },
+      {
+        "page_title": "DZ Shiny Glaceon",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Glaceon",
+        "revision_id": 128958
+      },
+      {
+        "page_title": "DZ Mega Altaria",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Altaria",
+        "revision_id": 128959
+      },
+      {
+        "page_title": "DZ Mega Steelix",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Steelix",
+        "revision_id": 128967
+      },
+      {
+        "page_title": "DZ Giant Galvantula",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Galvantula",
+        "revision_id": 132940
+      },
+      {
+        "page_title": "DZ Shiny Leafeon",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Leafeon",
+        "revision_id": 128961
+      },
+      {
+        "page_title": "DZ Heatran",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Heatran",
+        "revision_id": 128962
+      },
+      {
+        "page_title": "DZ Shiny Manectric",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Manectric",
+        "revision_id": 128966
+      },
+      {
+        "page_title": "DZ Shiny Bronzong",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Bronzong",
+        "revision_id": 128963
+      },
+      {
+        "page_title": "DZ Shiny Sylveon",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Sylveon",
+        "revision_id": 128964
+      },
+      {
+        "page_title": "DZ Mega Absol",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Absol",
+        "revision_id": 130379
+      },
+      {
+        "page_title": "DZ Mega Excadrill",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Excadrill",
+        "revision_id": 130390
+      },
+      {
+        "page_title": "Anniversary Party",
+        "source_url": "https://wiki.pokexgames.com/index.php/Anniversary_Party",
+        "revision_id": 58832
+      },
+      {
+        "page_title": "Summer Party",
+        "source_url": "https://wiki.pokexgames.com/index.php/Summer_Party",
+        "revision_id": 47540
+      },
+      {
+        "page_title": "Egg Hunt",
+        "source_url": "https://wiki.pokexgames.com/index.php/Egg_Hunt",
+        "revision_id": 128984
+      },
+      {
+        "page_title": "Golden Bun Kingdom",
+        "source_url": "https://wiki.pokexgames.com/index.php/Golden_Bun_Kingdom",
+        "revision_id": 129284
+      },
+      {
+        "page_title": "Queen's Garden",
+        "source_url": "https://wiki.pokexgames.com/index.php/Queen's_Garden",
+        "revision_id": 129285
+      },
+      {
+        "page_title": "DZ Haunted Farm",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Haunted_Farm",
+        "revision_id": 70414
+      },
+      {
+        "page_title": "Christmas Town",
+        "source_url": "https://wiki.pokexgames.com/index.php/Christmas_Town",
+        "revision_id": 46270
+      },
+      {
+        "page_title": "Dz Aniversário 8 Anos 2019",
+        "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_8_Anos_2019",
+        "revision_id": 23195
+      },
+      {
+        "page_title": "Dz Aniversário 9 Anos 2020",
+        "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_9_Anos_2020",
+        "revision_id": 32951
+      },
+      {
+        "page_title": "Dz Aniversário 10 Anos 2021",
+        "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_10_Anos_2021",
+        "revision_id": 37850
+      },
+      {
+        "page_title": "DZ Pascoa 2018",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Pascoa_2018",
+        "revision_id": 23193
+      },
+      {
+        "page_title": "Páscoa 2020",
+        "source_url": "https://wiki.pokexgames.com/index.php/P%C3%A1scoa_2020",
+        "revision_id": 32955
+      },
+      {
+        "page_title": "DZ Shiny Eevee 2018",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Eevee_2018",
+        "revision_id": 23191
+      },
+      {
+        "page_title": "DZ Valentine's 2019",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Valentine's_2019",
+        "revision_id": 25613
+      },
+      {
+        "page_title": "Queen's Hive",
+        "source_url": "https://wiki.pokexgames.com/index.php/Queen's_Hive",
+        "revision_id": 42004
+      },
+      {
+        "page_title": "Flower's Garden",
+        "source_url": "https://wiki.pokexgames.com/index.php/Flower's_Garden",
+        "revision_id": 64284
+      },
+      {
+        "page_title": "DZ Spring's 2020",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Spring's_2020",
+        "revision_id": 34367
+      },
+      {
+        "page_title": "DZ Halloween 2017",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2017",
+        "revision_id": 23192
+      },
+      {
+        "page_title": "DZ Halloween 2018",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2018",
+        "revision_id": 23194
+      },
+      {
+        "page_title": "DZ Halloween 2019",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2019",
+        "revision_id": 28818
+      },
+      {
+        "page_title": "DZ Halloween 2020",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2020",
+        "revision_id": 34368
+      },
+      {
+        "page_title": "DZ Halloween 2021",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2021",
+        "revision_id": 44380
+      },
+      {
+        "page_title": "DZ Natal 2019",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Natal_2019",
+        "revision_id": 29511
+      },
+      {
+        "page_title": "DZ Natal 2020",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Natal_2020",
+        "revision_id": 36790
+      },
+      {
+        "page_title": "DZ Frozen Master",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Frozen_Master",
+        "revision_id": 64600
+      },
+      {
+        "page_title": "DZ Solid Master",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Solid_Master",
+        "revision_id": 95704
+      },
+      {
+        "page_title": "DZ Dark Lady",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Dark_Lady",
+        "revision_id": 63113
+      },
+      {
+        "page_title": "DZ Dragon Master",
+        "source_url": "https://wiki.pokexgames.com/index.php/DZ_Dragon_Master",
+        "revision_id": 130151
+      }
+    ],
+    "errors": [],
+    "dungeon_count": 73,
+    "capture_relations": 200,
+    "reward_relations": 743
+  },
+  "dungeons": [
+    {
+      "id": "dungeon:dz-beartic",
+      "title": "DZ Beartic",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Beartic",
+      "page_title": "DZ Beartic",
+      "revision_id": 128938,
+      "capturable_pokemon": [
+        "Shiny Delibird",
+        "Cubchoo",
+        "Beartic",
+        "Delibird"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Davy Jones Abomasnow)",
+          "raw": "Scroll of Knowledge (Davy Jones Abomasnow)"
+        },
+        {
+          "name": "Scroll of Knowledge (Majin Abomasnow)",
+          "raw": "Scroll of Knowledge (Majin Abomasnow)"
+        },
+        {
+          "name": "Scroll of Knowledge (Dark Mask Glalie)",
+          "raw": "Scroll of Knowledge (Dark Mask Glalie)"
+        },
+        {
+          "name": "Scroll of Knowledge (Stitch Glalie)",
+          "raw": "Scroll of Knowledge (Stitch Glalie)"
+        },
+        {
+          "name": "Yellow Present (Semi Raro)",
+          "raw": "Yellow Present (Semi Raro)"
+        },
+        {
+          "name": "Black Present (Ultra Raro)",
+          "raw": "Black Present (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:51. O Boss Beartic não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como SLOW e LOCKED, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ice mas também há alguns danos Grass, por isso, Yache Berry e Rindo Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fire, Steel, Rock e Fighting e são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-king-raticate",
+      "title": "DZ King Raticate",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_King_Raticate",
+      "page_title": "DZ King Raticate",
+      "revision_id": 128927,
+      "capturable_pokemon": [
+        "Shiny Rattata",
+        "Shiny Raticate",
+        "Shiny Golbat",
+        "Rattata",
+        "Raticate",
+        "Golbat"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "High Tech Chip (Ultra Raro)",
+          "raw": "High Tech Chip (Ultra Raro)"
+        },
+        {
+          "name": "Scroll of Knowledge(Myotismon Shiny Crobat)",
+          "raw": "Scroll of Knowledge(Myotismon Shiny Crobat)"
+        },
+        {
+          "name": "Scroll of Knowledge(Gas Baby Shiny Crobat)",
+          "raw": "Scroll of Knowledge(Gas Baby Shiny Crobat)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 5 Revives. Tempo limite: 1 hora. Quantidade:61. O King Raticate é do elemento Fighting, por isso, uma boa opção seria utilizar um Pokémon do elemento Fantasma como tank, assim um membro da equipe pode defender seus golpes e usar poções ocasionais enquanto os outros atacam. Após receber uma certa quantidade de dano, o King Raticate invoca 4 Blastoises e os jogadores precisam derrotá-los. O King Raticate não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como CONFUSION, PARALYZE e POISON, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Normal mas também há alguns danos Poison e Flying, por isso, Chilan Berry, Kebia Berry e Coba Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting, Electric, Psyc"
+    },
+    {
+      "id": "dungeon:dz-shiny-noctowl",
+      "title": "DZ Shiny Noctowl",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Noctowl",
+      "page_title": "DZ Shiny Noctowl",
+      "revision_id": 128928,
+      "capturable_pokemon": [
+        "Crobat",
+        "Shiny Hoothoot",
+        "Shiny Noctowl",
+        "Hoothoot",
+        "Noctowl"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Bird Token (1-2)",
+          "raw": "Bird Token (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Dinosaur Togekiss)",
+          "raw": "Scroll of Knowledge (Dinosaur Togekiss)"
+        },
+        {
+          "name": "Scroll of Knowledge(Valkyrie Togekiss)",
+          "raw": "Scroll of Knowledge(Valkyrie Togekiss)"
+        },
+        {
+          "name": "Scroll of Knowledge(Hawk Togekiss)",
+          "raw": "Scroll of Knowledge(Hawk Togekiss)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 10 Revives. Tempo limite: 1 hora. Quantidade:62. O Shiny Noctowl usa muito o Golpe \"fly\", que o deixa invulnerável, sem atacar por alguns segundos e depois aplica SILENCE em quem for atingido. Por isso, o jogador que estiver defendendo seus golpes pode facilmente curar seus Pokémon durante seus golpes, enquanto os outros atacam. Uma ótima estratégia é levar um Pokémon que possui o Golpe Selfdestruction. Os Pokémon nessa dungeon infligem muitos status negativos como STUN, PARALYZE e CONFUSION, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Flying mas também há alguns danos Poison e Normal, por isso, Coba Berry, Kebia Berry e Chilan Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Electric, Rock e Ice são as melhores opções para essa Dimensional "
+    },
+    {
+      "id": "dungeon:dz-giant-tentacruel",
+      "title": "DZ Giant Tentacruel",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Tentacruel",
+      "page_title": "DZ Giant Tentacruel",
+      "revision_id": 128929,
+      "capturable_pokemon": [
+        "Shiny Ekans",
+        "Shiny Qwilfish",
+        "Ekans",
+        "Qwilfish"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "James Special Lure (1-??)",
+          "raw": "James Special Lure (1-??)"
+        },
+        {
+          "name": "Jessie Special Lure (1-??)",
+          "raw": "Jessie Special Lure (1-??)"
+        },
+        {
+          "name": "Meowth Special Lure (1-??)",
+          "raw": "Meowth Special Lure (1-??)"
+        },
+        {
+          "name": "Big Shrimp (1-??)",
+          "raw": "Big Shrimp (1-??)"
+        },
+        {
+          "name": "Red Fish (1-??)",
+          "raw": "Red Fish (1-??)"
+        },
+        {
+          "name": "Fisherman's Elixir (1)",
+          "raw": "Fisherman's Elixir (1)"
+        },
+        {
+          "name": "Tentacruel Tentacle (Raro)",
+          "raw": "Tentacruel Tentacle (Raro)"
+        },
+        {
+          "name": "Slime Brain Cap (Raro)",
+          "raw": "Slime Brain Cap (Raro)"
+        },
+        {
+          "name": "Bloody Brain Cap (Raro)",
+          "raw": "Bloody Brain Cap (Raro)"
+        },
+        {
+          "name": "Water Brain Cap (Raro)",
+          "raw": "Water Brain Cap (Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 11 Revives. Tempo limite: 1 hora. Quantidade:75. O Boss Giant Tentacruel não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como BLIND e POISON, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Poison, por isso, Kebia Berry será de grande ajuda. Os Pokémon com ataques dos tipos Ground e Psychic são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-giant-magikarp",
+      "title": "DZ Shiny Giant Magikarp",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Giant_Magikarp",
+      "page_title": "DZ Shiny Giant Magikarp",
+      "revision_id": 128930,
+      "capturable_pokemon": [
+        "Shiny Magikarp",
+        "Shiny Krabby",
+        "Shiny Giant Magikarp",
+        "Magikarp",
+        "Krabby",
+        "Giant Magikarp"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Shiny Magikarp Fin (1-7)",
+          "raw": "Shiny Magikarp Fin (1-7)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 9 Revives. Tempo limite: 1 hora. Quantidade:72. O Boss Shiny Giant Magikarp não toma nenhum tipo de stun, cuidado. Essa DZ é embaixo d'água então seu Pokémon estará mais lento. Use uma Aspear Berry para ganhar velocidade de movimento e ficar imune a esse slow. As criaturas nessa dungeon inflingem muitos status negativos como PARALYZE e BLIND, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Water, por isso, Passho Berry será de grande ajuda. Os Pokémon com ataques dos tipos Grass e Electric são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-champion-primeape",
+      "title": "DZ Champion Primeape",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Champion_Primeape",
+      "page_title": "DZ Champion Primeape",
+      "revision_id": 128931,
+      "capturable_pokemon": [
+        "Sawk",
+        "Throh",
+        "Champion Primeape",
+        "Primeape"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Spin Machine (Raro)",
+          "raw": "Spin Machine (Raro)"
+        },
+        {
+          "name": "Punch Machine (Raro)",
+          "raw": "Punch Machine (Raro)"
+        },
+        {
+          "name": "Kick Machine (Raro)",
+          "raw": "Kick Machine (Raro)"
+        },
+        {
+          "name": "Pokémon Box: Tyrogue (Ultra Raro)",
+          "raw": "Pokémon Box: Tyrogue (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 5 Revives. Tempo limite: 1 hora. Quantidade:68. Nesta DZ é necessário matar 3 bosses após o término do caminho. O primeiro boss (Sawk) nasce na arena do norte, o segundo boss (Throh) nasce na arena do sul e por fim o terceiro e último boss (Champion Primeape) nasce na arena do norte. Tome muito cuidado ao derrotá-los pois a dificuldade aumenta. Os Pokémon dessa dungeon infligem alguns status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fighting, por isso, Chople Berry será de grande ajuda. Os Pokémon com ataques dos tipos Flying, Psychic e Fairy são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-giant-onix",
+      "title": "DZ Giant Onix",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Onix",
+      "page_title": "DZ Giant Onix",
+      "revision_id": 128932,
+      "capturable_pokemon": [
+        "Sudowoodo",
+        "Big Onix",
+        "Onix"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Old Backpack (Ultra Raro)",
+          "raw": "Old Backpack (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 9 Revives. Tempo limite: 1 hora. Quantidade:72. O Boss Big Onix além de possuir bastante vida não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como SLOW, STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Rock mas também há alguns danos Ground, por isso, Charti Berry e Shuca Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Water, Grass, Steel, Ground e Fighting são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-giant-sunflora",
+      "title": "DZ Giant Sunflora",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Sunflora",
+      "page_title": "DZ Giant Sunflora",
+      "revision_id": 128933,
+      "capturable_pokemon": [
+        "Shiny Oddish",
+        "Shiny Paras",
+        "Roselia",
+        "Oddish",
+        "Paras"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Sun Stone (1 - ??)",
+          "raw": "Sun Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        },
+        {
+          "name": "Violets (Raro)",
+          "raw": "Violets (Raro)"
+        },
+        {
+          "name": "Violets Bouquet (Raro)",
+          "raw": "Violets Bouquet (Raro)"
+        },
+        {
+          "name": "Violets Decoration (Raro)",
+          "raw": "Violets Decoration (Raro)"
+        },
+        {
+          "name": "PurpleGreen Decoration (Raro)",
+          "raw": "PurpleGreen Decoration (Raro)"
+        },
+        {
+          "name": "Hydrangeas (Raro)",
+          "raw": "Hydrangeas (Raro)"
+        },
+        {
+          "name": "Hydrangeas Bouquet (Raro)",
+          "raw": "Hydrangeas Bouquet (Raro)"
+        },
+        {
+          "name": "Hydrangeas Decoration (Raro)",
+          "raw": "Hydrangeas Decoration (Raro)"
+        },
+        {
+          "name": "Cyanred Decoration (Raro)",
+          "raw": "Cyanred Decoration (Raro)"
+        },
+        {
+          "name": "Roses (Raro)",
+          "raw": "Roses (Raro)"
+        },
+        {
+          "name": "Roses Decoration (Raro)",
+          "raw": "Roses Decoration (Raro)"
+        },
+        {
+          "name": "Roses Bouquet (Raro)",
+          "raw": "Roses Bouquet (Raro)"
+        },
+        {
+          "name": "Sunflowers (Raro)",
+          "raw": "Sunflowers (Raro)"
+        },
+        {
+          "name": "Sunflower Decoration (Raro)",
+          "raw": "Sunflower Decoration (Raro)"
+        },
+        {
+          "name": "Sunflower (Raro)",
+          "raw": "Sunflower (Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 5 Revives. Tempo limite: 1 hora. Quantidade:59. É essencial levar um Pokémon que tenha CUT para cortar a bush caso contrário não será possível prosseguir a Dungeon. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex. A Giant Sunflora possui uma mecânica em que se cura muitas vezes. Para isso, uma indicação importante seria utilizar um Pokémon que tenha a passiva Liquid Ooze. O Pokémon mais acessível é o Tentacruel, pois a sua passiva além de anular os ataques de cura, retorna o dano causado. As criaturas nessa dungeon infligem muitos status negativos como BLIND, PARALYZE e POISON, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Grass mas também há alguns danos Poison, por isso, Rindo Berry e Kebia Berry serão de grande ajuda. Os "
+    },
+    {
+      "id": "dungeon:dz-shiny-ponyta",
+      "title": "DZ Shiny Ponyta",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Ponyta",
+      "page_title": "DZ Shiny Ponyta",
+      "revision_id": 128934,
+      "capturable_pokemon": [
+        "Torkoal",
+        "Shiny Ponyta",
+        "Ponyta"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Pony Saddle (Ultra Raro)",
+          "raw": "Pony Saddle (Ultra Raro)"
+        },
+        {
+          "name": "Horse Saddle (Ultra Raro)",
+          "raw": "Horse Saddle (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:76. O Boss Shiny Ponyta não toma nenhum tipo de stun, cuidado. Atenção ao escolher um tank pois as Rapidash possuem alguns ataques elétricos. As criaturas nessa dungeon inflingem muitos status negativos como BURN, STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fire, por isso, Occa Berry é de grande ajuda. Os Pokémon com ataques dos tipos Water, Ground e Rock são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-wynaut",
+      "title": "DZ Wynaut",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Wynaut",
+      "page_title": "DZ Wynaut",
+      "revision_id": 128968,
+      "capturable_pokemon": [
+        "Wobbuffet",
+        "Wynaut"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 10 Revives. Tempo limite: 1 hora. Quantidade:77. O Boss Wynaut não toma nenhum tipo de stun, cuidado. O Wynaut além de possuir um melee bem forte também possui uma passiva de dano psíquico, então, uma boa opção seria utilizar um Pokémon que seja imune a Psychic para tankar. Ex: Sableye As criaturas nessa dungeon infligem muitos status negativos como CONFUSION, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Psychic, por isso, Payapa Berry será de grande ajuda. Os Pokémon com ataques dos tipos Ghost, Dark e Bug são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-klinklang",
+      "title": "DZ Shiny Klinklang",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Klinklang",
+      "page_title": "DZ Shiny Klinklang",
+      "revision_id": 128971,
+      "capturable_pokemon": [
+        "Klink",
+        "Klang",
+        "Shiny Klinklang",
+        "Klinklang"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Tech Ball (1-??)",
+          "raw": "Tech Ball (1-??)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:65. O Boss Shiny Klinklang não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Steel, por isso, Babiri Berry será de grande ajuda. Os Pokémon com ataques dos tipos Fire, Ground e Fighting e são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mightyena",
+      "title": "DZ Mightyena",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mightyena",
+      "page_title": "DZ Mightyena",
+      "revision_id": 128956,
+      "capturable_pokemon": [
+        "Poochyena",
+        "Mightyena",
+        "Absol"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Dark Iron Absol)",
+          "raw": "Scroll of Knowledge (Dark Iron Absol)"
+        },
+        {
+          "name": "Scroll of Knowledge (Samurai Shiftry)",
+          "raw": "Scroll of Knowledge (Samurai Shiftry)"
+        },
+        {
+          "name": "Scroll of Knowledge (Chef Crawdaunt)",
+          "raw": "Scroll of Knowledge (Chef Crawdaunt)"
+        },
+        {
+          "name": "Scroll of Knowledge (Red Tie Mightyena)",
+          "raw": "Scroll of Knowledge (Red Tie Mightyena)"
+        },
+        {
+          "name": "Scroll of Knowledge (Blue Tie Mightyena)",
+          "raw": "Scroll of Knowledge (Blue Tie Mightyena)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:64. O Boss Mightyena não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como STUN e SLOW, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Dark mas também há alguns danos Grass, por isso, Colbur Berry e Rindo Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting, Bug e Fairy são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-pelipper",
+      "title": "DZ Pelipper",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Pelipper",
+      "page_title": "DZ Pelipper",
+      "revision_id": 128950,
+      "capturable_pokemon": [
+        "Wingull",
+        "Pelipper",
+        "Togekiss"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Empress Kingdra)",
+          "raw": "Scroll of Knowledge (Empress Kingdra)"
+        },
+        {
+          "name": "Scroll of Knowledge (Golden Dragon Kingdra)",
+          "raw": "Scroll of Knowledge (Golden Dragon Kingdra)"
+        },
+        {
+          "name": "Scroll of Knowledge (Pilot Togekiss)",
+          "raw": "Scroll of Knowledge (Pilot Togekiss)"
+        },
+        {
+          "name": "Scroll of Knowledge (Celestial Skarmory)",
+          "raw": "Scroll of Knowledge (Celestial Skarmory)"
+        },
+        {
+          "name": "Scroll of Knowledge (Desert Queen Skarmory)",
+          "raw": "Scroll of Knowledge (Desert Queen Skarmory)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:82. O Boss Pelipper não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon inflingem muitos status negativos como SLOW, CONFUSION e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Flying mas também há alguns danos Water e Dragon, por isso, Coba Berry, Passho Berry e Haban Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Electric é a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-accelgor",
+      "title": "DZ Accelgor",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Accelgor",
+      "page_title": "DZ Accelgor",
+      "revision_id": 128974,
+      "capturable_pokemon": [
+        "Shiny Kricketune",
+        "Shelmet",
+        "Accelgor",
+        "Kricketune"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 10 Revives. Tempo limite: 1 hora. Quantidade:64. O Boss Hero Accelgor não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como SLOW e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Bug mas também há alguns danos Poison e Flying , por isso, Tanga Berry, Kebia Berry e Coba Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Rock, Flying e Fire são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-cursola",
+      "title": "DZ Cursola",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Cursola",
+      "page_title": "DZ Cursola",
+      "revision_id": 128990,
+      "capturable_pokemon": [
+        "Sandygast",
+        "Galarian Corsola",
+        "Cursola",
+        "Corsola"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Undersea Coral Costume",
+          "raw": "Undersea Coral Costume"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 9 Revives. Tempo limite: 1 hora. Quantidade:72. O Boss Cursola não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon inflingem muitos status negativos como PARALYZE, CONFUSION e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ghost, por isso, Kasib Berry será de grande ajuda. Os Pokémon com ataques dos tipos Ghost e Dark são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-haxorus",
+      "title": "DZ Haxorus",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Haxorus",
+      "page_title": "DZ Haxorus",
+      "revision_id": 128955,
+      "capturable_pokemon": [
+        "Axew",
+        "Fraxure",
+        "Haxorus"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Mermaid Kingdra)",
+          "raw": "Scroll of Knowledge (Mermaid Kingdra)"
+        },
+        {
+          "name": "Scroll of Knowledge (Empress Kingdra)",
+          "raw": "Scroll of Knowledge (Empress Kingdra)"
+        },
+        {
+          "name": "Scroll of Knowledge (Golden Dragon Kingdra)",
+          "raw": "Scroll of Knowledge (Golden Dragon Kingdra)"
+        },
+        {
+          "name": "Scroll of Knowledge (Pirate Kingdra)",
+          "raw": "Scroll of Knowledge (Pirate Kingdra)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 9 Revives. Tempo limite: 1 hora. Quantidade:72. O Boss Haxorus não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como SLOW e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Dragon mas também há alguns danos Dark, por isso, Haban Berry e Colbur Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fairy e Ice são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-hippowdon",
+      "title": "DZ Hippowdon",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Hippowdon",
+      "page_title": "DZ Hippowdon",
+      "revision_id": 128947,
+      "capturable_pokemon": [
+        "Hippopotas",
+        "Hippowdon Female",
+        "Hippowdon"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Batgliscor)",
+          "raw": "Scroll of Knowledge (Batgliscor)"
+        },
+        {
+          "name": "Scroll of Knowledge (Ranger Swampert)",
+          "raw": "Scroll of Knowledge (Ranger Swampert)"
+        },
+        {
+          "name": "Scroll of Knowledge (Shakoki Claydol)",
+          "raw": "Scroll of Knowledge (Shakoki Claydol)"
+        },
+        {
+          "name": "Scroll of Knowledge King Helmet Claydol)",
+          "raw": "Scroll of Knowledge King Helmet Claydol)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:76. O Boss Hippowdon não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem muitos status negativos como SLOW e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ground mas também há alguns danos Psychic e Flying, por isso, Shuca Berry, Payapa Berry e Coba Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Water, Grass e Ice são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-hatterene",
+      "title": "DZ Hatterene",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Hatterene",
+      "page_title": "DZ Hatterene",
+      "revision_id": 128991,
+      "capturable_pokemon": [
+        "Hatenna",
+        "Hattrem",
+        "Hatterene"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-2)",
+          "raw": "Silver Dimensional Key (1-2)"
+        },
+        {
+          "name": "Blue Spray Can",
+          "raw": "Blue Spray Can"
+        },
+        {
+          "name": "Orange Spray Can",
+          "raw": "Orange Spray Can"
+        },
+        {
+          "name": "White Spray Can",
+          "raw": "White Spray Can"
+        },
+        {
+          "name": "Yellow Spray Can",
+          "raw": "Yellow Spray Can"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 2 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 10 Revives. Tempo limite: 1 hora. Quantidade:72. O Boss Hatterene não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon inflingem muitos status negativos como PARALYZE, CONFUSION e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fairy mas também há alguns danos Psychic, por isso, Roseli Berry e Payapa Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Poison e Steel são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mega-slowbro",
+      "title": "DZ Mega Slowbro",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Slowbro",
+      "page_title": "DZ Mega Slowbro",
+      "revision_id": 130368,
+      "capturable_pokemon": [
+        "Bronzong",
+        "Swampert"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (DJ Swampert)",
+          "raw": "Scroll of Knowledge (DJ Swampert)"
+        },
+        {
+          "name": "Scroll of Knowledge (Infernal Swampert)",
+          "raw": "Scroll of Knowledge (Infernal Swampert)"
+        },
+        {
+          "name": "Scroll of Knowledge (Golden Swampert)",
+          "raw": "Scroll of Knowledge (Golden Swampert)"
+        },
+        {
+          "name": "Scroll of Knowledge (Chef Bronzong)",
+          "raw": "Scroll of Knowledge (Chef Bronzong)"
+        },
+        {
+          "name": "Slowbronite (Raro)",
+          "raw": "Slowbronite (Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:54. O Boss Mega Slowbro não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como CONFUSION e BLIND, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Water mas também há alguns danos Psychic e Ground, por isso, Passho Berry, Payapa Berry e Shuca Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Grass, Ghost e Dark são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-galvantula",
+      "title": "DZ Galvantula",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Galvantula",
+      "page_title": "DZ Galvantula",
+      "revision_id": 128954,
+      "capturable_pokemon": [
+        "Joltik",
+        "Galvantula",
+        "Pachirisu"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 22 (Nibbler Pachirisu)",
+          "raw": "Scroll of Knowledge N. 22 (Nibbler Pachirisu)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 20 (Alvin Pachirisu)",
+          "raw": "Scroll of Knowledge N. 20 (Alvin Pachirisu)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 21 (Green Lantern Pachirisu)",
+          "raw": "Scroll of Knowledge N. 21 (Green Lantern Pachirisu)"
+        },
+        {
+          "name": "Scroll of Knowledge N. (Metal Armor Armaldo)",
+          "raw": "Scroll of Knowledge N. (Metal Armor Armaldo)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 15 (Combat Machine Armaldo)",
+          "raw": "Scroll of Knowledge N. 15 (Combat Machine Armaldo)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:51. O Boss Galvantula não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como PARALYZE e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Electric mas também há alguns danos Bug e Rock, por isso, Wacan Berry, Tanga Berry e Charti Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ground e Rock são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-cradily",
+      "title": "DZ Cradily",
+      "category": "Bronze",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Cradily",
+      "page_title": "DZ Cradily",
+      "revision_id": 128949,
+      "capturable_pokemon": [
+        "Tropius"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Stone Age Shiftry)",
+          "raw": "Scroll of Knowledge (Stone Age Shiftry)"
+        },
+        {
+          "name": "Scroll of Knowledge (Samurai Shiftry)",
+          "raw": "Scroll of Knowledge (Samurai Shiftry)"
+        },
+        {
+          "name": "Scroll of Knowledge (Japanese Monk Shiftry)",
+          "raw": "Scroll of Knowledge (Japanese Monk Shiftry)"
+        },
+        {
+          "name": "Scroll of Knowledge (Bug Catcher Armaldo)",
+          "raw": "Scroll of Knowledge (Bug Catcher Armaldo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Chef Tropius)",
+          "raw": "Scroll of Knowledge (Chef Tropius)"
+        },
+        {
+          "name": "Scroll of Knowledge (Fall Tropius)",
+          "raw": "Scroll of Knowledge (Fall Tropius)"
+        },
+        {
+          "name": "Scroll of Knowledge (Monster Kraken Cradily)",
+          "raw": "Scroll of Knowledge (Monster Kraken Cradily)"
+        },
+        {
+          "name": "Root Fossil (Ultra Raro)",
+          "raw": "Root Fossil (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:51. O Boss Cradily não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e BLIND, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Grass mas também há alguns danos Rock, por isso, Rindo Berry e Charti Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Steel e Ice são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-emolga",
+      "title": "DZ Emolga",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Emolga",
+      "page_title": "DZ Emolga",
+      "revision_id": 128936,
+      "capturable_pokemon": [
+        "Pachirisu",
+        "Gliscor",
+        "Emolga"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 69 (Minion Magnezone)",
+          "raw": "Scroll of Knowledge N. 69 (Minion Magnezone)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 64 (Magician Magnezone)",
+          "raw": "Scroll of Knowledge N. 64 (Magician Magnezone)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 68 (Trickster Gliscor)",
+          "raw": "Scroll of Knowledge N. 68 (Trickster Gliscor)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 67 (BatGliscor)",
+          "raw": "Scroll of Knowledge N. 67 (BatGliscor)"
+        },
+        {
+          "name": "Scroll of Knowledge N. (Green Lantern Pachirisu)",
+          "raw": "Scroll of Knowledge N. (Green Lantern Pachirisu)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:54. O Boss Emolga não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Electric mas também há alguns danos Flying , por isso, Wacan Berry e Coba Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Rock e Ice são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-probopass",
+      "title": "DZ Probopass",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Probopass",
+      "page_title": "DZ Probopass",
+      "revision_id": 128946,
+      "capturable_pokemon": [
+        "Nosepass",
+        "Probopass",
+        "Sudowoodo"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Ninja Sudowoodo)",
+          "raw": "Scroll of Knowledge (Ninja Sudowoodo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Malfunctioning Bronzong)",
+          "raw": "Scroll of Knowledge (Malfunctioning Bronzong)"
+        },
+        {
+          "name": "Scroll of Knowledge (Trainer Sudowoodo)",
+          "raw": "Scroll of Knowledge (Trainer Sudowoodo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Black Metal Skarmory)",
+          "raw": "Scroll of Knowledge (Black Metal Skarmory)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:66. O Boss Probopass não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como PARALYZE e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Rock mas também há alguns danos Electric e Steel, por isso, Charti Berry, Wacan Berry e Babiri Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ground e Fighting são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-darmanitan",
+      "title": "DZ Darmanitan",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Darmanitan",
+      "page_title": "DZ Darmanitan",
+      "revision_id": 128951,
+      "capturable_pokemon": [
+        "Darumaka",
+        "Darmanitan",
+        "Camerupt"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 76 (Ken Blaziken)",
+          "raw": "Scroll of Knowledge N. 76 (Ken Blaziken)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 55 (War Blaziken)",
+          "raw": "Scroll of Knowledge N. 55 (War Blaziken)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 33 (Dark Camerupt)",
+          "raw": "Scroll of Knowledge N. 33 (Dark Camerupt)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 78 (Knight Armor Rapidash)",
+          "raw": "Scroll of Knowledge N. 78 (Knight Armor Rapidash)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 39 (Robot Unicorn Rapidash)",
+          "raw": "Scroll of Knowledge N. 39 (Robot Unicorn Rapidash)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 10 Revives. Tempo limite: 1 hora. Quantidade:85. O Boss Darmanitan não toma nenhum tipo de stun, cuidado. Atenção ao escolher um tank pois as Rapidash possuem alguns ataques elétricos. As criaturas nessa dungeon infligem status negativos como SLOW e BURN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fire mas também há alguns danos, Fighting e Ground, por isso, Occa Berry, Chople Berry e Shuca Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ground e Water são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-drapion",
+      "title": "DZ Drapion",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Drapion",
+      "page_title": "DZ Drapion",
+      "revision_id": 128937,
+      "capturable_pokemon": [
+        "Skorupi",
+        "Drapion",
+        "Absol"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Ekans Seviper)",
+          "raw": "Scroll of Knowledge (Ekans Seviper)"
+        },
+        {
+          "name": "Scroll of Knowledge (Dragonborn Seviper)",
+          "raw": "Scroll of Knowledge (Dragonborn Seviper)"
+        },
+        {
+          "name": "Scroll of Knowledge (Luxury Cap Toxicroak)",
+          "raw": "Scroll of Knowledge (Luxury Cap Toxicroak)"
+        },
+        {
+          "name": "Scroll of Knowledge (Stellar Absol)",
+          "raw": "Scroll of Knowledge (Stellar Absol)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:53. O Boss Drapion não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Poison mas também há alguns danos Dark e Fighting , por isso, Kebia Berry, Colbur Berry e Chople Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ground são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-breloom",
+      "title": "DZ Breloom",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Breloom",
+      "page_title": "DZ Breloom",
+      "revision_id": 128945,
+      "capturable_pokemon": [
+        "Shroomish",
+        "Breloom",
+        "Toxicroak"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (War Blaziken)",
+          "raw": "Scroll of Knowledge (War Blaziken)"
+        },
+        {
+          "name": "Scroll of Knowledge (Figther Breloom)",
+          "raw": "Scroll of Knowledge (Figther Breloom)"
+        },
+        {
+          "name": "Scroll of Knowledge (Junker Shiftry)",
+          "raw": "Scroll of Knowledge (Junker Shiftry)"
+        },
+        {
+          "name": "Scroll of Knowledge (Bandit Toxicroak)",
+          "raw": "Scroll of Knowledge (Bandit Toxicroak)"
+        },
+        {
+          "name": "Scroll of Knowledge (Rider Toxicroak)",
+          "raw": "Scroll of Knowledge (Rider Toxicroak)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:78. O Boss Breloom não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e POISON, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fighting e Grass mas também há alguns danos Poison e Fire , por isso, Chople Berry, Rindo Berry, Occa Berry e Kebia Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Flying e Psychic são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-lickilicky",
+      "title": "DZ Lickilicky",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Lickilicky",
+      "page_title": "DZ Lickilicky",
+      "revision_id": 128939,
+      "capturable_pokemon": [
+        "Lickitung",
+        "Lickilicky",
+        "Zangoose"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Magician Zangoose)",
+          "raw": "Scroll of Knowledge (Magician Zangoose)"
+        },
+        {
+          "name": "Scroll of Knowledge (Marine Zangoose)",
+          "raw": "Scroll of Knowledge (Marine Zangoose)"
+        },
+        {
+          "name": "Scroll of Knowledge (Chicken Porygon2)",
+          "raw": "Scroll of Knowledge (Chicken Porygon2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Woodpecker Porygon2)",
+          "raw": "Scroll of Knowledge (Woodpecker Porygon2)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:60. O Boss Lickilicky não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SILENCE e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Normal mas também há alguns danos Electric, por isso, Chilan Berry e Wacan Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-heatmor",
+      "title": "DZ Heatmor",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Heatmor",
+      "page_title": "DZ Heatmor",
+      "revision_id": 128940,
+      "capturable_pokemon": [
+        "Heatmor",
+        "Rapidash",
+        "Blaziken"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 59 (Red Flames Ninetales)",
+          "raw": "Scroll of Knowledge N. 59 (Red Flames Ninetales)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 37 (Pirate Ninetales)",
+          "raw": "Scroll of Knowledge N. 37 (Pirate Ninetales)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 38 (Oriental Flames Ninetales)",
+          "raw": "Scroll of Knowledge N. 38 (Oriental Flames Ninetales)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 57 (Hollow Blaziken)",
+          "raw": "Scroll of Knowledge N. 57 (Hollow Blaziken)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 56 (Scorpion Blaziken)",
+          "raw": "Scroll of Knowledge N. 56 (Scorpion Blaziken)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 58 (Zodiac Rapidash)",
+          "raw": "Scroll of Knowledge N. 58 (Zodiac Rapidash)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:65. O Boss Heatmor não toma nenhum tipo de stun, cuidado. Atenção ao escolher um tank pois as Rapidash possuem alguns ataques elétricos. As criaturas nessa dungeon infligem status negativos como SLOW e BURN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fire mas também há alguns danos Electric e Fighting, por isso, Occa Berry, Wacan Berry e Chople Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ground, Water e Rock são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-crustle",
+      "title": "DZ Crustle",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Crustle",
+      "page_title": "DZ Crustle",
+      "revision_id": 128952,
+      "capturable_pokemon": [
+        "Dwebble",
+        "Crustle",
+        "Sudowoodo"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Cheerleader Sudowoodo)",
+          "raw": "Scroll of Knowledge (Cheerleader Sudowoodo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Hero Sudowoodo)",
+          "raw": "Scroll of Knowledge (Hero Sudowoodo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Cyborg Armaldo)",
+          "raw": "Scroll of Knowledge (Cyborg Armaldo)"
+        },
+        {
+          "name": "Scroll of Knowledge (Metal Armor Armaldo)",
+          "raw": "Scroll of Knowledge (Metal Armor Armaldo)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:51. O Boss Crustle não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Rock mas também há alguns danos Bug, por isso, Charti Berry e Tanga Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Rock, Water e Steel são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-ambipom",
+      "title": "DZ Ambipom",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Ambipom",
+      "page_title": "DZ Ambipom",
+      "revision_id": 128942,
+      "capturable_pokemon": [
+        "Zangoose",
+        "Ambipom"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Snorlax Pijama Zangoose)",
+          "raw": "Scroll of Knowledge (Snorlax Pijama Zangoose)"
+        },
+        {
+          "name": "Scroll of Knowledge (Marine Zangoose)",
+          "raw": "Scroll of Knowledge (Marine Zangoose)"
+        },
+        {
+          "name": "Scroll of Knowledge (Police Zangoose)",
+          "raw": "Scroll of Knowledge (Police Zangoose)"
+        },
+        {
+          "name": "Scroll of Knowledge (Illusionist Porygon2)",
+          "raw": "Scroll of Knowledge (Illusionist Porygon2)"
+        },
+        {
+          "name": "Scroll of Knowledge (Pingu Porygon2)",
+          "raw": "Scroll of Knowledge (Pingu Porygon2)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:60. O Boss Ambipom não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Normal mas também há alguns danos Electric, Ghost e Dark, por isso, Chilan Berry, Wacan Berry, Colbur Berry e Kasib Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-ferrothorn",
+      "title": "DZ Shiny Ferrothorn",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Ferrothorn",
+      "page_title": "DZ Shiny Ferrothorn",
+      "revision_id": 128943,
+      "capturable_pokemon": [
+        "Ferroseed",
+        "Ferrothorn",
+        "Shiny Ferrothorn"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 36 (Full Armor Magnezone)",
+          "raw": "Scroll of Knowledge N. 36 (Full Armor Magnezone)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 65 (Tron Magnezone)",
+          "raw": "Scroll of Knowledge N. 65 (Tron Magnezone)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 44 (Black Metal Skarmory)",
+          "raw": "Scroll of Knowledge N. 44 (Black Metal Skarmory)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 42 (Reaper Skarmory)",
+          "raw": "Scroll of Knowledge N. 42 (Reaper Skarmory)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 47 (Yugo Shiftry)",
+          "raw": "Scroll of Knowledge N. 47 (Yugo Shiftry)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:66. O Boss Ferrothorn não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Steel mas também há alguns danos Electric, Grass e Flying, por isso, Babiri Berry, Wacan Berry, Rindo Berry e Coba Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fire são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-excadrill",
+      "title": "DZ Excadrill",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Excadrill",
+      "page_title": "DZ Excadrill",
+      "revision_id": 128953,
+      "capturable_pokemon": [
+        "Drilbur",
+        "Excadrill",
+        "Bronzong"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 23 (Alpha Claydol)",
+          "raw": "Scroll of Knowledge N. 23 (Alpha Claydol)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 25 (Candy Claydol)",
+          "raw": "Scroll of Knowledge N. 25 (Candy Claydol)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 26 (Machine Gun Camerupt)",
+          "raw": "Scroll of Knowledge N. 26 (Machine Gun Camerupt)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 28 (Tankerupt Camerupt)",
+          "raw": "Scroll of Knowledge N. 28 (Tankerupt Camerupt)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 34 (Flash Camerupt)",
+          "raw": "Scroll of Knowledge N. 34 (Flash Camerupt)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 31 (Chef Bronzong)",
+          "raw": "Scroll of Knowledge N. 31 (Chef Bronzong)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 30 (Tron Bronzong)",
+          "raw": "Scroll of Knowledge N. 30 (Tron Bronzong)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:76. O Boss Excadrill não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e BLIND, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ground mas também há alguns danos Steel, Psychic e Fire, por isso, Shuca Berry, Babiri Berry, Payapa Berry e Occa Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Water são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-bisharp",
+      "title": "DZ Bisharp",
+      "category": "Silver",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Bisharp",
+      "page_title": "DZ Bisharp",
+      "revision_id": 128948,
+      "capturable_pokemon": [
+        "Pawniard",
+        "Bisharp",
+        "Absol"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1)",
+          "raw": "Golden Dimensional Key (1)"
+        },
+        {
+          "name": "Scroll of Knowledge (Queen Bronzong)",
+          "raw": "Scroll of Knowledge (Queen Bronzong)"
+        },
+        {
+          "name": "Scroll of Knowledge (Gentleman Crawdaunt)",
+          "raw": "Scroll of Knowledge (Gentleman Crawdaunt)"
+        },
+        {
+          "name": "Scroll of Knowledge (Cosmic Absol)",
+          "raw": "Scroll of Knowledge (Cosmic Absol)"
+        },
+        {
+          "name": "Scroll of Knowledge (Monster Crawdaunt)",
+          "raw": "Scroll of Knowledge (Monster Crawdaunt)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 3 Jogadores. Experiência recompensada: 150k (Beginner), 190k (Talented), 250k (Intermediate), 300k (Advanced) e 350k (Expert). Revives: É possível utilizar até 8 Revives. Tempo limite: 1 hora. Quantidade:53. O Boss Bisharp não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Dark mas também há alguns danos Steel, Psychic e Water, por isso, Colbur Berry, Babiri Berry, Payapa Berry e Passho Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting e Fire são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-conkeldurr",
+      "title": "DZ Conkeldurr",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Conkeldurr",
+      "page_title": "DZ Conkeldurr",
+      "revision_id": 128957,
+      "capturable_pokemon": [
+        "Timburr",
+        "Gurdurr",
+        "Conkeldurr"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Gardestrike Essence (2-8)",
+          "raw": "Gardestrike Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Concrete Pillar (Ultra Raro)",
+          "raw": "Concrete Pillar (Ultra Raro)"
+        },
+        {
+          "name": "Fist Stone (Lendário)",
+          "raw": "Fist Stone (Lendário)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 4 Revives. Quantidade:68. O Boss Conkeldurr não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e SLOW, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fighting mas também há alguns danos Rock, por isso, Chople Berry e Charti Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Flying, Psychic e Fairy são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-glaceon",
+      "title": "DZ Shiny Glaceon",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Glaceon",
+      "page_title": "DZ Shiny Glaceon",
+      "revision_id": 128958,
+      "capturable_pokemon": [
+        "Glaceon",
+        "Shiny Glaceon"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Seavell Essence (2-8)",
+          "raw": "Seavell Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Frozen Ice Ears (Ultra Raro)",
+          "raw": "Frozen Ice Ears (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 6 Revives. Quantidade:80. O Boss Shiny Glaceon não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUCK e SLOW, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ice mas também há alguns danos Grass e Psychic, por isso, Yache Berry, Rindo Berry e Payapa Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fire, Rock e Steel são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mega-altaria",
+      "title": "DZ Mega Altaria",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Altaria",
+      "page_title": "DZ Mega Altaria",
+      "revision_id": 128959,
+      "capturable_pokemon": [
+        "Altaria"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Wingeon Essence (2-8)",
+          "raw": "Wingeon Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Sky Cloud (Ultra Raro)",
+          "raw": "Sky Cloud (Ultra Raro)"
+        },
+        {
+          "name": "Piece of Altarianite (Ultra Raro)",
+          "raw": "Piece of Altarianite (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:64. O Boss Mega Altaria não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Dragon mas também há alguns danos Grass, Flying, Ground e Normal. Por isso, Haban Berry, Rindo Berry, Coba Berry, Shuca Berry e Chilan Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Ice e Fairy são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mega-steelix",
+      "title": "DZ Mega Steelix",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Steelix",
+      "page_title": "DZ Mega Steelix",
+      "revision_id": 128967,
+      "capturable_pokemon": [
+        "Steelix"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Orebound Essence (2-8)",
+          "raw": "Orebound Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Mega Steelix Tail (Ultra Raro)",
+          "raw": "Mega Steelix Tail (Ultra Raro)"
+        },
+        {
+          "name": "Piece of Steelixite (Ultra Raro)",
+          "raw": "Piece of Steelixite (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:46. O Boss Mega Steelix não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e SLOW, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Rock e Ground mas também há alguns danos Steel , por isso, Charti Berry, Shuca Berry e Babiri Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fighting, Ground e Water são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-giant-galvantula",
+      "title": "DZ Giant Galvantula",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Giant_Galvantula",
+      "page_title": "DZ Giant Galvantula",
+      "revision_id": 132940,
+      "capturable_pokemon": [
+        "Pinsir",
+        "Galvantula",
+        "Giant Galvantula"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Raibolt Essence (2-8)",
+          "raw": "Raibolt Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Giant Electric Fang (Ultra Raro)",
+          "raw": "Giant Electric Fang (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:66. O Boss Giant Galvantula não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Electric mas também há alguns danos Bug , por isso, Wacan Berry e Tanga Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Rock, Ground e Fire são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-leafeon",
+      "title": "DZ Shiny Leafeon",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Leafeon",
+      "page_title": "DZ Shiny Leafeon",
+      "revision_id": 128961,
+      "capturable_pokemon": [
+        "Leafeon",
+        "Shiny Leafeon"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Naturia Essence (2-8)",
+          "raw": "Naturia Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Solar Leaf Tail (Ultra Raro)",
+          "raw": "Solar Leaf Tail (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:60. O Boss Shiny Leafeon não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Grass mas também há alguns danos Poison, por isso, Rindo Berry e Kebia Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fire, Ice, Bug, Poison e Flying são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-heatran",
+      "title": "DZ Heatran",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Heatran",
+      "page_title": "DZ Heatran",
+      "revision_id": 128962,
+      "capturable_pokemon": [
+        "Arcanine",
+        "Magcargo"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Volcanic Essence (2-8)",
+          "raw": "Volcanic Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Magma Stone (Ultra Raro)",
+          "raw": "Magma Stone (Ultra Raro)"
+        },
+        {
+          "name": "Iron Mask (Ultra Raro)",
+          "raw": "Iron Mask (Ultra Raro)"
+        },
+        {
+          "name": "Volcano Stone (Ultra Raro)",
+          "raw": "Volcano Stone (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:58. O Boss Heatran não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como SLOW e BURN, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fire mas também há alguns danos Fighting, Rock e Steel, por isso, Occa Berry, Chople Berry, Charti Berry e Babiri Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Water e Ground são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-manectric",
+      "title": "DZ Shiny Manectric",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Manectric",
+      "page_title": "DZ Shiny Manectric",
+      "revision_id": 128966,
+      "capturable_pokemon": [
+        "Manectric",
+        "Shiny Manectric"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Raibolt Essence (2-8)",
+          "raw": "Raibolt Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Electric Black Box (Ultra Raro)",
+          "raw": "Electric Black Box (Ultra Raro)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 18 (Flame Manectric)",
+          "raw": "Scroll of Knowledge N. 18 (Flame Manectric)"
+        },
+        {
+          "name": "Scroll of Knowledge N. 19 (Mutant Manectric)",
+          "raw": "Scroll of Knowledge N. 19 (Mutant Manectric)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:65. O Boss Shiny Manectric não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Electric, por isso, Wacan Berry será de grande ajuda. Os Pokémon com ataques dos tipos Ground são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-bronzong",
+      "title": "DZ Shiny Bronzong",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Bronzong",
+      "page_title": "DZ Shiny Bronzong",
+      "revision_id": 128963,
+      "capturable_pokemon": [
+        "Bronzor",
+        "Bronzong",
+        "Shiny Bronzong"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Ironhard Essence (2-8)",
+          "raw": "Ironhard Essence (2-8)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Heavy Bell (Ultra Raro)",
+          "raw": "Heavy Bell (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:66. O Boss Shiny Bronzong não toma nenhum tipo de stun, cuidado. O Boss Shiny Bronzong possui uma passiva onde ele toma dano inefetivo de ataques do tipo Fire As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Steel e Psychic, por isso, Babiri Berry e Payapa Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Fire e Dark são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-shiny-sylveon",
+      "title": "DZ Shiny Sylveon",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Sylveon",
+      "page_title": "DZ Shiny Sylveon",
+      "revision_id": 128964,
+      "capturable_pokemon": [
+        "Sylveon",
+        "Shiny Sylveon"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Psycraft Essence (2-8)",
+          "raw": "Psycraft Essence (2-8)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Purple Fairy Bow (Ultra Raro)",
+          "raw": "Purple Fairy Bow (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:64. O Boss Shiny Sylveon não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e PARALYZE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Fairy mas também há alguns danos Psychic, por isso, Roseli Berry e Payapa Berry serão de grande ajuda. Os Pokémon com ataques dos tipos Poison e Steel são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mega-absol",
+      "title": "DZ Mega Absol",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Absol",
+      "page_title": "DZ Mega Absol",
+      "revision_id": 130379,
+      "capturable_pokemon": [
+        "Absol"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Malefic Essence (2-8)",
+          "raw": "Malefic Essence (2-8)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Orebound Essence (Raro)",
+          "raw": "Orebound Essence (Raro)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Fallen Moon (Ultra Raro)",
+          "raw": "Fallen Moon (Ultra Raro)"
+        },
+        {
+          "name": "Absolite (Ultra Raro)",
+          "raw": "Absolite (Ultra Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Ultra Raro)",
+          "raw": "Unpacked Toy (Ultra Raro)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 8 Revives. Quantidade:55. O Boss Mega Absol não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos como STUN e SILENCE, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Dark, por isso, Colbur Berry será de grande ajuda. Os Pokémon com ataques dos tipos Fighting, Fairy e Bug são a melhor opção para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-mega-excadrill",
+      "title": "DZ Mega Excadrill",
+      "category": "Golden",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Mega_Excadrill",
+      "page_title": "DZ Mega Excadrill",
+      "revision_id": 130390,
+      "capturable_pokemon": [
+        "Shiny Dugtrio",
+        "Diglett",
+        "Dugtrio"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Topaz (1 - ??)",
+          "raw": "Topaz (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Orebound Essence (2-8)",
+          "raw": "Orebound Essence (2-8)"
+        },
+        {
+          "name": "Ironhard Essence (Raro)",
+          "raw": "Ironhard Essence (Raro)"
+        },
+        {
+          "name": "Naturia Essence (Raro)",
+          "raw": "Naturia Essence (Raro)"
+        },
+        {
+          "name": "Volcanic Essence (Raro)",
+          "raw": "Volcanic Essence (Raro)"
+        },
+        {
+          "name": "Seavell Essence (Raro)",
+          "raw": "Seavell Essence (Raro)"
+        },
+        {
+          "name": "Gardestrike Essence (Raro)",
+          "raw": "Gardestrike Essence (Raro)"
+        },
+        {
+          "name": "Raibolt Essence (Raro)",
+          "raw": "Raibolt Essence (Raro)"
+        },
+        {
+          "name": "Malefic Essence (Raro)",
+          "raw": "Malefic Essence (Raro)"
+        },
+        {
+          "name": "Psycraft Essence (Raro)",
+          "raw": "Psycraft Essence (Raro)"
+        },
+        {
+          "name": "Wingeon Essence (Raro)",
+          "raw": "Wingeon Essence (Raro)"
+        },
+        {
+          "name": "Streamlined Drill (Raro)",
+          "raw": "Streamlined Drill (Raro)"
+        },
+        {
+          "name": "Unpacked Toy (Épico)",
+          "raw": "Unpacked Toy (Épico)"
+        },
+        {
+          "name": "Excadrite (Lendário)",
+          "raw": "Excadrite (Lendário)"
+        }
+      ],
+      "summary": "Grupo: 4 Jogadores. Experiência recompensada: 200k (Beginner), 250k (Talented), 330k (Intermediate), 400k (Advanced) e 480k (Expert). Revives: É possível utilizar até 9 Revives. Quantidade: 72. Observação: Na Dimensional Zone do Mega Excadrill, o caminho deverá ser feito passando em cima dos trilhos, que funcionam como pontes. O Boss Mega Excadrill não toma nenhum tipo de efeito negativo, tome cuidado. As criaturas nessa dungeon infligem status negativos como BLIND, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Ground, por isso, Shuca Berry será de grande ajuda. Os Pokémon com ataques dos tipos Water, Grass e Ice são as melhores opções para essa Dimensional Zone. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:anniversary-party",
+      "title": "Anniversary Party",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Anniversary_Party",
+      "page_title": "Anniversary Party",
+      "revision_id": 58832,
+      "capturable_pokemon": [
+        "Milcery",
+        "Alcremie"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Anniversary Token 2023",
+          "raw": "Anniversary Token 2023"
+        },
+        {
+          "name": "Blue Rocket Confetti",
+          "raw": "Blue Rocket Confetti"
+        },
+        {
+          "name": "Red Rocket Confetti",
+          "raw": "Red Rocket Confetti"
+        },
+        {
+          "name": "Yellow Rocket Confetti",
+          "raw": "Yellow Rocket Confetti"
+        },
+        {
+          "name": "Strawberry Cake",
+          "raw": "Strawberry Cake"
+        },
+        {
+          "name": "Chocolate Cake",
+          "raw": "Chocolate Cake"
+        },
+        {
+          "name": "Lovely Cake",
+          "raw": "Lovely Cake"
+        },
+        {
+          "name": "Waitress Uniform",
+          "raw": "Waitress Uniform"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 64 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:summer-party",
+      "title": "Summer Party",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Summer_Party",
+      "page_title": "Summer Party",
+      "revision_id": 47540,
+      "capturable_pokemon": [
+        "Skiddo",
+        "Gogoat",
+        "Alolan Raichu",
+        "Raichu"
+      ],
+      "rewards": [
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Anniversary Token",
+          "raw": "Anniversary Token"
+        },
+        {
+          "name": "Blue Rocket Confetti",
+          "raw": "Blue Rocket Confetti"
+        },
+        {
+          "name": "Red Rocket Confetti",
+          "raw": "Red Rocket Confetti"
+        },
+        {
+          "name": "Yellow Rocket Confetti",
+          "raw": "Yellow Rocket Confetti"
+        },
+        {
+          "name": "Surfer Costume",
+          "raw": "Surfer Costume"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 55 Pokémon aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:egg-hunt",
+      "title": "Egg Hunt",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Egg_Hunt",
+      "page_title": "Egg Hunt",
+      "revision_id": 128984,
+      "capturable_pokemon": [
+        "Diggersby",
+        "Blissey"
+      ],
+      "rewards": [
+        {
+          "name": "Mirror Stone (1 - ??)",
+          "raw": "Mirror Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-??)",
+          "raw": "Silver Dimensional Key (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1-??)",
+          "raw": "Golden Dimensional Key (1-??)"
+        },
+        {
+          "name": "Arcade Ticket",
+          "raw": "Arcade Ticket"
+        },
+        {
+          "name": "Easter Basket",
+          "raw": "Easter Basket"
+        },
+        {
+          "name": "Unpacked Toy",
+          "raw": "Unpacked Toy"
+        }
+      ],
+      "summary": "Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 64 (aleatórios da lista abaixo). O Boss Blissey não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Neutro então Kee Berry será de grande ajuda. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:golden-bun-kingdom",
+      "title": "Golden Bun Kingdom",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Golden_Bun_Kingdom",
+      "page_title": "Golden Bun Kingdom",
+      "revision_id": 129284,
+      "capturable_pokemon": [
+        "Fidough",
+        "Dachsbun"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-??)",
+          "raw": "Silver Dimensional Key (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1-??)",
+          "raw": "Golden Dimensional Key (1-??)"
+        },
+        {
+          "name": "Lovely Token",
+          "raw": "Lovely Token"
+        },
+        {
+          "name": "Dachsbun Royal Costume",
+          "raw": "Dachsbun Royal Costume"
+        },
+        {
+          "name": "Unpacked Toy",
+          "raw": "Unpacked Toy"
+        }
+      ],
+      "summary": "Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 15 revives (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 88 (aleatórios da lista abaixo). O Boss Dachsbun não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Neutro então Kee Berry será de grande ajuda. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:queen-s-garden",
+      "title": "Queen's Garden",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Queen's_Garden",
+      "page_title": "Queen's Garden",
+      "revision_id": 129285,
+      "capturable_pokemon": [
+        "Roserade",
+        "Vespiquen"
+      ],
+      "rewards": [
+        {
+          "name": "Dimensional Stone (1 - ??)",
+          "raw": "Dimensional Stone (1 - ??)"
+        },
+        {
+          "name": "Emerald (1 - ??)",
+          "raw": "Emerald (1 - ??)"
+        },
+        {
+          "name": "Sapphire (1-??)",
+          "raw": "Sapphire (1-??)"
+        },
+        {
+          "name": "Silver Dimensional Key (1-??)",
+          "raw": "Silver Dimensional Key (1-??)"
+        },
+        {
+          "name": "Golden Dimensional Key (1-??)",
+          "raw": "Golden Dimensional Key (1-??)"
+        },
+        {
+          "name": "Lovely Token",
+          "raw": "Lovely Token"
+        },
+        {
+          "name": "Love Ball Cam",
+          "raw": "Love Ball Cam"
+        },
+        {
+          "name": "Vespiquen Of Hearts Costume",
+          "raw": "Vespiquen Of Hearts Costume"
+        },
+        {
+          "name": "Heartseeker Costume",
+          "raw": "Heartseeker Costume"
+        },
+        {
+          "name": "Lobeely Costume",
+          "raw": "Lobeely Costume"
+        },
+        {
+          "name": "Unpacked Toy",
+          "raw": "Unpacked Toy"
+        }
+      ],
+      "summary": "Queen DZ Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 13 revives (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 72 (aleatórios da lista abaixo). O Boss dessa Dimensional Zone não toma nenhum tipo de stun, cuidado. As criaturas nessa dungeon infligem status negativos, o ideal é carregar consigo bastante Medicine ou utilizar uma Lum Berry. O Dano dessa dungeon é predominantemente Neutro então Kee Berry será de grande ajuda. Observação: É possível conferir as habilidades dos Pokémon utilizando a Pokédex."
+    },
+    {
+      "id": "dungeon:dz-haunted-farm",
+      "title": "DZ Haunted Farm",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Haunted_Farm",
+      "page_title": "DZ Haunted Farm",
+      "revision_id": 70414,
+      "capturable_pokemon": [
+        "Yamask",
+        "Cofagrigus",
+        "Mimikyu"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Halloween Token 2021",
+          "raw": "Halloween Token 2021"
+        },
+        {
+          "name": "Halloween Combo",
+          "raw": "Halloween Combo"
+        },
+        {
+          "name": "Witch Costume",
+          "raw": "Witch Costume"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo) ou 9 revives (Duo). Tempo limite: 40 minutos. Quantidade: 61 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:christmas-town",
+      "title": "Christmas Town",
+      "category": "Crystal",
+      "source_url": "https://wiki.pokexgames.com/index.php/Christmas_Town",
+      "page_title": "Christmas Town",
+      "revision_id": 46270,
+      "capturable_pokemon": [
+        "Vanillite",
+        "Vanillish",
+        "Vanilluxe"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Christmas Token 2021",
+          "raw": "Christmas Token 2021"
+        },
+        {
+          "name": "Shiny Delibird Christmas Locker",
+          "raw": "Shiny Delibird Christmas Locker"
+        },
+        {
+          "name": "Shiny Glaceon Christmas Locker",
+          "raw": "Shiny Glaceon Christmas Locker"
+        },
+        {
+          "name": "Shiny Sylveon Christmas Locker",
+          "raw": "Shiny Sylveon Christmas Locker"
+        },
+        {
+          "name": "Ice Cream Vanilluxe Locker",
+          "raw": "Ice Cream Vanilluxe Locker"
+        },
+        {
+          "name": "Ice Cream Costume",
+          "raw": "Ice Cream Costume"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 (Solo e Duo). Tempo limite: 40 minutos. Quantidade: 64 Pokémon aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-aniversario-8-anos-2019",
+      "title": "Dz Aniversário 8 Anos 2019",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_8_Anos_2019",
+      "page_title": "Dz Aniversário 8 Anos 2019",
+      "revision_id": 23195,
+      "capturable_pokemon": [
+        "Alolan Raichu",
+        "Raichu"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 8 Revives. Tempo limite: 40 minutos. Quantidade: 40 (SOLO) e 55 (DUO) aleatórios da lista abaixo. Golden Dimensional Key (1) Topaz (0-1) Emerald (1-3) Sapphire (5-35) Eighth Birthday Tokens (1-4)"
+    },
+    {
+      "id": "dungeon:dz-aniversario-9-anos-2020",
+      "title": "Dz Aniversário 9 Anos 2020",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_9_Anos_2020",
+      "page_title": "Dz Aniversário 9 Anos 2020",
+      "revision_id": 32951,
+      "capturable_pokemon": [
+        "Skiddo",
+        "Gogoat",
+        "Alolan Raichu",
+        "Raichu"
+      ],
+      "rewards": [],
+      "summary": "Informações Básicas Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 8 revives (SOLO e DUO). Tempo limite: 40 minutos. Quantidade: 40 aleatórios da lista abaixo. Golden Dimensional Key Dimensional Stone Emerald Sapphire Ninth Anniversary Token Tourist Hat (Shiny Beautifly Addon) Beach Kit (Mega Slowbro Addon) Pool Float (Klinklang Addon) Beach Glasses (Pyroar Female Addon) Jet Ski (Sharpedo Addon) Shark Disguise (Whiscash Addon) Tourist Costume (Infernape Addon) Hawaiian Costume (Claydol Addon) Life Jacket (Gogoat Addon) Beach Costume (Light Ball Pikachu Addon) Beach Shorts (Exeggutor Addon) Tourist Kit (Pelipper Addon) Surfboard (Alolan Raichu Addon)"
+    },
+    {
+      "id": "dungeon:dz-aniversario-10-anos-2021",
+      "title": "Dz Aniversário 10 Anos 2021",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/Dz_Anivers%C3%A1rio_10_Anos_2021",
+      "page_title": "Dz Aniversário 10 Anos 2021",
+      "revision_id": 37850,
+      "capturable_pokemon": [
+        "Skiddo",
+        "Gogoat",
+        "Alolan Raichu",
+        "Raichu"
+      ],
+      "rewards": [
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Tenth Anniversary Token",
+          "raw": "Tenth Anniversary Token"
+        },
+        {
+          "name": "Tourist Hat",
+          "raw": "Tourist Hat"
+        },
+        {
+          "name": "Beach Kit",
+          "raw": "Beach Kit"
+        },
+        {
+          "name": "Pool Float",
+          "raw": "Pool Float"
+        },
+        {
+          "name": "Beach Glasses",
+          "raw": "Beach Glasses"
+        },
+        {
+          "name": "Jet Ski",
+          "raw": "Jet Ski"
+        },
+        {
+          "name": "Shark Disguise",
+          "raw": "Shark Disguise"
+        },
+        {
+          "name": "Tourist Costume",
+          "raw": "Tourist Costume"
+        },
+        {
+          "name": "Hawaiian Costume",
+          "raw": "Hawaiian Costume"
+        },
+        {
+          "name": "Life Jacket",
+          "raw": "Life Jacket"
+        },
+        {
+          "name": "Beach Costume",
+          "raw": "Beach Costume"
+        },
+        {
+          "name": "Beach Shorts",
+          "raw": "Beach Shorts"
+        },
+        {
+          "name": "Tourist Kit",
+          "raw": "Tourist Kit"
+        },
+        {
+          "name": "Surfboard",
+          "raw": "Surfboard"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo) ou 10 revives (Duo). Tempo limite: 40 minutos. Quantidade: 55 Pokémon aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-pascoa-2018",
+      "title": "DZ Pascoa 2018",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Pascoa_2018",
+      "page_title": "DZ Pascoa 2018",
+      "revision_id": 23193,
+      "capturable_pokemon": [
+        "Bunnelby",
+        "Diggersby",
+        "Lopunny"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 2 jogadores. Experiência recompensada: 120k (Beginner), 160k (Talented), 200k (Intermediate), 250k (Advanced) e 300k (Expert). Tempo limite: 15 minutos. Quantidade: 50. Dimensional Stone (2-5) Golden Dimensional Key (1) Topaz (1-??) Emerald (1-??) Sapphire (1-??) 1- Você pode coletar todos os arbustos de ovos de pascoa que tem na masmorra, elas funcionam como food e tem cada uma um funcionamento diferente de tempo de duração e quantidade de abastecer sua vida."
+    },
+    {
+      "id": "dungeon:pascoa-2020",
+      "title": "Páscoa 2020",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/P%C3%A1scoa_2020",
+      "page_title": "Páscoa 2020",
+      "revision_id": 32955,
+      "capturable_pokemon": [
+        "Buneary",
+        "Lopunny",
+        "Diggersby"
+      ],
+      "rewards": [],
+      "summary": "Informações Básicas Grupo: 2 jogadores (DUO). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 2 revives. Tempo limite: 40 minutos. Quantidade: 82 aleatórios da lista abaixo. Golden Dimensional Key Dimensional Stone Emerald Sapphire Easter Token"
+    },
+    {
+      "id": "dungeon:dz-shiny-eevee-2018",
+      "title": "DZ Shiny Eevee 2018",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Shiny_Eevee_2018",
+      "page_title": "DZ Shiny Eevee 2018",
+      "revision_id": 23191,
+      "capturable_pokemon": [
+        "Eevee",
+        "Shiny Eevee"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 2 jogadores. Experiência recompensada: 120k (Beginner), 140k (Talented), 160k (Intermediate), 180k (Advanced) e 200k (Expert). Tempo limite: 1 hora. Quantidade: 74. Bronze Dimensional Key (1) Lovely Present (1) Topaz (1-??) Lovely Cubchoo (1) Lovely Teddiursa (1) Lovely Pancham (1) Eevee, Vaporeon, Jolteon, Flareon, Umbreon, Espeon, Glaceon, Sylveon e Leafeon Toy (1) Eevee, Vaporeon, Jolteon, Flareon, Umbreon, Espeon, Glaceon, Sylveon e Leafeon Doll (1) Colores Hearts Colored Roses"
+    },
+    {
+      "id": "dungeon:dz-valentine-s-2019",
+      "title": "DZ Valentine's 2019",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Valentine's_2019",
+      "page_title": "DZ Valentine's 2019",
+      "revision_id": 25613,
+      "capturable_pokemon": [
+        "Shiny Eevee",
+        "Espeon",
+        "Umbreon",
+        "Eevee"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 83k (Beginner), 115k (Talented), 130k (Intermediate), 150k (Advanced) e 190k (Expert). Revives: é possível utilizar até 5 Revives (SOLO) e 8 revives (DUO) Tempo limite: 40 minutos. Quantidade: 41 (SOLO) e 54 (DUO) aleatórios da lista abaixo. Golden Dimensional Key Silver Dimensional Key Dimensional Stone Emerald Sapphire Lovely Tokens 2019"
+    },
+    {
+      "id": "dungeon:queen-s-hive",
+      "title": "Queen's Hive",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/Queen's_Hive",
+      "page_title": "Queen's Hive",
+      "revision_id": 42004,
+      "capturable_pokemon": [
+        "Combee",
+        "Vespiquen"
+      ],
+      "rewards": [
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Lovely Token",
+          "raw": "Lovely Token"
+        },
+        {
+          "name": "Love Ball Cam",
+          "raw": "Love Ball Cam"
+        },
+        {
+          "name": "Vespiquen Of Hearts Costume",
+          "raw": "Vespiquen Of Hearts Costume"
+        },
+        {
+          "name": "Lobeely Costume",
+          "raw": "Lobeely Costume"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 8 revives (SOLO) e 8 revives (DUO). Tempo limite: 40 minutos. Quantidade: 54 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:flower-s-garden",
+      "title": "Flower's Garden",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/Flower's_Garden",
+      "page_title": "Flower's Garden",
+      "revision_id": 64284,
+      "capturable_pokemon": [
+        "Roselia",
+        "Roserade"
+      ],
+      "rewards": [
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Lovely Token",
+          "raw": "Lovely Token"
+        },
+        {
+          "name": "Love Ball Cam",
+          "raw": "Love Ball Cam"
+        },
+        {
+          "name": "Heartseeker Costume",
+          "raw": "Heartseeker Costume"
+        },
+        {
+          "name": "Yellow Flower Pot",
+          "raw": "Yellow Flower Pot"
+        },
+        {
+          "name": "Red Flower Pot",
+          "raw": "Red Flower Pot"
+        },
+        {
+          "name": "Pink Flower Pot",
+          "raw": "Pink Flower Pot"
+        }
+      ],
+      "summary": "Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (SOLO) e 12 revives (DUO). Tempo limite: 40 minutos. Quantidade: 60 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-spring-s-2020",
+      "title": "DZ Spring's 2020",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Spring's_2020",
+      "page_title": "DZ Spring's 2020",
+      "revision_id": 34367,
+      "capturable_pokemon": [
+        "Flabébé",
+        "Floette",
+        "Florges"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Blue Spray Can",
+          "raw": "Blue Spray Can"
+        },
+        {
+          "name": "Orange Spray Can",
+          "raw": "Orange Spray Can"
+        },
+        {
+          "name": "White Spray Can",
+          "raw": "White Spray Can"
+        },
+        {
+          "name": "Yellow Spray Can",
+          "raw": "Yellow Spray Can"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 2 jogadores. Experiência recompensada: 160k (Beginner), 210k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 3 revives. Tempo limite: 40 minutos. Quantidade: 55 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-halloween-2017",
+      "title": "DZ Halloween 2017",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2017",
+      "page_title": "DZ Halloween 2017",
+      "revision_id": 23192,
+      "capturable_pokemon": [
+        "Glameow",
+        "Purugly"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 1 jogador. Experiência recompensada: 200k (Beginner), 280k (Talented), 400k (Intermediate), 520k (Advanced) e 750k (Expert). Tempo limite: 40 minutos. Quantidade: 30 aleatórios da lista abaixo. Golden Dimensional Key (1) Halloween Box 1 Halloween Box 2 Magician Hypno (1)"
+    },
+    {
+      "id": "dungeon:dz-halloween-2018",
+      "title": "DZ Halloween 2018",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2018",
+      "page_title": "DZ Halloween 2018",
+      "revision_id": 23194,
+      "capturable_pokemon": [
+        "Glameow",
+        "Purugly"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 1 jogador. Experiência recompensada: 200k (Beginner), 280k (Talented), 400k (Intermediate), 520k (Advanced) e 750k (Expert). Revives: é possível utilizar até 8 Revives. Tempo limite: 40 minutos. Quantidade: 30 aleatórios da lista abaixo. Golden Dimensional Key (1) Topaz (3-4) Emerald (1-9) Sapphire (5-95) Halloween Box 1 (2018) Halloween Box 2 (2018) Halloween Box 3 (2018) Mr. Mime Big Figure (1) Magician Hypno (1) Gengar Amulet (1) Shiny Gengar Amulet (1) Reaper Costume (Addon Shiny Marowak)"
+    },
+    {
+      "id": "dungeon:dz-halloween-2019",
+      "title": "DZ Halloween 2019",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2019",
+      "page_title": "DZ Halloween 2019",
+      "revision_id": 28818,
+      "capturable_pokemon": [
+        "Glameow",
+        "Purugly"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 1 jogador (SOLO), 2 jogadores (DUO). Experiência recompensada: 200k (Beginner), 260k (Talented), 330k (Intermediate), 410k (Advanced) e 520k (Expert). Revives: é possível utilizar até 12 Revives (SOLO) e 8 revives (DUO). Tempo limite: 40 minutos. Quantidade: 26 Emerald Sapphire Topaz Golden Dimensional Key Bronze Relic Silver Relic Halloween Token 2019"
+    },
+    {
+      "id": "dungeon:dz-halloween-2020",
+      "title": "DZ Halloween 2020",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2020",
+      "page_title": "DZ Halloween 2020",
+      "revision_id": 34368,
+      "capturable_pokemon": [
+        "Glameow",
+        "Purugly",
+        "Cofagrigus"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Halloween Token 2020",
+          "raw": "Halloween Token 2020"
+        },
+        {
+          "name": "Bronze Box",
+          "raw": "Bronze Box"
+        },
+        {
+          "name": "Silver Box",
+          "raw": "Silver Box"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 8 revives (Solo) ou 6 revives (Duo). Tempo limite: 40 minutos. Quantidade: 30 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-halloween-2021",
+      "title": "DZ Halloween 2021",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Halloween_2021",
+      "page_title": "DZ Halloween 2021",
+      "revision_id": 44380,
+      "capturable_pokemon": [
+        "Yamask",
+        "Cofagrigus",
+        "Mimikyu"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Halloween Token 2021",
+          "raw": "Halloween Token 2021"
+        },
+        {
+          "name": "Halloween Combo",
+          "raw": "Halloween Combo"
+        },
+        {
+          "name": "Witch Costume",
+          "raw": "Witch Costume"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 12 revives (Solo) ou 9 revives (Duo). Tempo limite: 40 minutos. Quantidade: 61 aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-natal-2019",
+      "title": "DZ Natal 2019",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Natal_2019",
+      "page_title": "DZ Natal 2019",
+      "revision_id": 29511,
+      "capturable_pokemon": [
+        "Snover",
+        "Abomasnow"
+      ],
+      "rewards": [],
+      "summary": "Grupo: 8 jogadores. Experiência recompensada: a DZ não concede experiência. Revives: é possível utilizar até 30 revives. Tempo limite: 1 hora. Quantidade: 1 50 Christmas Token 2019 Emerald Special Christmas Bag Card Booster pack Yellow Present Premier Ball Silver Key Held Tier 3 Golden Key Ski Clothes (Addon Abomasnow) Christmas Hat (Addon Beartic) Christmas Costume (Addon Beartic) Snow Queen Costume (Addon Shiny Jynx)"
+    },
+    {
+      "id": "dungeon:dz-natal-2020",
+      "title": "DZ Natal 2020",
+      "category": "Crystal Legacy",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Natal_2020",
+      "page_title": "DZ Natal 2020",
+      "revision_id": 36790,
+      "capturable_pokemon": [
+        "Snover",
+        "Abomasnow",
+        "Shiny Delibird",
+        "Delibird"
+      ],
+      "rewards": [
+        {
+          "name": "Golden Dimensional Key",
+          "raw": "Golden Dimensional Key"
+        },
+        {
+          "name": "Silver Dimensional Key",
+          "raw": "Silver Dimensional Key"
+        },
+        {
+          "name": "Dimensional Stone",
+          "raw": "Dimensional Stone"
+        },
+        {
+          "name": "Emerald",
+          "raw": "Emerald"
+        },
+        {
+          "name": "Sapphire",
+          "raw": "Sapphire"
+        },
+        {
+          "name": "Christmas Token 2020",
+          "raw": "Christmas Token 2020"
+        }
+      ],
+      "summary": "Informações Básicas Grupo: 1 jogador (Solo) ou 2 jogadores (Duo). Experiência recompensada: 150k (Beginner), 200k (Talented), 260k (Intermediate), 315k (Advanced) e 400k (Expert). Revives: é possível utilizar até 10 revives (Solo) ou 12 revives (Duo). Tempo limite: 40 minutos. Quantidade: 50 Pokémon (Solo) ou 63 Pokémon (Duo) aleatórios da lista abaixo."
+    },
+    {
+      "id": "dungeon:dz-frozen-master",
+      "title": "DZ Frozen Master",
+      "category": "Master",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Frozen_Master",
+      "page_title": "DZ Frozen Master",
+      "revision_id": 64600,
+      "capturable_pokemon": [],
+      "rewards": [
+        {
+          "name": "Mirror Stone (10)",
+          "raw": "Mirror Stone (10)"
+        },
+        {
+          "name": "Dimensional Stone (10)",
+          "raw": "Dimensional Stone (10)"
+        },
+        {
+          "name": "X-Ugprade (Tier: 5)",
+          "raw": "X-Ugprade (Tier: 5)"
+        },
+        {
+          "name": "Gardestrike Essence (5)",
+          "raw": "Gardestrike Essence (5)"
+        },
+        {
+          "name": "Orebound Essence (5)",
+          "raw": "Orebound Essence (5)"
+        },
+        {
+          "name": "Wingeon Essence (5)",
+          "raw": "Wingeon Essence (5)"
+        },
+        {
+          "name": "Psycraft Essence (5)",
+          "raw": "Psycraft Essence (5)"
+        },
+        {
+          "name": "Volcanic Essence (5)",
+          "raw": "Volcanic Essence (5)"
+        },
+        {
+          "name": "Seavell Essence (5)",
+          "raw": "Seavell Essence (5)"
+        },
+        {
+          "name": "Ironhard Essence (5)",
+          "raw": "Ironhard Essence (5)"
+        },
+        {
+          "name": "Naturia Essence (5)",
+          "raw": "Naturia Essence (5)"
+        },
+        {
+          "name": "Malefic Essence (5)",
+          "raw": "Malefic Essence (5)"
+        },
+        {
+          "name": "Raibolt Essence (5)",
+          "raw": "Raibolt Essence (5)"
+        },
+        {
+          "name": "Lorelei Artifact",
+          "raw": "Lorelei Artifact"
+        }
+      ],
+      "summary": "Grupo: 3 jogadores. Experiência recompensada: 4KK de Experiência. Revives: é possível utilizar até 8 revives. Tempo limite: 15 minutos. Quantidade: 96 + Boss."
+    },
+    {
+      "id": "dungeon:dz-solid-master",
+      "title": "DZ Solid Master",
+      "category": "Master",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Solid_Master",
+      "page_title": "DZ Solid Master",
+      "revision_id": 95704,
+      "capturable_pokemon": [],
+      "rewards": [
+        {
+          "name": "Mirror Stone (10)",
+          "raw": "Mirror Stone (10)"
+        },
+        {
+          "name": "Dimensional Stone (10)",
+          "raw": "Dimensional Stone (10)"
+        },
+        {
+          "name": "X-Upgrade (Tier: 5)",
+          "raw": "X-Upgrade (Tier: 5)"
+        },
+        {
+          "name": "Dimensional Zone Pack",
+          "raw": "Dimensional Zone Pack"
+        },
+        {
+          "name": "Gardestrike Essence (8)",
+          "raw": "Gardestrike Essence (8)"
+        },
+        {
+          "name": "Orebound Essence (8)",
+          "raw": "Orebound Essence (8)"
+        },
+        {
+          "name": "Wingeon Essence (8)",
+          "raw": "Wingeon Essence (8)"
+        },
+        {
+          "name": "Psycraft Essence (8)",
+          "raw": "Psycraft Essence (8)"
+        },
+        {
+          "name": "Volcanic Essence (8)",
+          "raw": "Volcanic Essence (8)"
+        },
+        {
+          "name": "Seavell Essence (8)",
+          "raw": "Seavell Essence (8)"
+        },
+        {
+          "name": "Ironhard Essence (8)",
+          "raw": "Ironhard Essence (8)"
+        },
+        {
+          "name": "Naturia Essence (8)",
+          "raw": "Naturia Essence (8)"
+        },
+        {
+          "name": "Malefic Essence (8)",
+          "raw": "Malefic Essence (8)"
+        },
+        {
+          "name": "Raibolt Essence (8)",
+          "raw": "Raibolt Essence (8)"
+        },
+        {
+          "name": "Bruno Artifact",
+          "raw": "Bruno Artifact"
+        }
+      ],
+      "summary": "Grupo: 2 jogadores. Experiência recompensada: 4KK de Experiência. Revives: é possível utilizar até 8 revives. Tempo limite: 90 minutos. 1- Ao enfrentar o chefe desta masmorra, tome cuidado com o ataque Earthquake dele pois pega em uma área relativamente grande."
+    },
+    {
+      "id": "dungeon:dz-dark-lady",
+      "title": "DZ Dark Lady",
+      "category": "Master",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Dark_Lady",
+      "page_title": "DZ Dark Lady",
+      "revision_id": 63113,
+      "capturable_pokemon": [],
+      "rewards": [
+        {
+          "name": "Mirror Stone (10)",
+          "raw": "Mirror Stone (10)"
+        },
+        {
+          "name": "Dimensional Stone (10)",
+          "raw": "Dimensional Stone (10)"
+        },
+        {
+          "name": "X-Ugprade (Tier: 5)",
+          "raw": "X-Ugprade (Tier: 5)"
+        },
+        {
+          "name": "Dimensional Zone Pack",
+          "raw": "Dimensional Zone Pack"
+        },
+        {
+          "name": "Gardestrike Essence (8)",
+          "raw": "Gardestrike Essence (8)"
+        },
+        {
+          "name": "Orebound Essence (8)",
+          "raw": "Orebound Essence (8)"
+        },
+        {
+          "name": "Wingeon Essence (8)",
+          "raw": "Wingeon Essence (8)"
+        },
+        {
+          "name": "Psycraft Essence (8)",
+          "raw": "Psycraft Essence (8)"
+        },
+        {
+          "name": "Volcanic Essence (8)",
+          "raw": "Volcanic Essence (8)"
+        },
+        {
+          "name": "Seavell Essence (8)",
+          "raw": "Seavell Essence (8)"
+        },
+        {
+          "name": "Ironhard Essence (8)",
+          "raw": "Ironhard Essence (8)"
+        },
+        {
+          "name": "Naturia Essence (8)",
+          "raw": "Naturia Essence (8)"
+        },
+        {
+          "name": "Malefic Essence (8)",
+          "raw": "Malefic Essence (8)"
+        },
+        {
+          "name": "Raibolt Essence (8)",
+          "raw": "Raibolt Essence (8)"
+        },
+        {
+          "name": "Agatha Artifact",
+          "raw": "Agatha Artifact"
+        }
+      ],
+      "summary": "Grupo: 1 jogador. Experiência recompensada: 4KK de Experiência. Revives: é possível utilizar até 12 Revives. Tempo limite: 15 minutos. Quantidade: 30. Observação: Durante o caminho existirão diversas armadilhas que causam dano e o efeito confusion no jogador."
+    },
+    {
+      "id": "dungeon:dz-dragon-master",
+      "title": "DZ Dragon Master",
+      "category": "Master",
+      "source_url": "https://wiki.pokexgames.com/index.php/DZ_Dragon_Master",
+      "page_title": "DZ Dragon Master",
+      "revision_id": 130151,
+      "capturable_pokemon": [],
+      "rewards": [
+        {
+          "name": "Mirror Stone (15)",
+          "raw": "Mirror Stone (15)"
+        },
+        {
+          "name": "Dimensional Stone (15)",
+          "raw": "Dimensional Stone (15)"
+        },
+        {
+          "name": "X-Unknown (Tier: 5)",
+          "raw": "X-Unknown (Tier: 5)"
+        },
+        {
+          "name": "X-Upgrade (Tier: 5)",
+          "raw": "X-Upgrade (Tier: 5)"
+        },
+        {
+          "name": "Dimensional Zone Pack",
+          "raw": "Dimensional Zone Pack"
+        },
+        {
+          "name": "Magician Token (10)",
+          "raw": "Magician Token (10)"
+        },
+        {
+          "name": "Gardestrike Essence (15)",
+          "raw": "Gardestrike Essence (15)"
+        },
+        {
+          "name": "Orebound Essence (15)",
+          "raw": "Orebound Essence (15)"
+        },
+        {
+          "name": "Wingeon Essence (15)",
+          "raw": "Wingeon Essence (15)"
+        },
+        {
+          "name": "Psycraft Essence (15)",
+          "raw": "Psycraft Essence (15)"
+        },
+        {
+          "name": "Volcanic Essence (15)",
+          "raw": "Volcanic Essence (15)"
+        },
+        {
+          "name": "Seavell Essence (15)",
+          "raw": "Seavell Essence (15)"
+        },
+        {
+          "name": "Ironhard Essence (15)",
+          "raw": "Ironhard Essence (15)"
+        },
+        {
+          "name": "Naturia Essence (15)",
+          "raw": "Naturia Essence (15)"
+        },
+        {
+          "name": "Malefic Essence (15)",
+          "raw": "Malefic Essence (15)"
+        },
+        {
+          "name": "Raibolt Essence (15)",
+          "raw": "Raibolt Essence (15)"
+        },
+        {
+          "name": "Lance Artifact",
+          "raw": "Lance Artifact"
+        }
+      ],
+      "summary": "Grupo: 2 jogadores. Experiência de recompensa: 7KK de Experiência. Revives: é possível utilizar até 8 revives. Tempo limite: 30 minutos. Quantidade: 10. 1- É preciso tomar cuidado durante o caminho de pedras para não ficar preso e não ter que voltar tudo e acabar perdendo um Dragon Egg durante o percurso. Faça com calma e verificando todos os possíveis caminhos. 2- O Giant Shiny Charizard possui um ataque chamado \"Thief\" que faz com que ele roube o status da Red Sitrus e Sitrus Berries, Portanto, aconselhamos a não usar elas nesta batalha."
+    }
+  ]
+}

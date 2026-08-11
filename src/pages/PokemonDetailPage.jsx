@@ -33,7 +33,7 @@ import { BoostCalculator } from '../components/BoostCalculator'
 import { normalizedMapName, useMapData } from '../data/MapDataContext'
 import { usePokemonData } from '../data/PokemonDataContext'
 import { useAtlasStorage } from '../data/AtlasStorageContext'
-import { useCatalogData, useLootData, useNpcObtainedData } from '../data/DomainData'
+import { useCatalogData, useDungeonData, useLootData, useNpcObtainedData } from '../data/DomainData'
 import {
   EFFECTIVENESS_LABELS,
   ELEMENT_COLORS,
@@ -621,6 +621,34 @@ function PokemonNpcObtainedSection({ entries, metadata }) {
   )
 }
 
+function dungeonObtainedEntries(data, pokemonName) {
+  const target = normalizedMapName(pokemonName)
+  return (data?.dungeons || []).filter((dungeon) => (dungeon.capturable_pokemon || []).some((name) => normalizedMapName(name) === target))
+}
+
+function PokemonDungeonSection({ entries, metadata }) {
+  const { t } = useLanguage()
+  if (!entries.length) return null
+  return (
+    <Section id="dungeons" title={t('Capturável em dungeons')} icon={<Layers3 size={18} />} description={t('Pokémon capturáveis ao concluir dungeons publicadas na Wiki oficial, com os possíveis prêmios de cada uma.') }>
+      <div className="pokemon-dungeon-grid">
+        {entries.map((entry) => (
+          <article className="pokemon-dungeon-card" key={entry.id}>
+            <header>
+              <div><small>{entry.category} · {t('Captura ao final')}</small><strong>{entry.title}</strong></div>
+              <b>{entry.capturable_pokemon.length} {entry.capturable_pokemon.length === 1 ? t('captura') : t('capturas')}</b>
+            </header>
+            <div className="pokemon-dungeon-captures"><small>{t('Pokémon capturáveis')}</small><p>{entry.capturable_pokemon.join(' · ')}</p></div>
+            <div className="pokemon-dungeon-rewards"><small>{t('Possíveis prêmios')}</small><div>{entry.rewards.length ? entry.rewards.map((reward, index) => <span key={`${entry.id}-reward-${index}`}>{reward.raw || reward.name}</span>) : <em>{t('Recompensas não informadas')}</em>}</div></div>
+            <footer><SourceLink href={entry.source_url}>{t('Ver dungeon na Wiki')}</SourceLink><span>{t('Revisão {id}', { id: entry.revision_id || '—' })}</span></footer>
+          </article>
+        ))}
+      </div>
+      {metadata?.source_url && <p className="pokemon-npc-source"><SourceLink href={metadata.source_url}>{t('Ver índice oficial de dungeons')}</SourceLink><span>{t('{count} dungeons catalogadas', { count: entries.length })}</span></p>}
+    </Section>
+  )
+}
+
 function TaskOccurrencesSection({ occurrences, tasksById }) {
   const { t } = useLanguage()
   const [regionFilter, setRegionFilter] = useState('all')
@@ -1018,6 +1046,7 @@ export default function PokemonDetailPage() {
   const { data, byId, pokemon, roleCatalog, tasksById, captureBallCatalog } = usePokemonData()
   const { data: mapData, byPokemonName: mapLocationsByPokemon, tilePositionSet, localTilePositionSet, localTileHome } = useMapData()
   const { data: catalogData } = useCatalogData()
+  const { data: dungeonData } = useDungeonData()
   const { data: lootData } = useLootData()
   const { data: npcObtainedData } = useNpcObtainedData()
   const decodedId = useMemo(() => {
@@ -1027,6 +1056,7 @@ export default function PokemonDetailPage() {
   const lootEntry = useMemo(() => entry ? findLootPokemon(lootData, [displayName(entry), entry.page_title]) : null, [entry, lootData])
   const lootContexts = useMemo(() => lootRatesForPokemon(lootData, lootEntry), [lootData, lootEntry])
   const npcObtained = useMemo(() => npcObtainedEntries(npcObtainedData, entry && displayName(entry)), [entry, npcObtainedData])
+  const dungeonObtained = useMemo(() => dungeonObtainedEntries(dungeonData, entry && displayName(entry)), [dungeonData, entry])
   const orderedPokemon = useMemo(() => [...pokemon].sort((a, b) => displayName(a).localeCompare(displayName(b), 'pt-BR')), [pokemon])
   const currentIndex = entry ? orderedPokemon.findIndex((candidate) => candidate.source_url === entry.source_url) : -1
   const previous = currentIndex > 0 ? orderedPokemon[currentIndex - 1] : null
@@ -1071,6 +1101,7 @@ export default function PokemonDetailPage() {
     info.boost && { id: 'boost-cost', label: t('Custo de boost') },
     mapLocations.length > 0 && { id: 'locations', label: t('Mapa ({count})', { count: mapRespawnCount }) },
     npcObtained.length > 0 && { id: 'npc-obtained', label: t('Obtido via NPC') },
+    dungeonObtained.length > 0 && { id: 'dungeons', label: t('Dungeons ({count})', { count: dungeonObtained.length }) },
     hasDrops && { id: 'drops', label: t('Drops') },
     hasLoot && { id: 'loot', label: t('Loot') },
     capture && { id: 'capture', label: t('Captura') },
@@ -1142,6 +1173,8 @@ export default function PokemonDetailPage() {
           <MapLocationsSection name={name} locations={mapLocations} cdnHome={mapData?.metadata?.cdn_home} tilePositionSet={tilePositionSet} localTilePositionSet={localTilePositionSet} localTileHome={localTileHome} mapSources={mapData?.map_sources} />
 
           <PokemonNpcObtainedSection entries={npcObtained} metadata={npcObtainedData?.metadata} />
+
+          <PokemonDungeonSection entries={dungeonObtained} metadata={dungeonData?.metadata} />
 
           <PokemonDropsSection pokemon={entry} items={catalogData?.items} />
 

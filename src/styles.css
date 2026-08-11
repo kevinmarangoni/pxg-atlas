@@ -1257,12 +1257,35 @@ button.quickview-evolution-item { font: inherit; color: inherit; }
 .pokemon-npc-source .source-link { min-height: 28px; padding: 0 8px; font-size: 10px; }
 @media (max-width: 620px) { .pokemon-npc-obtained-facts, .pokemon-npc-obtained-flow { grid-template-columns: 1fr; } .pokemon-npc-obtained-card > header { flex-direction: column; } .pokemon-npc-obtained-card > header > b { max-width: 100%; text-align: left; } .pokemon-npc-source { align-items: flex-start; flex-direction: column; } }
 
+.pokemon-dungeon-grid { display: grid; gap: 8px; }
+.pokemon-dungeon-card { min-width: 0; padding: 12px; border: 1px solid rgba(169,126,255,.2); border-radius: 11px; background: linear-gradient(145deg, rgba(169,126,255,.07), #080e18 62%); }
+.pokemon-dungeon-card > header { min-width: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.pokemon-dungeon-card > header > div { min-width: 0; display: grid; gap: 3px; }
+.pokemon-dungeon-card > header small, .pokemon-dungeon-captures > small, .pokemon-dungeon-rewards > small { color: #65758d; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.pokemon-dungeon-card > header strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dce5f2; font-size: 13px; }
+.pokemon-dungeon-card > header > b { max-width: 45%; padding: 5px 7px; border-radius: 6px; background: rgba(169,126,255,.11); color: #cdaeff; font-size: 10px; text-align: right; }
+.pokemon-dungeon-captures { margin-top: 10px; padding: 8px; border-radius: 7px; background: rgba(8,14,24,.75); }
+.pokemon-dungeon-captures p { margin: 4px 0 0; color: #c4b7e1; font-size: 10px; line-height: 1.45; }
+.pokemon-dungeon-rewards { margin-top: 8px; }
+.pokemon-dungeon-rewards > div { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 4px; }
+.pokemon-dungeon-rewards span { padding: 4px 6px; border: 1px solid rgba(169,126,255,.16); border-radius: 6px; background: rgba(169,126,255,.07); color: #a9b8cc; font-size: 9px; line-height: 1.35; }
+.pokemon-dungeon-rewards em { color: #7889a1; font-size: 10px; }
+.pokemon-dungeon-card > footer { margin-top: 9px; padding-top: 7px; border-top: 1px solid rgba(173,196,232,.08); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pokemon-dungeon-card > footer span { color: #65758d; font-size: 9px; }
+@media (max-width: 620px) { .pokemon-dungeon-card > header { flex-direction: column; } .pokemon-dungeon-card > header > b { max-width: 100%; text-align: left; } .pokemon-dungeon-card > footer { align-items: flex-start; flex-direction: column; } }
+
 :root[data-theme="light"] .pokemon-npc-obtained-card { border-color: rgba(37,133,96,.22); background: linear-gradient(145deg, rgba(37,133,96,.07), #f4f6f7 65%); }
 :root[data-theme="light"] .pokemon-npc-obtained-card > header strong { color: #1b2735; }
 :root[data-theme="light"] .pokemon-npc-obtained-facts > span { background: rgba(232,235,239,.82); }
 :root[data-theme="light"] .pokemon-npc-obtained-facts strong { color: #304052; }
 :root[data-theme="light"] .pokemon-npc-obtained-flow p { color: #4c5b6c; }
 :root[data-theme="light"] .pokemon-npc-obtained-card details ul { color: #5d6d80; }
+:root[data-theme="light"] .pokemon-dungeon-card { border-color: rgba(109,74,183,.25); background: linear-gradient(145deg, rgba(109,74,183,.08), #f4f6f7 65%); }
+:root[data-theme="light"] .pokemon-dungeon-card > header strong { color: #2b2340; }
+:root[data-theme="light"] .pokemon-dungeon-captures { background: rgba(232,235,239,.82); }
+:root[data-theme="light"] .pokemon-dungeon-captures p { color: #304052; }
+:root[data-theme="light"] .pokemon-dungeon-rewards span { border-color: rgba(109,74,183,.18); background: rgba(109,74,183,.06); color: #4c5b6c; }
+:root[data-theme="light"] .pokemon-dungeon-card > footer { border-top-color: #d6dae1; }
 
 /* ============================================================
    LIGHT THEME

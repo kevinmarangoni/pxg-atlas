@@ -20,12 +20,12 @@ function uniqueIds(entries, label) {
   assert(new Set(ids).size === ids.length, `${label}: há ids duplicados.`)
 }
 
-const [catalog, crafting, guides, progression, world, pokemon, npcObtained, loot] = await Promise.all([
+const [catalog, crafting, guides, progression, world, pokemon, npcObtained, dungeons, loot] = await Promise.all([
   load('pxg_catalog.json'), load('pxg_crafting.json'), load('pxg_guides.json'),
-  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'), load('pxg_npc_obtained.json'), load('pokemon_loot.json'),
+  load('pxg_progression.json'), load('pxg_world_content.json'), load('pxg_pokemon_capture.json'), load('pxg_npc_obtained.json'), load('pxg_dungeons.json'), load('pokemon_loot.json'),
 ])
 
-for (const [name, payload] of Object.entries({ catalog, crafting, guides, progression, world, npcObtained })) {
+for (const [name, payload] of Object.entries({ catalog, crafting, guides, progression, world, npcObtained, dungeons })) {
   if (!payload) continue
   assert(payload.metadata?.complete === true, `${name}: snapshot não está marcado como completo.`)
   assert(payload.metadata?.generated_at, `${name}: generated_at ausente.`)
@@ -105,6 +105,17 @@ if (npcObtained) {
   assert(entries.every((entry) => entry.pokemon && entry.reward), 'npcObtained: há registros sem Pokémon ou recompensa.')
   assert(groups.every((group) => group.title && group.category), 'npcObtained: há grupos sem título ou categoria.')
   checks.push(`${entries.length} obtenções via NPC`)
+}
+
+if (dungeons) {
+  const entries = dungeons.dungeons || []
+  uniqueIds(entries, 'dungeons.dungeons')
+  assert(entries.every((entry) => entry.title && entry.category && entry.source_url), 'dungeons: há registros sem título, categoria ou fonte.')
+  assert(entries.every((entry) => Number(entry.revision_id) > 0), 'dungeons: há registros sem revisão sincronizada.')
+  assert(entries.every((entry) => Array.isArray(entry.capturable_pokemon) && Array.isArray(entry.rewards)), 'dungeons: há registros sem capturas ou recompensas em lista.')
+  assert(Number(dungeons.metadata?.dungeon_count) === entries.length, `dungeons: dungeon_count divergente (${dungeons.metadata?.dungeon_count} != ${entries.length}).`)
+  assert(entries.length >= 60, `dungeons: esperadas ao menos 60 dungeons, encontradas ${entries.length}.`)
+  checks.push(`${entries.length} dungeons`, `${dungeons.metadata?.capture_relations || 0} relações de captura`)
 }
 
 if (loot) {
