@@ -545,6 +545,7 @@ main { flex: 1; }
   min-width: 0; min-height: 0; padding: 60px 22px 22px; overflow-y: auto; display: flex; flex-direction: column;
   scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--detail-accent) 55%, #2a354a) transparent;
 }
+.quickview-column > .expansion-panel { flex: 0 0 auto; }
 .quickview-column::-webkit-scrollbar { width: 9px; }
 .quickview-column::-webkit-scrollbar-track { background: transparent; }
 .quickview-column::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--detail-accent) 45%, #2a354a); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
