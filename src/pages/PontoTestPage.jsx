@@ -37,13 +37,13 @@ export default function PontoTestPage() {
       <header style={styles.header}>
         <div style={styles.brand}>
           <span style={styles.brandMark} />
-          <span style={styles.brandWord}>TOTUS</span>
+          <span style={styles.brandWord}>PONTO</span>
         </div>
         <div style={styles.company}>
-          <span style={styles.avatar}>ADBI</span>
+          <span style={styles.avatar}>EMP</span>
           <span style={styles.companyText}>
             <small style={styles.companyLabel}>Você está em</small>
-            <strong style={styles.companyName}>ACCENTURE DO BRASIL LTDA</strong>
+            <strong style={styles.companyName}>EMPRESA DEMO LTDA</strong>
           </span>
           <ChevronDown size={18} color="#5b6472" />
         </div>
