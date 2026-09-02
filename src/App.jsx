@@ -1,6 +1,7 @@
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AppShell, DataError, DataLoading } from './components/Common'
+import PontoTestPage from './pages/PontoTestPage'
 import { PokemonDataProvider, usePokemonData } from './data/PokemonDataContext'
 import { MapDataProvider } from './data/MapDataContext'
 import PokemonDetailPage from './pages/PokemonDetailPage'
@@ -72,6 +73,13 @@ function HashRouteSync() {
 }
 
 export default function App() {
+  const location = useLocation()
+
+  // Standalone hidden route: intentionally not linked anywhere in the site
+  // and rendered outside AppShell so it carries none of the app's own
+  // header/footer/nav chrome.
+  if (location.pathname === '/ponto-kamutinha') return <PontoTestPage />
+
   return (
     <AppShell>
       <HashRouteSync />
