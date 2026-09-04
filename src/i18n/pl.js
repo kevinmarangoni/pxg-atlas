@@ -88,7 +88,7 @@ export const pl = {
   'Seu nome': 'Twoje imię',
   'Escreva uma mensagem…': 'Napisz wiadomość…',
   'Enviar': 'Wyślij',
-  'Aguarde {seconds}s para enviar outra mensagem': 'Poczekaj {seconds}s, aby wysłać kolejną wiadomość',
+  'Aguarde {time} para enviar outra mensagem': 'Poczekaj {time}, aby wysłać kolejną wiadomość',
   'Informações e atribuições': 'Informacje i podziękowania',
   'Avisos legais': 'Informacje prawne',
   'Modelos animados: Project Pokémon': 'Animowane modele: Project Pokémon',

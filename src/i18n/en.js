@@ -91,7 +91,7 @@ export const en = {
   'Seu nome': 'Your name',
   'Escreva uma mensagem…': 'Write a message…',
   'Enviar': 'Send',
-  'Aguarde {seconds}s para enviar outra mensagem': 'Wait {seconds}s to send another message',
+  'Aguarde {time} para enviar outra mensagem': 'Wait {time} to send another message',
   'Informações e atribuições': 'Information and credits',
   'Avisos legais': 'Legal notice',
   'Modelos animados: Project Pokémon': 'Animated models: Project Pokémon',

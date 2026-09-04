@@ -2,13 +2,19 @@ import { MessageCircle, Send, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '../data/LanguageContext'
 import { useChatMessages } from '../hooks/useChatMessages'
-import { getChatName, setChatName } from '../lib/chatIdentity'
+import { getChatName, getLastSentAt, setChatName, setLastSentAt } from '../lib/chatIdentity'
 
-const SEND_COOLDOWN_MS = 4000
+const SEND_COOLDOWN_MS = 5 * 60 * 1000
 
 function timeLabel(timestamp, locale) {
   if (!timestamp) return ''
   return new Date(timestamp).toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
+}
+
+function formatCooldown(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  return `${minutes}:${String(seconds).padStart(2, '0')}`
 }
 
 export function ChatWidget() {
@@ -17,7 +23,7 @@ export function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(getChatName)
   const [text, setText] = useState('')
-  const [cooldownUntil, setCooldownUntil] = useState(0)
+  const [cooldownUntil, setCooldownUntil] = useState(() => getLastSentAt() + SEND_COOLDOWN_MS)
   const [now, setNow] = useState(() => Date.now())
   const listRef = useRef(null)
 
@@ -31,7 +37,7 @@ export function ChatWidget() {
 
   useEffect(() => {
     if (cooldownUntil <= Date.now()) return
-    const timer = setInterval(() => setNow(Date.now()), 250)
+    const timer = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(timer)
   }, [cooldownUntil])
 
@@ -49,7 +55,9 @@ export function ChatWidget() {
     if (onCooldown || !text.trim()) return
     sendMessage(name, text)
     setText('')
-    setCooldownUntil(Date.now() + SEND_COOLDOWN_MS)
+    const sentAt = Date.now()
+    setLastSentAt(sentAt)
+    setCooldownUntil(sentAt + SEND_COOLDOWN_MS)
   }
 
   return (
@@ -93,7 +101,7 @@ export function ChatWidget() {
               placeholder={t('Escreva uma mensagem…')}
               aria-label={t('Escreva uma mensagem…')}
             />
-            <button type="submit" disabled={onCooldown || !text.trim()} aria-label={t('Enviar')} title={onCooldown ? t('Aguarde {seconds}s para enviar outra mensagem', { seconds: cooldownRemaining }) : t('Enviar')}>
+            <button type="submit" disabled={onCooldown || !text.trim()} aria-label={t('Enviar')} title={onCooldown ? t('Aguarde {time} para enviar outra mensagem', { time: formatCooldown(cooldownRemaining) }) : t('Enviar')}>
               <Send size={16} />
             </button>
           </form>

@@ -88,7 +88,7 @@ export const es = {
   'Seu nome': 'Tu nombre',
   'Escreva uma mensagem…': 'Escribe un mensaje…',
   'Enviar': 'Enviar',
-  'Aguarde {seconds}s para enviar outra mensagem': 'Espera {seconds}s para enviar otro mensaje',
+  'Aguarde {time} para enviar outra mensagem': 'Espera {time} para enviar otro mensaje',
   'Informações e atribuições': 'Información y créditos',
   'Avisos legais': 'Avisos legales',
   'Modelos animados: Project Pokémon': 'Modelos animados: Project Pokémon',
