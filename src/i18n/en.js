@@ -82,6 +82,16 @@ export const en = {
   'Ferramentas': 'Tools',
   'Dados públicos da Wiki PokeXGames': 'Public data from the PokeXGames Wiki',
   '{count} treinadores ativos agora': '{count} trainers active now',
+
+  // ChatWidget.jsx
+  'Mural da comunidade': 'Community board',
+  'Fechar mural da comunidade': 'Close community board',
+  'Abrir mural da comunidade': 'Open community board',
+  'Seja o primeiro a deixar uma mensagem!': 'Be the first to leave a message!',
+  'Seu nome': 'Your name',
+  'Escreva uma mensagem…': 'Write a message…',
+  'Enviar': 'Send',
+  'Aguarde {seconds}s para enviar outra mensagem': 'Wait {seconds}s to send another message',
   'Informações e atribuições': 'Information and credits',
   'Avisos legais': 'Legal notice',
   'Modelos animados: Project Pokémon': 'Animated models: Project Pokémon',

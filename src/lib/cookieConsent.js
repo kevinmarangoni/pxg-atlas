@@ -14,6 +14,7 @@ const MANAGED_KEYS = [
   'pxg-team-builder:v1',
   'pxg-atlas:collected-orbs',
   'pxg-atlas:unown-capture:v1',
+  'pxg-chat-name',
 ]
 
 function clearManagedStorage() {

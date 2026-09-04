@@ -1,6 +1,7 @@
 import { ArrowLeft, ClipboardList, Database, ExternalLink, Languages, Map, Moon, SearchX, Shield, Sun, Swords, Wrench } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { ChatWidget } from './ChatWidget'
 import { CookieConsentBanner } from './CookieConsentBanner'
 import { useLanguage } from '../data/LanguageContext'
 import { useOnlineVisitors } from '../hooks/useOnlineVisitors'
@@ -178,6 +179,7 @@ export function AppShell({ children, metadata }) {
         </nav>
       </footer>
       <CookieConsentBanner />
+      <ChatWidget />
     </div>
   )
 }
